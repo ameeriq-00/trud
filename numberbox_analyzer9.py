@@ -1,0 +1,348 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Complete Enhanced NumberBox Decryptor - استخدام المفاتيح المستخرجة من Context
+"""
+
+import base64
+import json
+import urllib.parse
+from Crypto.Cipher import AES
+from Crypto.Util.Padding import unpad
+
+# المفاتيح المستخرجة من Frida Context Analysis
+EXTRACTED_KEYS = [
+    "5e44417190d56f9f3bd9948a8987ec17",  # Device Build ID MD5
+    "76ea5172414955468c0e1adcfd7f5b2c",  # Device Build ID SHA256
+    "a8d94f690d97a503d643cfc2859117b7",  # Device Model MD5
+    "fbf3daeb925a038cb4cd138bea92e495",  # Device Model SHA256
+    "9070d547336b0853ee97860b132dfed4",  # Samsung Model MD5
+    "9fdef0a44e29b910a9f73a6bed5ed48d",  # Samsung Model SHA256
+    "c4d5782890d63eb496464fe79bca31d2",  # Samsung Fingerprint MD5
+    "bddf3767e79f8a7a2ef41d41ad2de66f",  # Samsung Fingerprint SHA256
+    "351992aa54752e2698b2786788778aca",  # Model+Build MD5
+    "cedc206cb3ca2383baed936d454b47c0",  # Model+Build SHA256
+    "14c0e4c536d5ad3da17d8c062a59ef00",  # Android+Build MD5
+    "5fa77e5561f84e4b878ea377cef9b86f",  # Android+Build SHA256
+    "b73b587fea8aa065dd427c0f7a6fae51",  # Package Name MD5
+    "b7d0b03065c9ba3c8d8a029c9a4b45cf",  # Package Name SHA256
+    "4312dfda492fdb7ab4c0775eb6be20c3",  # Version MD5
+    "8f533bcb4c489cca14c47e13b829b70c",  # Version SHA256
+    "1222c26b1cab7b9f3428dc0f525843f4",  # Package+Version MD5
+    "739280f267bb13a874d7575f038aecbf",  # Package+Version SHA256
+    "50908aa60fecd39cd2ef6094476881d3",  # Hotcodes+Version MD5
+    "26877d779394a43aa046c58184699662",  # Hotcodes+Version SHA256
+    "8d3be549f6b607ec51cbf4a8c660ce69",  # Numberbox+Code MD5
+    "8ff18181db2558a44ebec142425c2dec",  # Numberbox+Code SHA256
+]
+
+# البيانات المشفرة - ضع هنا البيانات من codes.txt
+OLD_ENCRYPTED_CCODE = "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"  # من codes.txt
+OLD_ENCRYPTED_NUMBER = "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"  # من codes.txt
+
+# البيانات المشفرة الجديدة - ضع هنا البيانات من .har
+NEW_ENCRYPTED_CCODE = "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\u003d"  # من .har file
+NEW_ENCRYPTED_NUMBER = "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\u003d"  # من .har file
+
+
+def debug_data_format(encrypted_data, data_name):
+    """تحليل تفصيلي لتنسيق البيانات"""
+    print(f"\n🔍 Debugging {data_name}:")
+    print(f"📊 Original length: {len(encrypted_data)}")
+    print(f"📊 First 50 chars: {encrypted_data[:50]}")
+    print(f"📊 Last 20 chars: {encrypted_data[-20:]}")
+    
+    # فحص URL encoding
+    if "\\u003d" in encrypted_data or "%3D" in encrypted_data:
+        print("✅ Contains URL encoding")
+        
+        # URL decode
+        try:
+            url_decoded = urllib.parse.unquote(encrypted_data.replace("\\u003d", "="))
+            print(f"📊 After URL decode: {len(url_decoded)} chars")
+            print(f"📊 URL decoded sample: {url_decoded[:50]}")
+            
+            # Base64 decode test
+            try:
+                base64_decoded = base64.b64decode(url_decoded)
+                print(f"📊 After Base64 decode: {len(base64_decoded)} bytes")
+                print("✅ Valid Base64 data")
+                return url_decoded
+            except Exception as e:
+                print(f"❌ Base64 decode failed: {e}")
+        except Exception as e:
+            print(f"❌ URL decode failed: {e}")
+    
+    # محاولة Base64 مباشرة
+    try:
+        base64_decoded = base64.b64decode(encrypted_data)
+        print(f"📊 Direct Base64 decode: {len(base64_decoded)} bytes")
+        print("✅ Direct Base64 works")
+        return encrypted_data
+    except Exception as e:
+        print(f"❌ Direct Base64 failed: {e}")
+    
+    return encrypted_data
+
+def test_key_on_data(key_hex, encrypted_data, data_name, key_name):
+    """اختبار مفتاح واحد على البيانات المشفرة"""
+    try:
+        key_bytes = bytes.fromhex(key_hex)
+        if len(key_bytes) != 16:
+            return False
+        
+        # خطوة 1: URL decode أولاً
+        try:
+            url_decoded = urllib.parse.unquote(encrypted_data.replace("\\u003d", "="))
+            # print(f"    📝 URL decoded: {url_decoded[:50]}...")
+        except:
+            url_decoded = encrypted_data
+            
+        # خطوة 2: Base64 decode
+        try:
+            encrypted_bytes = base64.b64decode(url_decoded)
+        except Exception as e:
+            # print(f"    ❌ Base64 decode failed: {e}")
+            return False
+        
+        # تجربة AES-CBC
+        try:
+            if len(encrypted_bytes) >= 16:
+                iv = encrypted_bytes[:16]
+                ciphertext = encrypted_bytes[16:]
+                cipher = AES.new(key_bytes, AES.MODE_CBC, iv)
+                decrypted = cipher.decrypt(ciphertext)
+                
+                # محاولة unpad
+                try:
+                    unpadded = unpad(decrypted, 16)
+                    text = unpadded.decode('utf-8', errors='ignore')
+                    
+                    if is_valid_decryption(text):
+                        print(f"🎉 SUCCESS! {data_name} with {key_name}")
+                        print(f"🗝️ Key: {key_hex}")
+                        print(f"📝 Decrypted: {text[:200]}...")
+                        return True
+                except:
+                    pass
+        except:
+            pass
+        
+        # تجربة AES-ECB
+        try:
+            cipher = AES.new(key_bytes, AES.MODE_ECB)
+            decrypted = cipher.decrypt(encrypted_bytes)
+            
+            try:
+                unpadded = unpad(decrypted, 16)
+                text = unpadded.decode('utf-8', errors='ignore')
+                
+                if is_valid_decryption(text):
+                    print(f"🎉 SUCCESS! {data_name} with {key_name} (ECB)")
+                    print(f"🗝️ Key: {key_hex}")
+                    print(f"📝 Decrypted: {text[:200]}...")
+                    return True
+            except:
+                pass
+        except:
+            pass
+            
+        # تجربة بدون IV (البيانات مباشرة)
+        try:
+            cipher = AES.new(key_bytes, AES.MODE_CBC, b'\x00' * 16)
+            decrypted = cipher.decrypt(encrypted_bytes)
+            
+            try:
+                unpadded = unpad(decrypted, 16)
+                text = unpadded.decode('utf-8', errors='ignore')
+                
+                if is_valid_decryption(text):
+                    print(f"🎉 SUCCESS! {data_name} with {key_name} (No IV)")
+                    print(f"🗝️ Key: {key_hex}")
+                    print(f"📝 Decrypted: {text[:200]}...")
+                    return True
+            except:
+                pass
+        except:
+            pass
+            
+    except Exception as e:
+        pass
+    
+    return False
+
+def is_valid_decryption(text):
+    """فحص إذا كان النص المفكوك صحيح"""
+    if not text or len(text) < 10:
+        return False
+    
+    # فحص وجود أرقام هواتف أو نص منطقي
+    if any(keyword in text.lower() for keyword in ['phone', 'number', '+964', 'iraq', 'name']):
+        return True
+    
+    # فحص JSON structure
+    try:
+        json.loads(text)
+        return True
+    except:
+        pass
+    
+    # فحص النص العربي أو الإنجليزي
+    if any(c.isalnum() for c in text) and len(text.strip()) > 5:
+        return True
+    
+    return False
+
+def test_all_keys():
+    """اختبار جميع المفاتيح على جميع البيانات"""
+    print("🔥 Complete Enhanced NumberBox Decryptor")
+    print("=" * 50)
+    
+    datasets = [
+        (OLD_ENCRYPTED_CCODE, "Old CCODE"),
+        (OLD_ENCRYPTED_NUMBER, "Old NUMBER"), 
+        (NEW_ENCRYPTED_CCODE, "New CCODE"),
+        (NEW_ENCRYPTED_NUMBER, "New NUMBER")
+    ]
+    
+    key_names = [
+        "Device Build ID MD5",
+        "Device Build ID SHA256", 
+        "Device Model MD5",
+        "Device Model SHA256",
+        "Samsung Model MD5",
+        "Samsung Model SHA256",
+        "Samsung Fingerprint MD5",
+        "Samsung Fingerprint SHA256",
+        "Model+Build MD5",
+        "Model+Build SHA256",
+        "Android+Build MD5", 
+        "Android+Build SHA256",
+        "Package Name MD5",
+        "Package Name SHA256",
+        "Version MD5",
+        "Version SHA256",
+        "Package+Version MD5",
+        "Package+Version SHA256",
+        "Hotcodes+Version MD5",
+        "Hotcodes+Version SHA256",
+        "Numberbox+Code MD5",
+        "Numberbox+Code SHA256"
+    ]
+    
+    success_count = 0
+    
+    for data, data_name in datasets:
+        if data == "PLACEHOLDER_OLD_CCODE" or data.startswith("PLACEHOLDER"):
+            print(f"⚠️ Skipping {data_name} - placeholder data")
+            continue
+        
+        # تحليل تنسيق البيانات أولاً
+        processed_data = debug_data_format(data, data_name)
+            
+        print(f"\n🔍 Testing {data_name}...")
+        
+        for i, key in enumerate(EXTRACTED_KEYS):
+            key_name = key_names[i] if i < len(key_names) else f"Key_{i+1}"
+            print(f"  🔑 Testing {key_name}...", end="")
+            
+            if test_key_on_data(key, processed_data, data_name, key_name):
+                success_count += 1
+                print(" ✅")
+                break
+            else:
+                print(" ❌")
+    
+    if success_count == 0:
+        print("\n❌ No keys worked!")
+        print("\n💡 Next steps:")
+        print("1. Check if signature keys are missing")
+        print("2. Try native memory dump during encryption")
+        print("3. Analyze libnative-lib.so for hardcoded keys")
+        print("4. The encryption might be using a combination of keys")
+        print("5. Try extracting keys from signatures")
+    else:
+        print(f"\n🎉 Success rate: {success_count}/4 datasets!")
+
+def analyze_encryption_differences():
+    """تحليل الاختلافات بين التشفير القديم والجديد"""
+    print("\n🔍 Analyzing encryption differences...")
+    
+    if (OLD_ENCRYPTED_CCODE != "PLACEHOLDER_OLD_CCODE" and 
+        NEW_ENCRYPTED_CCODE != "PLACEHOLDER_NEW_CCODE"):
+        
+        try:
+            old_processed = urllib.parse.unquote(OLD_ENCRYPTED_CCODE.replace("\\u003d", "="))
+            new_processed = urllib.parse.unquote(NEW_ENCRYPTED_CCODE.replace("\\u003d", "="))
+            
+            old_len = len(base64.b64decode(old_processed))
+            new_len = len(base64.b64decode(new_processed))
+            
+            print(f"📊 Old CCODE length: {old_len} bytes")
+            print(f"📊 New CCODE length: {new_len} bytes")
+            
+            if old_len == new_len:
+                print("✅ Same length - same encryption method")
+            else:
+                print("⚠️ Different lengths - encryption changed!")
+        except Exception as e:
+            print(f"❌ Error analyzing lengths: {e}")
+    
+    print("\n💡 Encryption appears to be dynamic - keys might change per session")
+
+def extract_signature_keys():
+    """محاولة استخراج مفاتيح من التوقيعات"""
+    print("\n🔍 Need to extract signature keys from Frida...")
+    print("💡 Add this to your Frida script:")
+    
+    frida_addition = '''
+// في advanced_key_hunter.js أضف هذا:
+function generateSignatureKeys(sigBytes) {
+    console.log("\\n🗝️ [SIGNATURE KEYS]");
+    
+    try {
+        var MessageDigest = Java.use("java.security.MessageDigest");
+        
+        // MD5 of signature
+        var md5 = MessageDigest.getInstance("MD5");
+        md5.update(sigBytes);
+        var md5Key = md5.digest();
+        logPotentialKey(bytesToHex(md5Key), "Signature_MD5");
+        
+        // SHA1 of signature
+        var sha1 = MessageDigest.getInstance("SHA1");
+        sha1.update(sigBytes);
+        var sha1Bytes = sha1.digest();
+        var sha1Key = Java.use("java.util.Arrays").copyOf(sha1Bytes, 16);
+        logPotentialKey(bytesToHex(sha1Key), "Signature_SHA1_16");
+        
+        // SHA256 of signature
+        var sha256 = MessageDigest.getInstance("SHA256");
+        sha256.update(sigBytes);
+        var sha256Bytes = sha256.digest();
+        var sha256Key = Java.use("java.util.Arrays").copyOf(sha256Bytes, 16);
+        logPotentialKey(bytesToHex(sha256Key), "Signature_SHA256_16");
+        
+    } catch (e) {
+        console.log("❌ Signature key generation error: " + e);
+    }
+}
+'''
+    
+    print(frida_addition)
+
+if __name__ == "__main__":
+    print("📋 Replace PLACEHOLDER values with actual encrypted data")
+    print("📋 OLD data from codes.txt, NEW data from .har file")
+    print("📋 Then run the decryptor\n")
+    
+    # تشغيل التحليل
+    test_all_keys()
+    analyze_encryption_differences()
+    extract_signature_keys()
+    
+    print("\n🔧 Additional debugging info:")
+    print(f"📊 Total keys to test: {len(EXTRACTED_KEYS)}")
+    print("📊 Encryption modes: CBC, ECB, No-IV")
+    print("📊 Data validation: Phone numbers, JSON, Arabic/English text")
+    print("📊 URL decoding: Handles \\u003d encoding")

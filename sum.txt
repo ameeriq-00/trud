@@ -1,0 +1,1339 @@
+جزء من الترافك :
+{"log":{"version":"1.2","creator":{"name":"HTTP Toolkit","version":"2507e103485e86726b84ee0a830d76f1bf2d1115"},"pages":[{"id":"Chrome WebView 87 (Android 11)","title":"Chrome WebView 87 (Android 11)","startedDateTime":"2025-08-11T22:56:28.282+03:00","pageTimings":{}},{"id":"Okhttp/4.12.0","title":"Okhttp/4.12.0","startedDateTime":"2025-08-11T22:56:37.459+03:00","pageTimings":{}}],"entries":[{"pageref":"Chrome WebView 87 (Android 11)","startedDateTime":"2025-08-11T22:56:28.282+03:00","time":187.70049999980256,"request":{"method":"GET","url":"https://googleads.g.doubleclick.net/mads/gma?submodel=SM-A505F&adid_p=0&format=320x50_mb&ini_pn=com.android.vending&ins_pn=com.android.vending&omid_v=a.1.5.2-google_20241009&dv=210402101&ev=24.4.0&gl=US&hl=en&js=afma-sdk-a-v252130000.252130000.0&lv=252130000&ms=CoACbupql_uekn0Z8Q8T0sThM_bBtHKxXn0J2QJOqKA87ajal2TVZpi-DEyvJua1UCIbLaH5xul2DE_pNpJ3CU_t_cB3gxgTlsqRDVStc7vCZ35KuuqPEQxkNc20OLkzyS2jVpSFEq4fv0AttaYbPuIXgbGZOqNV3yAXhqX3yqW315M-nWIAtX7E2CIoAhzQESFzjFSn4Y4_Ji1dSyn1og6m0ITtS3xNzQVW_38-SaoJBcHswQDOTE5CUNAyxegRhemv6bzxOFcmFviwnm6JPkX9hAgzmXZKT8Z-a2JZiDye3IY7gnQ2TUmTaPZZZL7ebM8mYLmj6l8-Y-kCB4Hcncn91AqAAusvtHhWHW31IezW1bQf-TMCVfvaPqfo799-XLQMLnXIi7wURgJ9d3jjVt4QTJMAL18XFJ1MKqOygT1Aq-vWMTYMX_LjV5IEi5VCr6cNzk6-PKBbVTSI3Cbwl7ORj4G2PdEtmGiUSaxOdtg5j3cRF9h-23qlOvP73DpDKV63kn7HboGQTC59q7LJzRMJ3Pg4flH21h3aLMVUMcRQWv1eaUj-Lq6zPG2L2K8Dx_Hlg54-VLiG7TtJqonz2IlNAniB_kHh3LixS2Y6A3Hzqa-GbLcYyrXE1tIqkDn0gphhsbxYcu6gDHBSFkzjKc8zIwD28mNG5Zlh2ymZ_r68PUuLAcESEKiH2iPlpn2NI-R7D0o-zMY&mv=84732920.com.android.vending&lft=0&vnm=7.7.3&ibrr=1&u_sd=2.625&request_id=261334802&target_api=35&fbs_aeid=4606048489432546437&fbs_aiid=2f00dac566eab05ed7b1682299be488a&seq_num=7&eid=318486317%2C318491267%2C318482079%2C318483611%2C318484496%2C318484802%2C318519885&gdpr=0&guci=0.0.0.0.0.0.0.128&sdk_apis=7%2C8&omid_p=Google%2Fafma-sdk-a-v252130000.252130000.0&cap=m&u_w=412&u_h=812&msid=com.hotcodes.numberbox&an=34.android.com.hotcodes.numberbox&u_audio=1&net=wi&u_so=p&loeid=44766145%2C318502621&preqs_in_session=6&preqs=6&time_in_session=387620&pcc=0&dload=3607&sst=1754941800000&output=html&region=mobile_app&u_tz=180&client=ca-app-pub-9725931532481885&slotname=6565323016&gsb=wi&apm_app_id=1%3A627989477950%3Aandroid%3Abd4371c426c6ee03962f6f&gmp_app_id=1%3A627989477950%3Aandroid%3Abd4371c426c6ee03962f6f&apm_app_type=1&lite=0&app_wp_code=ca-app-pub-9725931532481885&app_code=5364153498&stbg=1&bisch=true&blev=0.82&canm=true&_mv=84732920.com.android.vending&heap_free=4177615&heap_max=268435456&heap_total=16683391&wv_count=4&rdps=850&caps=inlineVideo_interactiveVideo_mraid1_mraid2_mraid3_sdkVideo_exo3_th_autoplay_mediation_scroll_av_transparentBackground_sdkAdmobApiForAds_di_aso_sfv_dinm_dim_nav_navc_dinmo_ipdof_gls_saiMacro_sai_saiMacro_sai_xSeconds&is_lat=false&blob=ABPQqLFMSDbvIcEPYCK2xONDt5kFv7wS0nyYjyPP2vIv_lX2ya31_FojIhoTakBM0Dw1nF9jgeLvyiqxL2Pdm527ufYuTMu7rQUgcu8u7DDZMZbG9fPWxqUpB-IusAy8m4794uSTTyug2x5Yi4b730JNi5smq6Ay5YvhY8ZNef2Upz1IRgDQh6Zxs7cjXQOCirILJYrHzwzEvv5phe1N-VrehqUqpgVpSIrd0y9nt3gY6BT7iBnERv7TKt6cQqxH2UWjHn-Oybxu3s6Mnd-sYDELKqTIbbwKC-zOEDax5heKTAGi3ybYG6Ij1VEp-XIAI48IHvsJ3XU6davG49SpcKfBG7Q1c1LsDuEscaoKWEMEwH5wAM9EV7KywFVchrpzadEeiYmmL8YJpMOCyikws3eAgboL38Ob5KgkzGyH7f5ntyTfa74cmUzaNbxMIw&adk=3997620115&jsv=sdk_20190107_RC02-production-sdk_20250804_RC00","httpVersion":"HTTP/1.1","cookies":[{"name":"IDE","value":"AHWqTUkkctVcFK43a6FusUVwXlA8HuKl4KWqeUqiujnY2dG5n-9of49QUMyDgNg41VE"}],"headers":[{"name":"user-agent","value":"Mozilla/5.0 (Linux; Android 11; SM-A505F Build/RP1A.200720.012; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/87.0.4280.141 Mobile Safari/537.36 (Mobile; afma-sdk-a-v252130000.252130000.0)"},{"name":"cookie","value":"IDE=AHWqTUkkctVcFK43a6FusUVwXlA8HuKl4KWqeUqiujnY2dG5n-9of49QUMyDgNg41VE"},{"name":"host","value":"googleads.g.doubleclick.net"},{"name":"connection","value":"Keep-Alive"},{"name":"accept-encoding","value":"gzip"}],"queryString":[{"name":"submodel","value":"SM-A505F"},{"name":"adid_p","value":"0"},{"name":"format","value":"320x50_mb"},{"name":"ini_pn","value":"com.android.vending"},{"name":"ins_pn","value":"com.android.vending"},{"name":"omid_v","value":"a.1.5.2-google_20241009"},{"name":"dv","value":"210402101"},{"name":"ev","value":"24.4.0"},{"name":"gl","value":"US"},{"name":"hl","value":"en"},{"name":"js","value":"afma-sdk-a-v252130000.252130000.0"},{"name":"lv","value":"252130000"},{"name":"ms","value":"CoACbupql_uekn0Z8Q8T0sThM_bBtHKxXn0J2QJOqKA87ajal2TVZpi-DEyvJua1UCIbLaH5xul2DE_pNpJ3CU_t_cB3gxgTlsqRDVStc7vCZ35KuuqPEQxkNc20OLkzyS2jVpSFEq4fv0AttaYbPuIXgbGZOqNV3yAXhqX3yqW315M-nWIAtX7E2CIoAhzQESFzjFSn4Y4_Ji1dSyn1og6m0ITtS3xNzQVW_38-SaoJBcHswQDOTE5CUNAyxegRhemv6bzxOFcmFviwnm6JPkX9hAgzmXZKT8Z-a2JZiDye3IY7gnQ2TUmTaPZZZL7ebM8mYLmj6l8-Y-kCB4Hcncn91AqAAusvtHhWHW31IezW1bQf-TMCVfvaPqfo799-XLQMLnXIi7wURgJ9d3jjVt4QTJMAL18XFJ1MKqOygT1Aq-vWMTYMX_LjV5IEi5VCr6cNzk6-PKBbVTSI3Cbwl7ORj4G2PdEtmGiUSaxOdtg5j3cRF9h-23qlOvP73DpDKV63kn7HboGQTC59q7LJzRMJ3Pg4flH21h3aLMVUMcRQWv1eaUj-Lq6zPG2L2K8Dx_Hlg54-VLiG7TtJqonz2IlNAniB_kHh3LixS2Y6A3Hzqa-GbLcYyrXE1tIqkDn0gphhsbxYcu6gDHBSFkzjKc8zIwD28mNG5Zlh2ymZ_r68PUuLAcESEKiH2iPlpn2NI-R7D0o-zMY"},{"name":"mv","value":"84732920.com.android.vending"},{"name":"lft","value":"0"},{"name":"vnm","value":"7.7.3"},{"name":"ibrr","value":"1"},{"name":"u_sd","value":"2.625"},{"name":"request_id","value":"261334802"},{"name":"target_api","value":"35"},{"name":"fbs_aeid","value":"4606048489432546437"},{"name":"fbs_aiid","value":"2f00dac566eab05ed7b1682299be488a"},{"name":"seq_num","value":"7"},{"name":"eid","value":"318486317,318491267,318482079,318483611,318484496,318484802,318519885"},{"name":"gdpr","value":"0"},{"name":"guci","value":"0.0.0.0.0.0.0.128"},{"name":"sdk_apis","value":"7,8"},{"name":"omid_p","value":"Google/afma-sdk-a-v252130000.252130000.0"},{"name":"cap","value":"m"},{"name":"u_w","value":"412"},{"name":"u_h","value":"812"},{"name":"msid","value":"com.hotcodes.numberbox"},{"name":"an","value":"34.android.com.hotcodes.numberbox"},{"name":"u_audio","value":"1"},{"name":"net","value":"wi"},{"name":"u_so","value":"p"},{"name":"loeid","value":"44766145,318502621"},{"name":"preqs_in_session","value":"6"},{"name":"preqs","value":"6"},{"name":"time_in_session","value":"387620"},{"name":"pcc","value":"0"},{"name":"dload","value":"3607"},{"name":"sst","value":"1754941800000"},{"name":"output","value":"html"},{"name":"region","value":"mobile_app"},{"name":"u_tz","value":"180"},{"name":"client","value":"ca-app-pub-9725931532481885"},{"name":"slotname","value":"6565323016"},{"name":"gsb","value":"wi"},{"name":"apm_app_id","value":"1:627989477950:android:bd4371c426c6ee03962f6f"},{"name":"gmp_app_id","value":"1:627989477950:android:bd4371c426c6ee03962f6f"},{"name":"apm_app_type","value":"1"},{"name":"lite","value":"0"},{"name":"app_wp_code","value":"ca-app-pub-9725931532481885"},{"name":"app_code","value":"5364153498"},{"name":"stbg","value":"1"},{"name":"bisch","value":"true"},{"name":"blev","value":"0.82"},{"name":"canm","value":"true"},{"name":"_mv","value":"84732920.com.android.vending"},{"name":"heap_free","value":"4177615"},{"name":"heap_max","value":"268435456"},{"name":"heap_total","value":"16683391"},{"name":"wv_count","value":"4"},{"name":"rdps","value":"850"},{"name":"caps","value":"inlineVideo_interactiveVideo_mraid1_mraid2_mraid3_sdkVideo_exo3_th_autoplay_mediation_scroll_av_transparentBackground_sdkAdmobApiForAds_di_aso_sfv_dinm_dim_nav_navc_dinmo_ipdof_gls_saiMacro_sai_saiMacro_sai_xSeconds"},{"name":"is_lat","value":"false"},{"name":"blob","value":"ABPQqLFMSDbvIcEPYCK2xONDt5kFv7wS0nyYjyPP2vIv_lX2ya31_FojIhoTakBM0Dw1nF9jgeLvyiqxL2Pdm527ufYuTMu7rQUgcu8u7DDZMZbG9fPWxqUpB-IusAy8m4794uSTTyug2x5Yi4b730JNi5smq6Ay5YvhY8ZNef2Upz1IRgDQh6Zxs7cjXQOCirILJYrHzwzEvv5phe1N-VrehqUqpgVpSIrd0y9nt3gY6BT7iBnERv7TKt6cQqxH2UWjHn-Oybxu3s6Mnd-sYDELKqTIbbwKC-zOEDax5heKTAGi3ybYG6Ij1VEp-XIAI48IHvsJ3XU6davG49SpcKfBG7Q1c1LsDuEscaoKWEMEwH5wAM9EV7KywFVchrpzadEeiYmmL8YJpMOCyikws3eAgboL38Ob5KgkzGyH7f5ntyTfa74cmUzaNbxMIw"},{"name":"adk","value":"3997620115"},{"name":"jsv","value":"sdk_20190107_RC02-production-sdk_20250804_RC00"}],"headersSize":-1,"bodySize":0},"response":{"status":200,"statusText":"OK","httpVersion":"HTTP/1.1","cookies":[],"headers":[{"name":"p3p","value":"policyref=\"https://googleads.g.doubleclick.net/pagead/gcn_p3p_.xml\", CP=\"CURa ADMa DEVa TAIo PSAo PSDo OUR IND UNI PUR INT DEM STA PRE COM NAV OTC NOI DSP COR\""},{"name":"timing-allow-origin","value":"*"},{"name":"cross-origin-resource-policy","value":"cross-origin"},{"name":"x-afma-gws-query-id","value":"7kqaaLTKAoG8nsEPoPjn-AQ"},{"name":"x-afma-analytics-personalization","value":"true"},{"name":"x-afma-use-https","value":"false"},{"name":"x-afma-content-url-opted-out","value":"true"},{"name":"x-afma-on-device-brand-safety-opted-out","value":"true"},{"name":"x-afma-content-vertical-opted-out","value":"true"},{"name":"content-type","value":"text/html; charset=UTF-8"},{"name":"x-content-type-options","value":"nosniff"},{"name":"date","value":"Mon, 11 Aug 2025 19:56:30 GMT"},{"name":"server","value":"cafe"},{"name":"content-length","value":"0"},{"name":"x-xss-protection","value":"0"},{"name":"alt-svc","value":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"}],"content":{"mimeType":"text/html; charset=UTF-8","size":0,"text":""},"redirectURL":"","headersSize":-1,"bodySize":0},"cache":{},"timings":{"blocked":-1,"dns":-1,"connect":-1,"ssl":-1,"send":1.5167999998666346,"wait":185.3220000001602,"receive":0.8616999997757375}},{"pageref":"Chrome WebView 87 (Android 11)","startedDateTime":"2025-08-11T22:56:37.305+03:00","time":402.3623000001535,"request":{"method":"POST","url":"https://fundingchoicesmessages.google.com/a/consent","httpVersion":"HTTP/1.1","cookies":[],"headers":[{"name":"user-agent","value":"Mozilla/5.0 (Linux; Android 11; SM-A505F Build/RP1A.200720.012; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/87.0.4280.141 Mobile Safari/537.36"},{"name":"content-type","value":"application/json"},{"name":"host","value":"fundingchoicesmessages.google.com"},{"name":"connection","value":"Keep-Alive"},{"name":"accept-encoding","value":"gzip"},{"name":"content-length","value":"389"}],"queryString":[],"headersSize":-1,"bodySize":389,"postData":{"mimeType":"application/json","text":"{\"admob_app_id\":\"ca-app-pub-9725931532481885~5364153498\",\"device_info\":{\"os_type\":\"ANDROID\",\"model\":\"SM-A505F\",\"android_api_level\":30},\"language_code\":\"en-US\",\"tag_for_under_age_of_consent\":false,\"screen_info\":{\"width\":411,\"height\":811,\"density\":2.625},\"app_info\":{\"package_name\":\"com.hotcodes.numberbox\",\"publisher_display_name\":\"NumberBox\",\"version\":\"34\"},\"sdk_info\":{\"version\":\"3.2.0\"}}"}},"response":{"status":200,"statusText":"OK","httpVersion":"HTTP/1.1","cookies":[],"headers":[{"name":"content-type","value":"application/json; charset=utf-8"},{"name":"x-content-type-options","value":"nosniff"},{"name":"cache-control","value":"no-cache, no-store, max-age=0, must-revalidate"},{"name":"pragma","value":"no-cache"},{"name":"expires","value":"Mon, 01 Jan 1990 00:00:00 GMT"},{"name":"date","value":"Mon, 11 Aug 2025 19:56:39 GMT"},{"name":"content-disposition","value":"attachment; filename=\"json.txt\"; filename*=UTF-8''json.txt"},{"name":"content-security-policy","value":"require-trusted-types-for 'script';report-uri /_/ContributorServingAppSwitchboardHttp/cspreport,script-src 'report-sample' 'nonce-Ed6MCfN8dFejr6Nsu1VTug' 'unsafe-inline';object-src 'none';base-uri 'self';report-uri /_/ContributorServingAppSwitchboardHttp/cspreport;worker-src 'self',script-src 'unsafe-inline' 'unsafe-eval' blob: data: 'self' https://apis.google.com https://ssl.gstatic.com https://www.google.com https://www.googletagmanager.com https://www.gstatic.com https://www.google-analytics.com;report-uri /_/ContributorServingAppSwitchboardHttp/cspreport/allowlist"},{"name":"cross-origin-opener-policy","value":"same-origin"},{"name":"permissions-policy","value":"ch-ua-arch=*, ch-ua-bitness=*, ch-ua-full-version=*, ch-ua-full-version-list=*, ch-ua-model=*, ch-ua-wow64=*, ch-ua-form-factors=*, ch-ua-platform=*, ch-ua-platform-version=*"},{"name":"accept-ch","value":"Sec-CH-UA-Arch, Sec-CH-UA-Bitness, Sec-CH-UA-Full-Version, Sec-CH-UA-Full-Version-List, Sec-CH-UA-Model, Sec-CH-UA-WoW64, Sec-CH-UA-Form-Factors, Sec-CH-UA-Platform, Sec-CH-UA-Platform-Version"},{"name":"reporting-endpoints","value":"default=\"/_/ContributorServingAppSwitchboardHttp/web-reports?context=eJzjytDikmII0pBiOHnrNtNFIG69eY51MhAbKlxitQfiD_WXWX8AcZHEFdYGIP5UdYNVoPoGaxL7TdYCIF6z8RbrZiA287vNagfEkq9vsyoCceSUu6wJQMy59i6rABAL8XB8n_ryCJvAhNU_5zEqaSTlF8Yn5-eVFGUmlZbkF6Ulp6UWpxaVpRbFGxkYmRpYGBroGZjHFxgAAHzTQXs\""},{"name":"content-encoding","value":"gzip"},{"name":"server","value":"ESF"},{"name":"x-xss-protection","value":"0"},{"name":"x-frame-options","value":"SAMEORIGIN"},{"name":"alt-svc","value":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"},{"name":"transfer-encoding","value":"chunked"}],"content":{"mimeType":"application/json; charset=utf-8","size":706,"text":")]}'\n{\n  \"consent_signal\": \"CONSENT_SIGNAL_NOT_REQUIRED\",\n  \"consent_form_base_url\": \"about:blank/\",\n  \"request_info_keys\": [\"IABTCF_TCString\", \"IABTCF_AddtlConsent\", \"IABTCF_idfaFlowControl\", \"IDFA_freqCapNumViews\", \"UMP_CoMoManagedByUmpSdk\", \"UMP_CoMoAdStoragePurposeConsentStatus\", \"UMP_CoMoAdUserDataPurposeConsentStatus\", \"UMP_CoMoAdPersonalizationPurposeConsentStatus\", \"UMP_CoMoAnalyticsStoragePurposeConsentStatus\"],\n  \"actions\": [{\n    \"action_type\": \"CLEAR\",\n    \"args_json\": \"{\\\"keys\\\":[\\\"UMP_eids\\\"]}\"\n  }, {\n    \"action_type\": \"WRITE\",\n    \"args_json\": \"{\\\"UMP_consentModeValues\\\":\\\"4444\\\",\\\"IABTCF_CmpSdkID\\\":300,\\\"IABTCF_gdprApplies\\\":0}\"\n  }],\n  \"privacy_options_required\": \"NOT_REQUIRED\"\n}"},"redirectURL":"","headersSize":-1,"bodySize":395},"cache":{},"timings":{"blocked":-1,"dns":-1,"connect":-1,"ssl":-1,"send":5.526200000196695,"wait":395.19969999976456,"receive":1.636400000192225}},{"pageref":"Okhttp/4.12.0","startedDateTime":"2025-08-11T22:56:37.459+03:00","time":885.6625000000931,"request":{"method":"POST","url":"https://api.numberbox.app/config","httpVersion":"HTTP/1.1","cookies":[],"headers":[{"name":"device","value":"android"},{"name":"content-type","value":"application/json; charset=UTF-8"},{"name":"content-length","value":"19"},{"name":"host","value":"api.numberbox.app"},{"name":"connection","value":"Keep-Alive"},{"name":"accept-encoding","value":"gzip"},{"name":"user-agent","value":"okhttp/4.12.0"}],"queryString":[],"headersSize":-1,"bodySize":19,"postData":{"mimeType":"application/json; charset=UTF-8","text":"{\"version\":\"7.7.3\"}"}},"response":{"status":200,"statusText":"OK","httpVersion":"HTTP/1.1","cookies":[],"headers":[{"name":"server","value":"nginx"},{"name":"date","value":"Mon, 11 Aug 2025 19:56:39 GMT"},{"name":"content-type","value":"application/json"},{"name":"transfer-encoding","value":"chunked"},{"name":"connection","value":"keep-alive"},{"name":"vary","value":"Accept-Encoding"},{"name":"x-powered-by","value":"Fat-Free Framework"},{"name":"x-frame-options","value":"SAMEORIGIN"},{"name":"x-xss-protection","value":"1; mode=block"},{"name":"x-content-type-options","value":"nosniff"},{"name":"pragma","value":"no-cache"},{"name":"cache-control","value":"no-cache, no-store, must-revalidate"},{"name":"expires","value":"Thu, 01 Jan 1970 00:00:00 +0000"},{"name":"content-encoding","value":"gzip"}],"content":{"mimeType":"application/json","size":1044,"text":"{\n    \"status\": true,\n    \"version\": 31,\n    \"link\": \"https:\\/\\/play.google.com\\/store\\/apps\\/details?id=com.hotcodes.numberbox\",\n    \"captcha\": \"captcha\",\n    \"ads\": {\n        \"show\": true,\n        \"show_after_result\": false,\n        \"actions\": 3,\n        \"pause_duration\": 60000,\n        \"banner\": \"ca-app-pub-9725931532481885%2F6565323016\",\n        \"show_banner\": true,\n        \"interstitial\": \"ca-app-pub-9725931532481885%2F6669534295\",\n        \"show_interstitial\": false,\n        \"show_interstitial_delay\": 2500,\n        \"rewarded\": \"ca-app-pub-9725931532481885%2F5560622900\",\n        \"rewarded_time\": 1\n    },\n    \"notifications\": 0,\n    \"message\": {\n        \"text\": \"\",\n        \"show\": false,\n        \"is_cancelable\": true,\n        \"show_url\": false,\n        \"url\": \"\"\n    },\n    \"about\": {\n        \"website\": \"https:\\/\\/NumberBox.app\",\n        \"email\": \"Support@NumberBox.app\",\n        \"telegram\": \"https:\\/\\/t.me\\/NumberBox_app\",\n        \"instagram\": \"https:\\/\\/instagram.com\\/NumberBox_app\",\n        \"privacy\": \"privacypolicy\"\n    }\n}"},"redirectURL":"","headersSize":-1,"bodySize":439},"cache":{},"timings":{"blocked":-1,"dns":-1,"connect":-1,"ssl":-1,"send":1.7460000002756715,"wait":882.969000000041,"receive":0.9474999997764826}},{"pageref":"Chrome WebView 87 (Android 11)","startedDateTime":"2025-08-11T22:56:37.664+03:00","time":140.91170000005513,"request":{"method":"GET","url":"https://googleads.g.doubleclick.net/getconfig/pubsetting?app_name=com.hotcodes.numberbox&vnm=34&eid=318486317%2C318491267%2C318482079%2C318483611%2C318484496%2C318484802%2C318519885&js=afma-sdk-a-v252130000.252130000.0&client=ca-app-pub-9725931532481885&admob_appcc=5364153498","httpVersion":"HTTP/1.1","cookies":[{"name":"IDE","value":"AHWqTUkkctVcFK43a6FusUVwXlA8HuKl4KWqeUqiujnY2dG5n-9of49QUMyDgNg41VE"}],"headers":[{"name":"host","value":"googleads.g.doubleclick.net"},{"name":"connection","value":"keep-alive"},{"name":"user-agent","value":"Mozilla/5.0 (Linux; Android 11; SM-A505F Build/RP1A.200720.012; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/87.0.4280.141 Mobile Safari/537.36 (Mobile; afma-sdk-a-v252130000.252130000.0)"},{"name":"accept","value":"*/*"},{"name":"x-requested-with","value":"com.hotcodes.numberbox"},{"name":"sec-fetch-site","value":"same-origin"},{"name":"sec-fetch-mode","value":"cors"},{"name":"sec-fetch-dest","value":"empty"},{"name":"referer","value":"https://googleads.g.doubleclick.net/mads/static/sdk/native/sdk-core-v40.html"},{"name":"accept-encoding","value":"gzip, deflate"},{"name":"accept-language","value":"en-US,en;q=0.9,ar-AE;q=0.8,ar;q=0.7"},{"name":"cookie","value":"IDE=AHWqTUkkctVcFK43a6FusUVwXlA8HuKl4KWqeUqiujnY2dG5n-9of49QUMyDgNg41VE"}],"queryString":[{"name":"app_name","value":"com.hotcodes.numberbox"},{"name":"vnm","value":"34"},{"name":"eid","value":"318486317,318491267,318482079,318483611,318484496,318484802,318519885"},{"name":"js","value":"afma-sdk-a-v252130000.252130000.0"},{"name":"client","value":"ca-app-pub-9725931532481885"},{"name":"admob_appcc","value":"5364153498"}],"headersSize":-1,"bodySize":0},"response":{"status":200,"statusText":"OK","httpVersion":"HTTP/1.1","cookies":[],"headers":[{"name":"p3p","value":"policyref=\"https://googleads.g.doubleclick.net/pagead/gcn_p3p_.xml\", CP=\"CURa ADMa DEVa TAIo PSAo PSDo OUR IND UNI PUR INT DEM STA PRE COM NAV OTC NOI DSP COR\""},{"name":"timing-allow-origin","value":"*"},{"name":"cross-origin-resource-policy","value":"cross-origin"},{"name":"access-control-allow-origin","value":"https://googleads.g.doubleclick.net"},{"name":"content-type","value":"application/json; charset=UTF-8"},{"name":"x-content-type-options","value":"nosniff"},{"name":"content-disposition","value":"attachment; filename=\"f.txt\""},{"name":"content-encoding","value":"gzip"},{"name":"date","value":"Mon, 11 Aug 2025 19:56:39 GMT"},{"name":"server","value":"cafe"},{"name":"x-xss-protection","value":"0"},{"name":"alt-svc","value":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"},{"name":"transfer-encoding","value":"chunked"}],"content":{"mimeType":"application/json; charset=UTF-8","size":261,"text":"{\"status\":1,\"app_id\":\"ca-app-pub-9725931532481885~5364153498\",\"auto_collect_location\":true,\"exp_param\":{\"loeid\":[44766145]},\"admob_esp_processor_term_accepted\":true,\"publisher_permissions\":[{\"platform\":\"ADMOB\",\"eoid_enabled\":true,\"same_app_key_opt_out\":false}]}"},"redirectURL":"","headersSize":-1,"bodySize":217},"cache":{},"timings":{"blocked":-1,"dns":-1,"connect":-1,"ssl":-1,"send":0.47170000011101365,"wait":139.1929999999702,"receive":1.246999999973923}},{"pageref":"Chrome WebView 87 (Android 11)","startedDateTime":"2025-08-11T22:56:39.009+03:00","time":222.41600000020117,"request":{"method":"GET","url":"https://googleads.g.doubleclick.net/mads/gma?submodel=SM-A505F&adid_p=0&format=320x50_mb&ini_pn=com.android.vending&ins_pn=com.android.vending&omid_v=a.1.5.2-google_20241009&dv=210402101&ev=24.4.0&gl=US&hl=en&js=afma-sdk-a-v252130000.252130000.0&lv=252130000&ms=CsADmsA_ATEaPwHInBRcjXJNQtOwRFDr8-KFKfWTfXzMzi4mJ1DT5zY_XSFppEcLf3vGSVes9rymQX2DDFUBlZdrWNItqV6IPRL3AkUjfnEIDiKmaGZIKGKmulEjceYTVaFEH5lCn62W_c6nZqOSDOrvc0EI0bfWrcibEaUTcC34SAwi7C6GzWQuBEEPh5sUM5PzWcx87WPC-zMhgkEBWo2-H03j3w_EGURgzApO51g0dPS8bK7bjQqqSXF6EYuXRirUBgAAgK5T9gvB6etpL5oyUTHt6Nmzu2-4aloT6U8x-vCSFJrCSj5ZAciEoUli83MFTxVpR4J59BKpX0IuwUfdAsCfabtyw1tYrJzf-zIH3CIngEvILwcAVHEbgabXyMhE5_biD--5Tc1fYs4At-VFONSeGevBbuSzI6McyQBwG7Y5GNO1ko7NR_cvMOo--SM5JMN4t2sczzKcqmXFun_UKho6mVtelcmxxgoqqcMhSYkAP5lwOAV0vjEvjNhjibo6swd9nWerAsoe9ruNM5hFRHVyjqzqStODQ0RrwGyq7O4o2A2EniI1zwEEKKXKWt__WKtuA9rZzlzzZYBsteLA6yAE&mv=84732920.com.android.vending&lft=0&vnm=7.7.3&u_sd=2.625&request_id=199861940&target_api=35&fbs_aeid=-4407319966254626580&fbs_aiid=2f00dac566eab05ed7b1682299be488a&seq_num=1&eid=318486317%2C318491267%2C318482079%2C318483611%2C318484496%2C318484802%2C318519885&gdpr=0&guci=0.0.0.0.0.0.0.128&sdk_apis=7%2C8&omid_p=Google%2Fafma-sdk-a-v252130000.252130000.0&cap=m&u_w=412&u_h=812&msid=com.hotcodes.numberbox&an=34.android.com.hotcodes.numberbox&u_audio=1&net=wi&u_so=p&loeid=44766145%2C318502621&preqs_in_session=7&preqs=0&time_in_session=397900&pcc=0&sst=1754941800000&output=html&region=mobile_app&u_tz=180&client=ca-app-pub-9725931532481885&slotname=6565323016&gsb=wi&apm_app_id=1%3A627989477950%3Aandroid%3Abd4371c426c6ee03962f6f&gmp_app_id=1%3A627989477950%3Aandroid%3Abd4371c426c6ee03962f6f&apm_app_type=1&lite=0&app_wp_code=ca-app-pub-9725931532481885&app_code=5364153498&stbg=1&bisch=true&blev=0.82&canm=true&_mv=84732920.com.android.vending&heap_free=253170416&heap_max=268435456&heap_total=268435456&wv_count=1&rdps=850&caps=inlineVideo_interactiveVideo_mraid1_mraid2_mraid3_sdkVideo_exo3_th_autoplay_mediation_scroll_av_transparentBackground_sdkAdmobApiForAds_di_aso_sfv_dinm_dim_nav_navc_dinmo_ipdof_gls_saiMacro_sai_saiMacro_sai_xSeconds&is_lat=false&blob=ABPQqLFsvtVhxf_nJEk5ghbq0WVfjcQafFCPHOHZq9nRcoPk3OZPo4R8K2cVVH2QnuNT-OG6de6L04CpaJlhLyR_orW_mTlHJOVv4oYFDJ9AgJwVwWyYXQ2vXtNxbt142PySTtnJtE9ML_gjw4Wn6uehKaQFOsG1Ch_IAu2AdSbjlQNT4wCz3_D5_xjvaZtk8PjluccHm9kpSYHRRMenrb2GldJY60MHaOPJXNqhVtTADkFakCN-2p0eyQoHF5YgliOay47WyvVrk3d9uVAUbHo3_NDYoDTHVUmGTmrwDKs2Q9Z4yX7bAp9anBbRpcd3Ov55ZU88O-aiSRAXmeMg3tzvPmUFodHhO6Utx4Hz1qxevlehDETBcCD6x7RAJyBsJdrEBQtqQIAeJr8o_bwh95ucGy86yOk8YYiDqjNIzquU7Ud_Gso0uLkM427iBw&adk=3538397983&jsv=sdk_20190107_RC02-production-sdk_20250804_RC00","httpVersion":"HTTP/1.1","cookies":[{"name":"IDE","value":"AHWqTUkkctVcFK43a6FusUVwXlA8HuKl4KWqeUqiujnY2dG5n-9of49QUMyDgNg41VE"}],"headers":[{"name":"user-agent","value":"Mozilla/5.0 (Linux; Android 11; SM-A505F Build/RP1A.200720.012; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/87.0.4280.141 Mobile Safari/537.36 (Mobile; afma-sdk-a-v252130000.252130000.0)"},{"name":"cookie","value":"IDE=AHWqTUkkctVcFK43a6FusUVwXlA8HuKl4KWqeUqiujnY2dG5n-9of49QUMyDgNg41VE"},{"name":"host","value":"googleads.g.doubleclick.net"},{"name":"connection","value":"Keep-Alive"},{"name":"accept-encoding","value":"gzip"}],"queryString":[{"name":"submodel","value":"SM-A505F"},{"name":"adid_p","value":"0"},{"name":"format","value":"320x50_mb"},{"name":"ini_pn","value":"com.android.vending"},{"name":"ins_pn","value":"com.android.vending"},{"name":"omid_v","value":"a.1.5.2-google_20241009"},{"name":"dv","value":"210402101"},{"name":"ev","value":"24.4.0"},{"name":"gl","value":"US"},{"name":"hl","value":"en"},{"name":"js","value":"afma-sdk-a-v252130000.252130000.0"},{"name":"lv","value":"252130000"},{"name":"ms","value":"CsADmsA_ATEaPwHInBRcjXJNQtOwRFDr8-KFKfWTfXzMzi4mJ1DT5zY_XSFppEcLf3vGSVes9rymQX2DDFUBlZdrWNItqV6IPRL3AkUjfnEIDiKmaGZIKGKmulEjceYTVaFEH5lCn62W_c6nZqOSDOrvc0EI0bfWrcibEaUTcC34SAwi7C6GzWQuBEEPh5sUM5PzWcx87WPC-zMhgkEBWo2-H03j3w_EGURgzApO51g0dPS8bK7bjQqqSXF6EYuXRirUBgAAgK5T9gvB6etpL5oyUTHt6Nmzu2-4aloT6U8x-vCSFJrCSj5ZAciEoUli83MFTxVpR4J59BKpX0IuwUfdAsCfabtyw1tYrJzf-zIH3CIngEvILwcAVHEbgabXyMhE5_biD--5Tc1fYs4At-VFONSeGevBbuSzI6McyQBwG7Y5GNO1ko7NR_cvMOo--SM5JMN4t2sczzKcqmXFun_UKho6mVtelcmxxgoqqcMhSYkAP5lwOAV0vjEvjNhjibo6swd9nWerAsoe9ruNM5hFRHVyjqzqStODQ0RrwGyq7O4o2A2EniI1zwEEKKXKWt__WKtuA9rZzlzzZYBsteLA6yAE"},{"name":"mv","value":"84732920.com.android.vending"},{"name":"lft","value":"0"},{"name":"vnm","value":"7.7.3"},{"name":"u_sd","value":"2.625"},{"name":"request_id","value":"199861940"},{"name":"target_api","value":"35"},{"name":"fbs_aeid","value":"-4407319966254626580"},{"name":"fbs_aiid","value":"2f00dac566eab05ed7b1682299be488a"},{"name":"seq_num","value":"1"},{"name":"eid","value":"318486317,318491267,318482079,318483611,318484496,318484802,318519885"},{"name":"gdpr","value":"0"},{"name":"guci","value":"0.0.0.0.0.0.0.128"},{"name":"sdk_apis","value":"7,8"},{"name":"omid_p","value":"Google/afma-sdk-a-v252130000.252130000.0"},{"name":"cap","value":"m"},{"name":"u_w","value":"412"},{"name":"u_h","value":"812"},{"name":"msid","value":"com.hotcodes.numberbox"},{"name":"an","value":"34.android.com.hotcodes.numberbox"},{"name":"u_audio","value":"1"},{"name":"net","value":"wi"},{"name":"u_so","value":"p"},{"name":"loeid","value":"44766145,318502621"},{"name":"preqs_in_session","value":"7"},{"name":"preqs","value":"0"},{"name":"time_in_session","value":"397900"},{"name":"pcc","value":"0"},{"name":"sst","value":"1754941800000"},{"name":"output","value":"html"},{"name":"region","value":"mobile_app"},{"name":"u_tz","value":"180"},{"name":"client","value":"ca-app-pub-9725931532481885"},{"name":"slotname","value":"6565323016"},{"name":"gsb","value":"wi"},{"name":"apm_app_id","value":"1:627989477950:android:bd4371c426c6ee03962f6f"},{"name":"gmp_app_id","value":"1:627989477950:android:bd4371c426c6ee03962f6f"},{"name":"apm_app_type","value":"1"},{"name":"lite","value":"0"},{"name":"app_wp_code","value":"ca-app-pub-9725931532481885"},{"name":"app_code","value":"5364153498"},{"name":"stbg","value":"1"},{"name":"bisch","value":"true"},{"name":"blev","value":"0.82"},{"name":"canm","value":"true"},{"name":"_mv","value":"84732920.com.android.vending"},{"name":"heap_free","value":"253170416"},{"name":"heap_max","value":"268435456"},{"name":"heap_total","value":"268435456"},{"name":"wv_count","value":"1"},{"name":"rdps","value":"850"},{"name":"caps","value":"inlineVideo_interactiveVideo_mraid1_mraid2_mraid3_sdkVideo_exo3_th_autoplay_mediation_scroll_av_transparentBackground_sdkAdmobApiForAds_di_aso_sfv_dinm_dim_nav_navc_dinmo_ipdof_gls_saiMacro_sai_saiMacro_sai_xSeconds"},{"name":"is_lat","value":"false"},{"name":"blob","value":"ABPQqLFsvtVhxf_nJEk5ghbq0WVfjcQafFCPHOHZq9nRcoPk3OZPo4R8K2cVVH2QnuNT-OG6de6L04CpaJlhLyR_orW_mTlHJOVv4oYFDJ9AgJwVwWyYXQ2vXtNxbt142PySTtnJtE9ML_gjw4Wn6uehKaQFOsG1Ch_IAu2AdSbjlQNT4wCz3_D5_xjvaZtk8PjluccHm9kpSYHRRMenrb2GldJY60MHaOPJXNqhVtTADkFakCN-2p0eyQoHF5YgliOay47WyvVrk3d9uVAUbHo3_NDYoDTHVUmGTmrwDKs2Q9Z4yX7bAp9anBbRpcd3Ov55ZU88O-aiSRAXmeMg3tzvPmUFodHhO6Utx4Hz1qxevlehDETBcCD6x7RAJyBsJdrEBQtqQIAeJr8o_bwh95ucGy86yOk8YYiDqjNIzquU7Ud_Gso0uLkM427iBw"},{"name":"adk","value":"3538397983"},{"name":"jsv","value":"sdk_20190107_RC02-production-sdk_20250804_RC00"}],"headersSize":-1,"bodySize":0},"response":{"status":200,"statusText":"OK","httpVersion":"HTTP/1.1","cookies":[],"headers":[{"name":"p3p","value":"policyref=\"https://googleads.g.doubleclick.net/pagead/gcn_p3p_.xml\", CP=\"CURa ADMa DEVa TAIo PSAo PSDo OUR IND UNI PUR INT DEM STA PRE COM NAV OTC NOI DSP COR\""},{"name":"timing-allow-origin","value":"*"},{"name":"cross-origin-resource-policy","value":"cross-origin"},{"name":"x-afma-content-vertical-opted-out","value":"true"},{"name":"x-afma-content-url-opted-out","value":"true"},{"name":"x-afma-use-https","value":"false"},{"name":"x-afma-analytics-personalization","value":"true"},{"name":"x-afma-on-device-brand-safety-opted-out","value":"true"},{"name":"x-afma-gws-query-id","value":"-EqaaOT3LoSCkdUP7OOUqQE"},{"name":"content-type","value":"text/html; charset=UTF-8"},{"name":"x-content-type-options","value":"nosniff"},{"name":"date","value":"Mon, 11 Aug 2025 19:56:40 GMT"},{"name":"server","value":"cafe"},{"name":"content-length","value":"0"},{"name":"x-xss-protection","value":"0"},{"name":"alt-svc","value":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"}],"content":{"mimeType":"text/html; charset=UTF-8","size":0,"text":""},"redirectURL":"","headersSize":-1,"bodySize":0},"cache":{},"timings":{"blocked":-1,"dns":-1,"connect":-1,"ssl":-1,"send":2.3922000001184642,"wait":218.9059000001289,"receive":1.1178999999538064}},{"pageref":"Okhttp/4.12.0","startedDateTime":"2025-08-11T22:56:44.414+03:00","time":8449.710000000428,"request":{"method":"POST","url":"https://api.numberbox.app/search","httpVersion":"HTTP/1.1","cookies":[],"headers":[{"name":"device","value":"android"},{"name":"content-type","value":"application/json; charset=UTF-8"},{"name":"content-length","value":"10572"},{"name":"host","value":"api.numberbox.app"},{"name":"connection","value":"Keep-Alive"},{"name":"accept-encoding","value":"gzip"},{"name":"user-agent","value":"okhttp/4.12.0"}],"queryString":[],"headersSize":-1,"bodySize":10572,"postData":{"mimeType":"application/json; charset=UTF-8","text":"{\"ccode\":\"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\\u003d\",\"number\":\"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\\u003d\",\"version\":\"7.7.3\"}"}},"response":{"status":200,"statusText":"OK","httpVersion":"HTTP/1.1","cookies":[],"headers":[{"name":"server","value":"nginx"},{"name":"date","value":"Mon, 11 Aug 2025 19:56:54 GMT"},{"name":"content-type","value":"application/json"},{"name":"transfer-encoding","value":"chunked"},{"name":"connection","value":"keep-alive"},{"name":"vary","value":"Accept-Encoding"},{"name":"x-powered-by","value":"Fat-Free Framework"},{"name":"x-frame-options","value":"SAMEORIGIN"},{"name":"x-xss-protection","value":"1; mode=block"},{"name":"x-content-type-options","value":"nosniff"},{"name":"pragma","value":"no-cache"},{"name":"cache-control","value":"no-cache, no-store, must-revalidate"},{"name":"expires","value":"Thu, 01 Jan 1970 00:00:00 +0000"},{"name":"content-encoding","value":"gzip"}],"content":{"mimeType":"application/json","size":364,"text":"{\n    \"status\": true,\n    \"input\": \"+9647809394930\",\n    \"result\": [\n        {\n            \"name\": \"علي عادل عبد الرضا\",\n            \"last_name\": \"\"\n        },\n        {\n            \"name\": \"امير\",\n            \"last_name\": \"منذور\"\n        },\n        {\n            \"name\": \"امير منذور\",\n            \"last_name\": \"\"\n        }\n    ]\n}"},"redirectURL":"","headersSize":-1,"bodySize":172},"cache":{},"timings":{"blocked":-1,"dns":-1,"connect":-1,"ssl":-1,"send":10.22110000019893,"wait":8438.249400000088,"receive":1.239500000141561}},{"pageref":"Okhttp/4.12.0","startedDateTime":"2025-08-11T22:57:00.294+03:00","time":10044.968799999915,"request":{"method":"POST","url":"https://api.numberbox.app/search","httpVersion":"HTTP/1.1","cookies":[],"headers":[{"name":"device","value":"android"},{"name":"content-type","value":"application/json; charset=UTF-8"},{"name":"content-length","value":"10572"},{"name":"host","value":"api.numberbox.app"},{"name":"connection","value":"Keep-Alive"},{"name":"accept-encoding","value":"gzip"},{"name":"user-agent","value":"okhttp/4.12.0"}],"queryString":[],"headersSize":-1,"bodySize":10572,"postData":{"mimeType":"application/json; charset=UTF-8","text":"{\"ccode\":\"60RWguTNGDyd/W+G5IT3xhUu1vd/jY+B8Z49M1kydpkA9Og2bv/O8PT4pbVJs57RSty/fu2iz80Ws8FpkGOgem0rBdCeC8qye6eDxAove/OBzS8mkVtiwZWRGP18R4KH75vFZjGG19RBFikaOlfV5Tz4mCwl/fAX1wcH2y9V9woVnEBHKlOcdknR+GZ6r4PjGlN4+sF71CW5/3uJ5ceap2D34Gmg24wpYXzRTT5LNfV518GhrYTX9WWBhSQ5LkLACrxy5FX/AKICP4ph6kET2ObqH8GmUn7ozGpA8IcgL4o6CFDaDAKWJhhAZMEsZF4sbvsPCUJWqVo9raCFxUSqg4x4nLwXrmyhYftTPR7mjNiOWFjlcqk41lbMKlRExGkDvx2xGom+fZpHV+NxAZ98DOHywm3wxKMqLk700MQbRTAwULAlJwbU+ZhTNFDnUe37Vw5S5A/u4zSvmXtMC/A2jdjdd3/bJbzrQhiiGqQGHz4XM5h1tYEZ57STEkLPcu0nYY9sm0S0B89e5KZbeRFitki8Xjm0yRhMVvuyPUUrhvgppMEu+OwtkLcQPXXFQYfr3EE56A2Xd9J7QYHrOCGgsomCFCkq8t4p0ZUplJWQtLHAYV7cW7QifW305xbjqtbF5kFK19n9xXZ9Wmr4HUEfHtqc0g5AxgbHNww+k6DvCQbq0Lzg71Q8mDhNeRlMutJzDBiUiGkXMymkzRVz48uvD/vDOCNcOyjvodFKDO0AmdKIC+RibvNquIiYml36Q2kZAblMtQvLt8/q/8StmtMU6uUo751w85w/vW5IbtfOEef6+JiBC8Be+Ma8eOQCK8LGSU8WKGS5lsNlPk0/xHE5BaNK6di1Sy6I2n21T/TSBQKBmd0lZflipK6QmVebStlJPjhpVB1nWqbmx82DqP52ULOmWRFrCRwaox9udmdWEHBetr64yqgok4x25fq3qX2BSNoqMRgw2L2RRCS7X3hMgYb4YsEc4TNmWRIvAmPMfvfubk1caDYWjJNl3t4D/6pWM3Xv4a7zfZ7Yse9jRMXPfZCzE5KKqrJYJiQh1iYcTUWV2TpjMf6DWwQVixYV7uxlWaxj62ulBbiRlPXS3Hd82Ldw0LwCWwgXvNUmS1qZfqYg/UI7hLvdmbDmY1j6dNVrtQf+GvpBS166PFFGoOaQ2t4K4eLl1iJRoc9GcJJApYaxQgsoKMzCwgXV9NnwiMQensMOuNaRkxT8MbQbvnXPTd+GL4KzthvISn0UgM2eAvyZjtIk8EnOvWHBufM0VuEndyN05BN53PHcVpOswpFp6a3shpduz6cT4iI8xUK8BOuTQV/1Vnugo+Aexr6DJN7FFFaf8f5omrl3wIURG+ZWbGP4vAr8p09N9O0m+qs9MjOF7Ltfewgnc2Wu3sN0ZgYGxWg33WaC7RdpabrTKfgFUJ6Xilbf2mapSWXP7k2nyeMqnrxGBfHsaumX6ZWGFLQu+oQpS79p7zCKLpx8xW0gatXtirvQwAVi+k8QNTkCbSsaurt7K8qzjKj/vTi7f40m9X3TbBO13QgzMnSbrEkgtYpFAZdfEu6DyIEqxvrdp0j78CdnfpnBSxjvJZpo42KqqiSfJokzc6bK2hyUKerNkPov/4H9Y0cepqoQKH+sls7ukFMSaXUjjUYltwhhbCOz4XqsoLvHctl1g1Vk6iTuwM8rgvU9pYkJmKUHRj1+jcDToa0MIW9gbE1frliK4HFn1XzKUBKII7ZVcp71FLR5zS9JTUbtF6srVqDf7uNBAITGI6/7tWZ9IwnHXfHWxVPodaqh9XfJ19rLnoPYKXxVIkmB37CYSLlkvvgUrwWryctBUOKdoIRkb7KvS6jjWL8aZT9vTwx6RUVlFCykfCe2pecbvrL+nV0vxuUcOnfM08xGaSR1JBzLRZjJhB8qZG4CFrQKQ6noRnm1FgREFvx6Wnc9ZHwW6jkZcH01ylZ4ZhXI78BO5S+XuHq5q9RseETqK1LSDrryqG7yqDrnLrbpPIhE71zjftw9f8O7/i6oJOnOWW5CGcurCcv8sylx+rPkzxpOp+nD9HKb+Ox66nMD25K15oMP6JQvLcYMDxp7zmLR6xeq11k49OxQqreUi17k3mRyGOCUr7y4HwHka1LCIZWA7I8vOYTxY98v3V6Ov7rg20PGcXszLRK7kTEJJf/Jq7cy1BE6qdth6Iu9xreq3e9RBC8w71DGt8CSnv65jAJobhAgKhGht6kkwGBTWSzeJL8mCfrXNVjdXtZnTtLiPHIKJhR47Lxa8pgNcSsun5UvxCRGvRZugSEPhMzvdxoE1BX0Y9oOa66piy+fsYJQNeNRasMEZpKnvD4pUVdS2G242/Hs2eacWZ7ywRaqzEh4ywmJCeONUkO6kxFgJQY0F5UHF5tFdL6hWvvBfHWBbX3bK9123XRTP5PTTfNQV7ZxGVOFxZ353FgjcQL7ToINDCyiSWF4fRvJJ2fgcQcdYoIRk1ld+sWBA3Ek4wkKn5vGp4Qg3k2AK0R0kF5tjcMXA+mootU30Tet1XY03UUwj92OUerdtXeIjGZHM+7FOXX7lUzAv2nF7N5pA/P6azvJIlNvPyT+pDvLnolbuABN4JmwLa+Qnxq2b2PMA1MM0mMRloJmwcuGExSkf96cs8slJRa8zgycALZbOLBKT/PSlhkUIpuB4+HBH14vIgxfgSDABS+Uf8lvm1ISWTcySBUj1jJzjZOfEAqLDyfXC+oCiNDJoIJlPUrL5ahNBK24/2Hzut75MO4zLcB6qtJATxjfYtcA3olAcU5b0hjurUfmBjWcPJM9Cskn/qNN9WxWdel33PaQcBLVr0PgZSdlFcaE+PdZS2F5bPKnXucAS+wazUb8vsv+jaVdTwqwj8EymR7TyaNvT0scNKqQjtKFCItyh09iioxfSuYmAcfXo65upHm8y8LooXKNWuHi+Og5XfrNtOISkqKLwXY+SDOQC8Y82H5v4tdpbB7A7zQ9tJYdgHkyLHoVfXdh3oNkLSaeETHw6GNSNB+NkiSOSZDJr4RMjdbInWsI3d1B9TDMPDVrIQb/iRV5H5WtluRR/pfCQAxbSr1YaGjQb3htuZsjaa27UD/vfl8bU3YMGGaSlhRR3+hifykpYXC575KcQ7JB2cagQkS80HjBacbnk6UTGl91lUnXw5pMK89k44ssNqYuj0JunFB1GIySuQNTGrBKM5YoCSPatxAwEQvGeLm5Ytu7esQd5erYQix6I0ghi1dRALL6YtkodPyZjDxde2V/DHdZNtVLY3tHgf41Zn96hDSxKSaQcoNJNh/oB2BNjUruU9yoCk5TihYweknT5NvkckvdpqnVkpqiG2kPnt/fC/JGSHdKGV5UJ83auG/d33XiDtHJPzzm6WVilm91kDWq167BdG3Yh2lrHmbTNRygHP+hFsszbRIoFcBDqaMX5MHlkr/KwMU6cEFYV+eWkMHfFjJ5aXAJWioRndIqEA0nJf29jGAZx7Z+lBJS6rvCyE00qZglOsUdMY6knuWkMLr1LEoSJCo53O/8ezrTaOrkhDHqlU8Imy1Y/Kzo9yAoJgMTerCkccLMAHofT2/DDGPKajq+bBVQ2RyBCRy4CJT21glSc7+8ENOZKwV9ppCsc6a+/0IsZHZ8yST7p+9ml0vSFMVSRln40YtddRXmSHgc+qr4YjKefU/eTnSi/kmO3AmfMSaWTzK4Usq/yPD1fwOQ7T50xhoQXun/grkF6aWLKLh5KJg7ZLeOV71+OqFUBmFEsXb9pQ1tKcTYokakFAUeel4XWJ2LL6VxuxIHp1jfwcdTItUS8danSZaynMuGdxs3yTICnPHECTx2p2aopDQOSa42GvKs5k+dLVL0BHQofzd+jexJ1YKS3KaPwro3VEE8hpx2DRBy2W4JUS97YqgwTRzYE5iQFLyuGgmpGYukoSvOgdqrvHHvgIY+DDWO3f2+jFziBupJ85dwwkiqeYRyqs+vcG65htt/lQX/Cdf8qmfdYyhnKACdJa2LExNp4x9uTJOr/QTbnmwHtm1ozuIq7uK9LgBK7bXqPZ0bf6igC40LLJHU3fiOIJ5TyjEFbTJELOiOdFug79RpmqkmIGGSOUraKDtMsRNguafNijSbylyzyC4K4sdLop6ARhxhzBT6T41cKuwgiFaOeQ8wMAVQcFuqfkBBaOpSESLIx5aKrpWL68AAGVSscz8sE9pX8kmR/l1H6eQTPRJXbAQvzcmYCFctRjdP+X8IE6ozyETdknMUU0qp8eiDn1IZ/3Gyvv8vCLHc5KULXQJ1rVQNM3WGbRtuzTbv4MdfhQP2M8OYboQ8cMpr869tYOU6q9Yuj4M4dx8QnTcuoTV5AZrEyLbdtyACBtSRSWCpqGmYTCrtKLFEndKaEuImzE5P0OUvCE93EufxPxfMKc9lLgNagE2rn65By2AbhOvmjOpIv6cV9d7wiTdvUU12xh5tFOkFbwQ6YsckYPs9BhzVzOU8EyJIg5CW0AztpMRrfZVeOv93jLc9rQOom0V5GVTaXUa7F5k6hnc8el0+3pVUFZC8KvWj1YBRdnTVdS56Yjbfe9pTeDD80f3npQAE1TtY2s16AFLydNrGSR6RwL567jZ1xtrfSy6aM5HUnho5KWAH8N55NQEtp4SFEgTFUlRADYU6zh0zACQF1UyFJgGX2poOUOSfVoXcRbF7tPw/+WGZV8d1k0aBpNv1k0/YFIPcGAf8ez3tBZk47G6Avdnujde8kFWNf72qHh+ZJ1yxxsiOC/1N6LnaBzIrY61FICx9FmChpfUl9IRaHo8jA5fz7kZbztPQZc9Ea4Ehvju1NpAOC9aqbGOLCY1zpgfaeM6odL0DnHAJoG4DD7+yCRLCcpNHWc+1VfA0otp9d3yVm5/shLxNILtZfQXevrP6krzYZS+2Ub/iTpmOMB519MAFcL0ZDqatppC+A9t4aYAspY+mQgicGHOjyFcyHWGeplR5xY2wOk7Fx7R7G2r97UKra0pNCKKf9kenYQKea5nX681bxBKM4wMU9PVsrUS81Yf+DRwd8yJv6XNizpu2YFpAlZs6sK2/djWOpjXf/YlH+E5ixLWpTVNqCJawlptzlB0rIib/8xWbKuhHgcfBfJLcKyfyABtFt3VpaF87KOjEvlQsWpyJm4qRkGnmV6xO2LARoh+yypgoFi3VOX/6QaUhrxvEMy5u46zi3nd0foMEuP3tjPSjEcA30wo+2uCmHOtL9eITYoohZ3z6BgFgxQ0ogE17I7R3ehSjJJiR6MvtXlY\\u003d\",\"number\":\"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\\u003d\",\"version\":\"7.7.3\"}"}},"response":{"status":200,"statusText":"OK","httpVersion":"HTTP/1.1","cookies":[],"headers":[{"name":"server","value":"nginx"},{"name":"date","value":"Mon, 11 Aug 2025 19:57:11 GMT"},{"name":"content-type","value":"application/json"},{"name":"transfer-encoding","value":"chunked"},{"name":"connection","value":"keep-alive"},{"name":"vary","value":"Accept-Encoding"},{"name":"x-powered-by","value":"Fat-Free Framework"},{"name":"x-frame-options","value":"SAMEORIGIN"},{"name":"x-xss-protection","value":"1; mode=block"},{"name":"x-content-type-options","value":"nosniff"},{"name":"pragma","value":"no-cache"},{"name":"cache-control","value":"no-cache, no-store, must-revalidate"},{"name":"expires","value":"Thu, 01 Jan 1970 00:00:00 +0000"},{"name":"content-encoding","value":"gzip"}],"content":{"mimeType":"application/json","size":163,"text":"{\n    \"status\": true,\n    \"input\": \"+9647802748863\",\n    \"result\": [\n        {\n            \"name\": \"ابو امير\",\n            \"last_name\": \"\"\n        }\n    ]\n}"},"redirectURL":"","headersSize":-1,"bodySize":124},"cache":{},"timings":{"blocked":-1,"dns":-1,"connect":-1,"ssl":-1,"send":4.2450999999418855,"wait":10039.604799999855,"receive":1.1189000001177192}}],"_tlsErrors":[]}}
+--
+
+
+----
+
+توصلنا التشفير يتم عن طريق مكتبة نيتف libnative-lib.so
+موجودة بالتطبيق بعد ما فكيتة ب ida free 
+ولكيت بي هيج اشياء وفنكشنات :
+; Attributes: bp-based frame
+public Java_com_hotcodes_numberbox_features_cryption_Encrypt_encrypt
+Java_com_hotcodes_numberbox_features_cryption_Encrypt_encrypt proc near
+var_98= qword ptr -98h
+var_90= byte ptr -90h
+var_8F= byte ptr -8Fh
+ptr= qword ptr -80h
+var_71= byte ptr -71h
+var_70= qword ptr -70h
+var_68= qword ptr -68h
+var_60= qword ptr -60h
+var_50= qword ptr -50h
+var_40= xmmword ptr -40h
+var_30= qword ptr -30h
+; unwind { // gxx_personality_v0
+push    rbp
+mov     rbp, rsp
+push    r15
+push    r14
+push    r13
+push    r12
+push    rbx
+sub     rsp, 78h
+mov     r14, rdx
+mov     r15, rdi
+mov     rax, fs:28h
+mov     [rbp+var_30], rax
+call    _pathHelperGetPath
+test    rax, rax
+jz      loc_289A4
+--
+mov     rbx, rax
+mov     [rbp+var_68], 0
+mov     [rbp+var_70], 0
+lea     rsi, [rbp+var_68]
+mov     rdi, rax
+call    _unzipHelperGetCertificateDetails
+test    rax, rax
+jz      loc_2899C
+---
+loc_289C1:              ; ptr
+mov     rdi, r12
+call    _free
+mov     rdi, rbx        ; ptr
+call    _free
+call    _pkcs7HelperFree
+mov     rax, [r15]
+mov     rdi, r15
+mov     rsi, r14
+call    qword ptr [rax+520h]
+mov     [rbp+var_98], rsp
+movsxd  r13, eax
+movaps  xmm0, cs:xmmword_18DC0
+movaps  xmmword ptr [rbp+var_60], xmm0
+lea     r12, [r13+10h]
+and     r12, 0FFFFFFFFFFFFFFF0h
+mov     rbx, rsp
+sub     rbx, r12
+mov     rsp, rbx
+mov     rax, [r15]
+lea     rdx, [rbp+var_71]
+mov     rdi, r15
+mov     rsi, r14
+call    qword ptr [rax+548h]
+lea     rdx, [rbp+var_50] ; unsigned int64
+lea     r8, [rbp+var_60] ; unsigned int64
+mov     ecx, offset qword_20 ; unsigned int8 *
+mov     rdi, rax        ; this
+mov     rsi, r13        ; unsigned int8 *
+mov     r9, rbx         ; unsigned int8 (*)[16]
+push    1               ; unsigned int64
+push    r12             ; unsigned int8 *
+call    ZN7plusaes11encrypt_cbcEPKhmS1_mPA16_S0_Phmb ; plusaes::encrypt_cbc(uchar const,ulong,uchar const,ulong,uchar const(*)[16],uchar *,ulong,bool)
+add     rsp, 10h
+lea     rdi, [rbp+var_90] ; unsigned int8 *
+mov     rsi, rbx        ; unsigned int64
+mov     rdx, r12        ; bool
+xor     ecx, ecx
+call    Z13base64_encodePKhmb ; base64_encode(uchar const*,ulong,bool)
+test    [rbp+var_90], 1
+jz      short loc_28A64
+--
+وايضا اكو فنكشن اسمها
+يختلف 
+; QWORD plusaes::encryptcbc(plusaes *hidden this, const unsigned **int8 *, unsigned int64, const unsigned int8 , unsigned int64, const unsigned int8 ()[16], unsigned int8 *, unsigned int64, bool)
+public ZN7plusaes11encryptcbcEPKhmS1_mPA16_S0_Phmb ; weak
+ZN7plusaes11encryptcbcEPKhmS1_mPA16_S0_Phmb proc near
+var_7D= byte ptr -7Dh
+var_7C= dword ptr -7Ch
+var_78= qword ptr -78h
+var_70= qword ptr -70h
+var_68= xmmword ptr -68h
+ptr= qword ptr -50h
+var_48= qword ptr -48h
+var_38= qword ptr -38h
+arg_0= qword ptr  8
+arg_8= qword ptr  10h
+; unwind { // gxx_personality_v0
+push    rbp
+push    r15
+push    r14
+push    r13
+push    r12
+push    rbx
+sub     rsp, 58h
+mov     r14, r9
+mov     r12, r8
+mov     r13, rsi
+mov     rbp, rdi
+mov     bl, byte ptr [rsp+88h+arg_8]
+mov     rax, fs:28h
+mov     [rsp+88h+var_38], rax
+test    r13b, 0Fh
+jz      short loc_28B22
+--
+; int64 fastcall plusaes::detail::expand_key(plusaes::detail *hidden this, const unsigned **int8 *, int)
+public ZN7plusaes6detail10expandkeyEPKhi ; weak
+ZN7plusaes6detail10expandkeyEPKhi proc near
+n= qword ptr -48h
+var_40= qword ptr -40h
+var_38= qword ptr -38h
+; unwind { // gxx_personality_v0
+push    rbp
+push    r15
+push    r14
+push    r13
+push    r12
+push    rbx
+sub     rsp, 18h
+cmp     edx, 20h ; ' '
+ja      loc_2906A
+--
+; plusaes::detail::encrypt_state(std::vector<plusaes::detail::State> const&, unsigned char const*, unsigned char *)
+public ZN7plusaes6detail13encryptstateERKNSt6ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh ; weak
+ZN7plusaes6detail13encryptstateERKNSt6ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh proc near
+var_68= qword ptr -68h
+var_60= qword ptr -60h
+var_58= qword ptr -58h
+var_50= qword ptr -50h
+var_48= xmmword ptr -48h
+var_38= qword ptr -38h
+; unwind {
+push    rbp
+push    r15
+push    r14
+push    r13
+push    r12
+push    rbx
+sub     rsp, 38h
+mov     [rsp+68h+var_60], rdx
+mov     rax, fs:28h
+mov     [rsp+68h+var_38], rax
+movdqu  xmm1, xmmword ptr [rsi]
+mov     rcx, [rdi]
+mov     rax, [rdi+8]
+movdqu  xmm0, xmmword ptr [rcx]
+pxor    xmm0, xmm1
+mov     [rsp+68h+var_68], rax
+mov     [rsp+68h+var_50], rcx
+sub     rax, rcx
+sar     rax, 4
+add     rax, 0FFFFFFFFFFFFFFFFh
+mov     [rsp+68h+var_58], rax
+cmp     rax, 2
+jb      loc_2936B
+---
+; int64 fastcall base64_encode(const unsigned int8 *, unsigned int64, bool)
+public Z13base64encodePKhmb
+Z13base64encodePKhmb proc near
+var_3C= dword ptr -3Ch
+var_38= qword ptr -38h
+; unwind { // gxx_personality_v0
+push    rbp
+push    r15
+push    r14
+push    r13
+push    r12
+push    rbx
+sub     rsp, 18h
+mov     rbx, rdx
+lea     rax, [rdx+2]
+mov     rdx, 0AAAAAAAAAAAAAAABh
+mul     rdx
+mov     ebp, ecx
+lea     rax, [rdx+rdx]
+and     rax, 0FFFFFFFFFFFFFFFCh
+test    ecx, ecx
+mov     ecx, 2Eh ; '.'
+mov     r14d, 3Dh ; '='
+cmovnz  r14d, ecx
+mov     r15, rsi
+mov     r13, rdi
+xorps   xmm0, xmm0
+movups  xmmword ptr [rdi], xmm0
+mov     qword ptr [rdi+10h], 0
+;   try {
+mov     rsi, rax
+call    ZNSt6ndk112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE7reserveEm ; std::string::reserve(ulong)
+;   } // starts at 2A4A1
+test    rbx, rbx
+jz      loc_2A5D2
+---
+هاي جمعتهن من بداية اكثر من فنكشن
+بس كل وحدة ترا يطلعلي بال graph view 
+بيها هواي تشعبات 
+تفيدنا هاي لو هم معقدة ومزعجة
+
+-----
+اخر سكربت لفك التشفير جربناه :
+#!/usr/bin/env python3
+"""
+🔥 Fixed NumberBox Solution - Advanced Key Derivation
+"""
+
+import hashlib
+import zipfile
+import base64
+from Crypto.Cipher import AES
+from Crypto.Util.Padding import pad
+import os
+import struct
+
+class NumberBoxCrypto:
+    def __init__(self, apk_path=None):
+        # Static data من IDA
+        self.static_iv = bytes.fromhex("0F0E0D0C0B0A09080706050403020100")
+        self.static_data2 = bytes.fromhex("10000000100000001000000010")  # من 18DD0
+        
+        # Certificate
+        self.certificate = None
+        if apk_path and os.path.exists(apk_path):
+            self.certificate = self.extract_certificate(apk_path)
+        
+        print(f"🔒 Static IV: {self.static_iv.hex()}")
+        print(f"🔒 Static Data2: {self.static_data2.hex()}")
+    
+    def extract_certificate(self, apk_path):
+        """استخراج شهادة من APK"""
+        try:
+            with zipfile.ZipFile(apk_path, 'r') as apk:
+                cert_files = [f for f in apk.namelist() 
+                             if 'META-INF' in f and (f.endswith('.RSA') or f.endswith('.DSA'))]
+                
+                if cert_files:
+                    cert_data = apk.read(cert_files[0])
+                    print(f"✅ Certificate: {len(cert_data)} bytes, MD5: {hashlib.md5(cert_data).digest().hex()}")
+                    return cert_data
+                else:
+                    print("⚠️ No certificate found")
+                    return None
+        except Exception as e:
+            print(f"❌ Certificate error: {e}")
+            return None
+    
+    def advanced_key_derivation(self):
+        """استخراج مفاتيح متقدم بناءً على تحليل أعمق"""
+        
+        if not self.certificate:
+            print("❌ Need certificate for advanced derivation")
+            return []
+        
+        cert_data = self.certificate
+        print(f"🔍 Certificate analysis:")
+        print(f"   Size: {len(cert_data)} bytes")
+        print(f"   First 32 bytes: {cert_data[:32].hex()}")
+        print(f"   Last 32 bytes: {cert_data[-32:].hex()}")
+        
+        # تحليل Certificate structure
+        key_candidates = []
+        
+        # 1. مختلف hash algorithms للcertificate
+        hashes = {
+            'MD5': hashlib.md5(cert_data).digest(),
+            'SHA1': hashlib.sha1(cert_data).digest()[:16],
+            'SHA256': hashlib.sha256(cert_data).digest()[:16],
+            'SHA512': hashlib.sha512(cert_data).digest()[:16],
+        }
+        
+        for name, hash_val in hashes.items():
+            key_candidates.append((f"Cert_{name}", hash_val))
+        
+        # 2. Certificate chunks analysis
+        # أول 16 bytes من certificate
+        if len(cert_data) >= 16:
+            key_candidates.append(("Cert_First16", cert_data[:16]))
+        
+        # آخر 16 bytes من certificate
+        if len(cert_data) >= 16:
+            key_candidates.append(("Cert_Last16", cert_data[-16:]))
+        
+        # معدل 16 bytes من وسط certificate
+        if len(cert_data) >= 32:
+            mid_point = len(cert_data) // 2
+            key_candidates.append(("Cert_Mid16", cert_data[mid_point:mid_point+16]))
+        
+        # 3. Certificate + Static data combinations
+        for hash_name, hash_val in hashes.items():
+            # XOR مع static IV
+            xor_iv = bytes(a ^ b for a, b in zip(hash_val, self.static_iv))
+            key_candidates.append((f"Cert_{hash_name}_XOR_IV", xor_iv))
+            
+            # XOR مع static data2 (padded to 16)
+            static2_padded = (self.static_data2 * 2)[:16]  # pad to 16 bytes
+            xor_data2 = bytes(a ^ b for a, b in zip(hash_val, static2_padded))
+            key_candidates.append((f"Cert_{hash_name}_XOR_Data2", xor_data2))
+        
+        # 4. Certificate signature analysis
+        # البحث عن signature data داخل certificate
+        signature_candidates = self.extract_signature_data(cert_data)
+        for i, sig_data in enumerate(signature_candidates):
+            key_candidates.append((f"Signature_{i}", sig_data))
+        
+        return key_candidates
+    
+    def extract_signature_data(self, cert_data):
+        """استخراج signature data من certificate"""
+        signatures = []
+        
+        # البحث عن patterns معروفة في PKCS#7/X.509
+        # RSA signature تبدأ عادة بـ 00 01 FF...
+        for i in range(len(cert_data) - 16):
+            if cert_data[i:i+2] == b'\x00\x01':
+                # محتمل RSA signature
+                sig_data = cert_data[i+2:i+18]  # أخذ 16 bytes
+                if len(sig_data) == 16:
+                    signatures.append(sig_data)
+            
+            # البحث عن ASN.1 structures
+            if cert_data[i] == 0x30:  # ASN.1 SEQUENCE
+                try:
+                    length = cert_data[i+1]
+                    if length < 0x80 and i+2+length <= len(cert_data):
+                        asn1_data = cert_data[i+2:i+2+min(16, length)]
+                        if len(asn1_data) == 16:
+                            signatures.append(asn1_data)
+                except:
+                    pass
+        
+        return signatures[:5]  # أول 5 candidates
+    
+    def test_different_modes(self, key, plaintext):
+        """اختبار أنماط تشفير مختلفة"""
+        
+        if isinstance(plaintext, str):
+            plaintext_bytes = plaintext.encode('utf-8')
+        else:
+            plaintext_bytes = plaintext
+        
+        test_results = []
+        
+        # 1. مختلف IVs
+        iv_candidates = [
+            ("Static_IV", self.static_iv),
+            ("Zero_IV", b'\x00' * 16),
+            ("Key_as_IV", key),
+            ("Reverse_IV", self.static_iv[::-1]),
+        ]
+        
+        # 2. مختلف padding methods
+        padding_methods = [
+            ("PKCS7", lambda data: pad(data, 16)),
+            ("Zero_Pad", lambda data: data + b'\x00' * (16 - len(data) % 16) if len(data) % 16 != 0 else data),
+            ("Custom_Pad", lambda data: data + bytes([16 - len(data) % 16] * (16 - len(data) % 16)) if len(data) % 16 != 0 else data + b'\x10' * 16),
+        ]
+        
+        for iv_name, iv in iv_candidates:
+            for pad_name, pad_func in padding_methods:
+                try:
+                    padded = pad_func(plaintext_bytes)
+                    cipher = AES.new(key, AES.MODE_CBC, iv)
+                    encrypted = cipher.encrypt(padded)
+                    b64_result = base64.b64encode(encrypted).decode('ascii')
+                    
+                    test_results.append({
+                        'iv_method': iv_name,
+                        'padding': pad_name,
+                        'result': b64_result
+                    })
+                    
+                except Exception as e:
+                    continue
+        
+        return test_results
+    
+    def comprehensive_test(self):
+        """اختبار شامل مع جميع الاحتمالات"""
+        
+        if not self.certificate:
+            print("❌ Need certificate for comprehensive test")
+            return False
+        
+        print("\n🔬 Comprehensive cryptanalysis...")
+        
+        # استخراج key candidates متقدم
+        key_candidates = self.advanced_key_derivation()
+        
+        print(f"📊 Testing {len(key_candidates)} key candidates...")
+        
+        # البيانات المعروفة للاختبار
+        known_tests = [
+            ("+964", "zn92OT0dWHbvH2UTB01naJHL6aqsusUleB"),
+            ("7809394930", "7K1MaGp9+EXKitK2U/8n4DDjbe/96r0aSK")
+        ]
+        
+        for key_name, key in key_candidates:
+            print(f"\n🔑 Testing: {key_name}")
+            print(f"   Key: {key.hex()}")
+            
+            for plaintext, expected_prefix in known_tests:
+                test_results = self.test_different_modes(key, plaintext)
+                
+                for result in test_results:
+                    if result['result'].startswith(expected_prefix):
+                        print(f"🎉 MATCH FOUND!")
+                        print(f"   Plaintext: {plaintext}")
+                        print(f"   Key: {key_name}")
+                        print(f"   IV: {result['iv_method']}")
+                        print(f"   Padding: {result['padding']}")
+                        print(f"   Result: {result['result'][:50]}...")
+                        
+                        # تخزين الحل الصحيح
+                        self.working_key = key
+                        self.working_iv_method = result['iv_method']
+                        self.working_padding = result['padding']
+                        
+                        return True
+        
+        print("❌ No working combination found")
+        return False
+    
+    def debug_certificate_structure(self):
+        """تحليل تفصيلي لstructure الشهادة"""
+        if not self.certificate:
+            print("❌ No certificate to analyze")
+            return
+        
+        cert_data = self.certificate
+        print(f"\n🔬 Certificate Structure Analysis:")
+        print(f"📊 Total size: {len(cert_data)} bytes")
+        
+        # Hex dump لأول 256 bytes
+        print(f"\n📋 First 256 bytes:")
+        for i in range(0, min(256, len(cert_data)), 16):
+            hex_part = cert_data[i:i+16].hex()
+            ascii_part = ''.join(chr(b) if 32 <= b <= 126 else '.' for b in cert_data[i:i+16])
+            print(f"   {i:04x}: {hex_part:<32} {ascii_part}")
+        
+        # البحث عن ASN.1 signatures
+        print(f"\n🔍 ASN.1 Structure Analysis:")
+        asn1_starts = []
+        for i in range(len(cert_data) - 1):
+            if cert_data[i] == 0x30 and cert_data[i+1] > 0:  # SEQUENCE
+                asn1_starts.append(i)
+        
+        print(f"   Found {len(asn1_starts)} potential ASN.1 sequences")
+        for i, pos in enumerate(asn1_starts[:10]):  # أول 10
+            length = cert_data[pos+1] if cert_data[pos+1] < 0x80 else 0
+            print(f"   {i+1}. Position {pos:04x}, length: {length}")
+
+def main():
+    print("🔥 Fixed NumberBox Advanced Solution")
+    print("=" * 50)
+    
+    # البحث عن APK file
+    apk_files = [f for f in os.listdir('.') if f.endswith('.apk')]
+    
+    if not apk_files:
+        print("❌ No APK file found in current directory")
+        return
+    
+    apk_path = apk_files[0]
+    print(f"📱 Using APK: {apk_path}")
+    
+    crypto = NumberBoxCrypto(apk_path)
+    
+    # تحليل تفصيلي للشهادة
+    crypto.debug_certificate_structure()
+    
+    # اختبار شامل
+    success = crypto.comprehensive_test()
+    
+    if success:
+        print(f"\n🎉 SUCCESS! Algorithm reverse engineered!")
+    else:
+        print(f"\n🤔 Need deeper analysis...")
+        print("💡 Consider:")
+        print("   1. Different certificate parsing")
+        print("   2. Hardware-specific key derivation")
+        print("   3. Time-based or session-based keys")
+
+if __name__ == "__main__":
+    main()
+
+-----
+وهاي نتيجتة
+(venv) PS D:\trud> python numberbox_complete_solution.py
+🔥 Fixed NumberBox Advanced Solution
+==================================================
+📱 Using APK: NumberBox.apk
+✅ Certificate: 2180 bytes, MD5: 88f15052cf10128e48e2aed1c4616c33
+🔒 Static IV: 0f0e0d0c0b0a09080706050403020100
+🔒 Static Data2: 10000000100000001000000010
+
+🔬 Certificate Structure Analysis:
+📊 Total size: 2180 bytes
+
+📋 First 256 bytes:
+   0000: 3082088006092a864886f70d010702a0 0.....*.H.......
+   0010: 8208713082086d020101310f300d0609 ..q0..m...1.0...
+   0020: 6086480165030402010500300b06092a `.H.e......0...*
+   0030: 864886f70d010701a082058c30820588 .H..........0...
+   0040: 30820370a003020102021451e7752d99 0..p.......Q.u-.
+   0050: 77c46ae61f6460fc4f65a85a6c6b1430 w.j..d`.Oe.Zlk.0
+   0060: 0d06092a864886f70d01010b05003074 ...*.H........0t
+   0070: 310b3009060355040613025553311330 1.0...U....US1.0
+   0080: 110603550408130a43616c69666f726e ...U....Californ
+   0090: 6961311630140603550407130d4d6f75 ia1.0...U....Mou
+   00a0: 6e7461696e2056696577311430120603 ntain View1.0...
+   00b0: 55040a130b476f6f676c6520496e632e U....Google Inc.
+   00c0: 3110300e060355040b1307416e64726f 1.0...U....Andro
+   00d0: 69643110300e06035504031307416e64 id1.0...U....And
+   00e0: 726f69643020170d3233303231303133 roid0 ..23021013
+   00f0: 303532365a180f323035333032313031 0526Z..205302101
+
+🔍 ASN.1 Structure Analysis:
+   Found 57 potential ASN.1 sequences
+   1. Position 0000, length: 0
+   2. Position 0013, length: 0
+   3. Position 001c, length: 13
+   4. Position 002b, length: 11
+   5. Position 003c, length: 0
+   6. Position 0040, length: 0
+   7. Position 005f, length: 13
+   8. Position 006e, length: 116
+   9. Position 0072, length: 9
+   10. Position 007f, length: 17
+
+🔬 Comprehensive cryptanalysis...
+🔍 Certificate analysis:
+   Size: 2180 bytes
+   First 32 bytes: 3082088006092a864886f70d010702a08208713082086d020101310f300d0609
+   Last 32 bytes: a494e66cd78a5f632cd2529300093fdea5b38796a299d8fd821182a08deb3405
+📊 Testing 20 key candidates...
+
+🔑 Testing: Cert_MD5
+   Key: 88f15052cf10128e48e2aed1c4616c33
+
+🔑 Testing: Cert_SHA1
+   Key: 422e93c6c693f818e042c69cfa182055
+
+🔑 Testing: Cert_SHA256
+   Key: 2f0aec9ab53fba46fd292ca3b91be295
+
+🔑 Testing: Cert_SHA512
+   Key: fe5fcf9deee0ce4ff769e101cc4769aa
+
+🔑 Testing: Cert_First16
+   Key: 3082088006092a864886f70d010702a0
+
+🔑 Testing: Cert_Last16
+   Key: a5b38796a299d8fd821182a08deb3405
+
+🔑 Testing: Cert_Mid16
+   Key: 28ea51fde529e4818d08698679f0f1d2
+
+🔑 Testing: Cert_MD5_XOR_IV
+   Key: 87ff5d5ec41a1b864fe4abd5c7636d33
+
+🔑 Testing: Cert_MD5_XOR_Data2
+   Key: 98f15052df10128e58e2aed1d4716c33
+
+🔑 Testing: Cert_SHA1_XOR_IV
+   Key: 4d209ecacd99f110e744c398f91a2155
+
+🔑 Testing: Cert_SHA1_XOR_Data2
+   Key: 522e93c6d693f818f042c69cea082055
+
+🔑 Testing: Cert_SHA256_XOR_IV
+   Key: 2004e196be35b34efa2f29a7ba19e395
+
+🔑 Testing: Cert_SHA256_XOR_Data2
+   Key: 3f0aec9aa53fba46ed292ca3a90be295
+
+🔑 Testing: Cert_SHA512_XOR_IV
+   Key: f151c291e5eac747f06fe405cf4568aa
+
+🔑 Testing: Cert_SHA512_XOR_Data2
+   Key: ee5fcf9dfee0ce4fe769e101dc5769aa
+
+🔑 Testing: Signature_0
+   Key: 310b3009060355040613025553311330
+
+🔑 Testing: Signature_1
+   Key: 0603550408130a43616c69666f726e69
+
+🔑 Testing: Signature_2
+   Key: 0603550407130d4d6f756e7461696e20
+
+🔑 Testing: Signature_3
+   Key: 060355040a130b476f6f676c6520496e
+
+🔑 Testing: Signature_4
+   Key: 170d3233303231303133303532365a18
+❌ No working combination found
+
+🤔 Need deeper analysis...
+💡 Consider:
+   1. Different certificate parsing
+   2. Hardware-specific key derivation
+   3. Time-based or session-based keys
+(venv) PS D:\trud>
+-----
+اخر سكربت فريدا جربناه :
+/*
+🔥 Fixed Frida Solution - Corrected Memory Addresses
+*/
+
+console.log("🔥 Fixed Dynamic Analysis Starting...");
+
+Java.perform(function () {
+  console.log("🎯 Setting up corrected hooks...");
+
+  try {
+    globalThis.encryptionData = [];
+
+    // Hook Java encrypt function
+    var EncryptClass = Java.use(
+      "com.hotcodes.numberbox.features.cryption.Encrypt"
+    );
+
+    EncryptClass.encrypt.overload(
+      "java.lang.String",
+      "android.content.Context"
+    ).implementation = function (input, context) {
+      console.log("\n🚨 [ENCRYPT CALLED]");
+      console.log("📝 Input: " + input);
+
+      var sessionId = Date.now();
+
+      // استخراج العنوان الحقيقي للnative module
+      var nativeModule = Process.findModuleByName("libnative-lib.so");
+      if (nativeModule) {
+        console.log("📍 Native module base: " + nativeModule.base);
+
+        // استخراج Static data بالعناوين المُصححة
+        extractStaticDataCorrected(nativeModule, sessionId);
+
+        // Hook جميع exported functions
+        hookAllExportedFunctions(nativeModule, sessionId);
+      }
+
+      // استدعاء الدالة الأصلية
+      var result = this.encrypt(input, context);
+
+      console.log("📝 Result length: " + result.length);
+      console.log("📝 First 100 chars: " + result.substring(0, 100));
+
+      // حفظ البيانات
+      globalThis.encryptionData.push({
+        sessionId: sessionId,
+        input: input,
+        output: result,
+        timestamp: sessionId,
+      });
+
+      return result;
+    };
+
+    console.log("✅ Fixed hooks installed!");
+  } catch (e) {
+    console.log("❌ Setup error: " + e);
+  }
+});
+
+function extractStaticDataCorrected(module, sessionId) {
+  console.log("📋 Extracting static data with corrected addresses...");
+
+  // العناوين الصحيحة = base + offset
+  var staticOffsets = [
+    0x18dc0,
+    0x18dd0,
+    0x18db0,
+    // إضافة عناوين أخرى للبحث
+    0x19000,
+    0x19100,
+    0x19200,
+    0x20000, // .data section
+    0x21000,
+  ];
+
+  staticOffsets.forEach(function (offset) {
+    try {
+      var address = module.base.add(offset);
+      var data = Memory.readByteArray(address, 64); // قراءة 64 bytes
+      var bytes = new Uint8Array(data);
+
+      // عرض البيانات
+      var hexData = Array.from(bytes.slice(0, 32))
+        .map((b) => b.toString(16).padStart(2, "0"))
+        .join("");
+
+      console.log("📍 Data at 0x" + offset.toString(16) + ": " + hexData);
+
+      // البحث عن patterns مميزة
+      if (looksLikeStaticIV(bytes)) {
+        console.log("🎯 Potential IV found at 0x" + offset.toString(16));
+
+        globalThis.foundStaticData = {
+          sessionId: sessionId,
+          offset: offset,
+          address: address.toString(),
+          data: Array.from(bytes),
+          hex: hexData,
+          type: "potential_iv",
+        };
+      }
+    } catch (e) {
+      // تخطي العناوين غير القابلة للقراءة
+      console.log("⚠️ Cannot read 0x" + offset.toString(16) + ": " + e.message);
+    }
+  });
+}
+
+function looksLikeStaticIV(bytes) {
+  // فحص إذا كانت البيانات تشبه Static IV من IDA
+  // Pattern: 0F0E0D0C0B0A09080706050403020100
+  var expectedPattern = [
+    0x0f, 0x0e, 0x0d, 0x0c, 0x0b, 0x0a, 0x09, 0x08, 0x07, 0x06, 0x05, 0x04,
+    0x03, 0x02, 0x01, 0x00,
+  ];
+
+  if (bytes.length < 16) return false;
+
+  for (var i = 0; i < 16; i++) {
+    if (bytes[i] === expectedPattern[i]) {
+      if (i === 15) return true; // وُجد الpattern كاملاً
+    } else {
+      break;
+    }
+  }
+
+  return false;
+}
+
+function hookAllExportedFunctions(module, sessionId) {
+  console.log("🪝 Hooking all exported functions...");
+
+  try {
+    // الحصول على جميع exported functions
+    var exports = module.enumerateExports();
+
+    console.log("📊 Found " + exports.length + " exported functions");
+
+    exports.forEach(function (exp) {
+      var funcName = exp.name;
+
+      // فلترة الدوال المهمة
+      if (
+        funcName.includes("encrypt") ||
+        funcName.includes("aes") ||
+        funcName.includes("crypto") ||
+        funcName.includes("Java_com_hotcodes_numberbox")
+      ) {
+        console.log("🎯 Hooking: " + funcName);
+
+        try {
+          Interceptor.attach(exp.address, {
+            onEnter: function (args) {
+              console.log("\n🔥 [NATIVE CALL] " + funcName);
+              console.log("📍 Address: " + exp.address);
+
+              // تسجيل arguments
+              for (var i = 0; i < 8; i++) {
+                try {
+                  var arg = args[i];
+                  if (arg && !arg.isNull()) {
+                    // محاولة قراءة memory من argument
+                    try {
+                      var argData = Memory.readByteArray(arg, 64);
+                      var argBytes = new Uint8Array(argData);
+
+                      var argHex = Array.from(argBytes.slice(0, 32))
+                        .map((b) => b.toString(16).padStart(2, "0"))
+                        .join("");
+
+                      console.log("  📋 Arg" + i + " (" + arg + "): " + argHex);
+
+                      // فحص إذا كان argument يحتوي على key محتمل
+                      if (looksLikeAESKey(argBytes.slice(0, 16))) {
+                        var keyHex = Array.from(argBytes.slice(0, 16))
+                          .map((b) => b.toString(16).padStart(2, "0"))
+                          .join("");
+
+                        console.log(
+                          "🗝️ POTENTIAL KEY in arg" + i + ": " + keyHex
+                        );
+
+                        // حفظ المفتاح المحتمل
+                        if (!globalThis.foundKeys) globalThis.foundKeys = [];
+                        globalThis.foundKeys.push({
+                          sessionId: sessionId,
+                          function: funcName,
+                          argument: i,
+                          key: keyHex,
+                          address: arg.toString(),
+                        });
+                      }
+                    } catch (e2) {
+                      // argument ليس pointer صالح
+                      console.log("  📋 Arg" + i + ": " + arg + " (value)");
+                    }
+                  }
+                } catch (e) {}
+              }
+            },
+
+            onLeave: function (retval) {
+              console.log("🏁 [" + funcName + " EXIT] Return: " + retval);
+            },
+          });
+        } catch (hookError) {
+          console.log(
+            "❌ Failed to hook " + funcName + ": " + hookError.message
+          );
+        }
+      }
+    });
+  } catch (e) {
+    console.log("❌ Export enumeration failed: " + e);
+  }
+}
+
+function looksLikeAESKey(bytes) {
+  if (bytes.length !== 16) return false;
+
+  var nonZeroCount = 0;
+  var uniqueBytes = new Set();
+
+  for (var i = 0; i < bytes.length; i++) {
+    if (bytes[i] !== 0) nonZeroCount++;
+    uniqueBytes.add(bytes[i]);
+  }
+
+  return nonZeroCount >= 6 && uniqueBytes.size >= 4;
+}
+
+// البحث عن symbols في native library
+function findSymbols() {
+  console.log("🔍 Searching for symbols...");
+
+  var nativeModule = Process.findModuleByName("libnative-lib.so");
+  if (!nativeModule) {
+    console.log("❌ Native module not found");
+    return;
+  }
+
+  try {
+    var symbols = nativeModule.enumerateSymbols();
+    console.log("📊 Found " + symbols.length + " symbols");
+
+    symbols.forEach(function (sym) {
+      if (
+        sym.name &&
+        (sym.name.includes("encrypt") ||
+          sym.name.includes("aes") ||
+          sym.name.includes("key"))
+      ) {
+        console.log("🎯 Symbol: " + sym.name + " at " + sym.address);
+      }
+    });
+  } catch (e) {
+    console.log("❌ Symbol enumeration failed: " + e);
+  }
+}
+
+// Export functions
+globalThis.showResults = function () {
+  console.log("\n📋 [ANALYSIS RESULTS]");
+
+  if (globalThis.encryptionData && globalThis.encryptionData.length > 0) {
+    console.log("🔐 Encryption sessions: " + globalThis.encryptionData.length);
+    globalThis.encryptionData.forEach(function (session, index) {
+      console.log(
+        "  " +
+          (index + 1) +
+          ". " +
+          session.input +
+          " -> " +
+          session.output.substring(0, 50) +
+          "..."
+      );
+    });
+  }
+
+  if (globalThis.foundKeys && globalThis.foundKeys.length > 0) {
+    console.log("\n🗝️ Found potential keys: " + globalThis.foundKeys.length);
+    globalThis.foundKeys.forEach(function (keyInfo, index) {
+      console.log(
+        "  " +
+          (index + 1) +
+          ". " +
+          keyInfo.function +
+          " arg" +
+          keyInfo.argument +
+          ": " +
+          keyInfo.key
+      );
+    });
+  } else {
+    console.log("\n❌ No keys found in function calls");
+  }
+
+  if (globalThis.foundStaticData) {
+    console.log("\n📍 Static data found:");
+    console.log("  Address: " + globalThis.foundStaticData.address);
+    console.log("  Data: " + globalThis.foundStaticData.hex);
+  } else {
+    console.log("\n❌ No static IV pattern found");
+  }
+
+  return {
+    sessions: globalThis.encryptionData || [],
+    keys: globalThis.foundKeys || [],
+    staticData: globalThis.foundStaticData || null,
+  };
+};
+
+globalThis.searchSymbols = function () {
+  findSymbols();
+};
+
+console.log("✅ Fixed analysis ready!");
+console.log("📱 Usage:");
+console.log("1. Search for numbers in the app");
+console.log("2. Call showResults() to see findings");
+console.log("3. Call searchSymbols() to see available functions");
+--
+وهاي نتيجتة :
+ 📋 Arg1: 0x74dd7f6d20 (value)
+  📋 Arg2: 0x74dd7f7c00 (value)
+  📋 Arg3: 0x2276f762 (value)
+  📋 Arg4: 0xb9 (value)
+  📋 Arg5: 0xe1 (value)
+  📋 Arg6: 0x4d (value)
+  📋 Arg7: 0x74 (value)
+
+🔥 [NATIVE CALL] _ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh
+📍 Address: 0x74f82c3f3c
+  📋 Arg0: 0x74dd7f6d08 (value)
+  📋 Arg1: 0x74dd7f6d20 (value)
+  📋 Arg2: 0x74dd7f7c00 (value)
+  📋 Arg3: 0x2276f762 (value)
+  📋 Arg4: 0xb9 (value)
+  📋 Arg5: 0xe1 (value)
+  📋 Arg6: 0x4d (value)
+  📋 Arg7: 0x74 (value)
+🏁 [_ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh EXIT] Return: 0x85
+🏁 [_ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh EXIT] Return: 0x85
+
+🔥 [NATIVE CALL] _ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh
+📍 Address: 0x74f82c3f3c
+  📋 Arg0: 0x74dd7f6d08 (value)
+  📋 Arg1: 0x74dd7f6d20 (value)
+  📋 Arg2: 0x74dd7f7c10 (value)
+  📋 Arg3: 0x2276f762 (value)
+  📋 Arg4: 0x74 (value)
+  📋 Arg5: 0xfd (value)
+  📋 Arg6: 0x90 (value)
+  📋 Arg7: 0x28 (value)
+
+🔥 [NATIVE CALL] _ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh
+📍 Address: 0x74f82c3f3c
+  📋 Arg0: 0x74dd7f6d08 (value)
+  📋 Arg1: 0x74dd7f6d20 (value)
+  📋 Arg2: 0x74dd7f7c10 (value)
+  📋 Arg3: 0x2276f762 (value)
+  📋 Arg4: 0x74 (value)
+  📋 Arg5: 0xfd (value)
+  📋 Arg6: 0x90 (value)
+  📋 Arg7: 0x28 (value)
+🏁 [_ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh EXIT] Return: 0x53
+🏁 [_ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh EXIT] Return: 0x53
+
+🔥 [NATIVE CALL] _ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh
+📍 Address: 0x74f82c3f3c
+  📋 Arg0: 0x74dd7f6d08 (value)
+  📋 Arg1: 0x74dd7f6d20 (value)
+  📋 Arg2: 0x74dd7f7c20 (value)
+  📋 Arg3: 0x2276f762 (value)
+  📋 Arg4: 0x95 (value)
+  📋 Arg5: 0x9d (value)
+  📋 Arg6: 0x5f (value)
+  📋 Arg7: 0x1e (value)
+
+🔥 [NATIVE CALL] _ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh
+📍 Address: 0x74f82c3f3c
+  📋 Arg0: 0x74dd7f6d08 (value)
+  📋 Arg1: 0x74dd7f6d20 (value)
+  📋 Arg2: 0x74dd7f7c20 (value)
+  📋 Arg3: 0x2276f762 (value)
+  📋 Arg4: 0x95 (value)
+  📋 Arg5: 0x9d (value)
+  📋 Arg6: 0x5f (value)
+  📋 Arg7: 0x1e (value)
+🏁 [_ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh EXIT] Return: 0xa3
+🏁 [_ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh EXIT] Return: 0xa3
+
+🔥 [NATIVE CALL] _ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh
+📍 Address: 0x74f82c3f3c
+  📋 Arg0: 0x74dd7f6d08 (value)
+  📋 Arg1: 0x74dd7f6d20 (value)
+  📋 Arg2: 0x74dd7f7c30 (value)
+  📋 Arg3: 0x2276f762 (value)
+  📋 Arg4: 0xf2 (value)
+  📋 Arg5: 0x82 (value)
+  📋 Arg6: 0xc1 (value)
+  📋 Arg7: 0x37 (value)
+
+🔥 [NATIVE CALL] _ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh
+📍 Address: 0x74f82c3f3c
+  📋 Arg0: 0x74dd7f6d08 (value)
+  📋 Arg1: 0x74dd7f6d20 (value)
+  📋 Arg2: 0x74dd7f7c30 (value)
+  📋 Arg3: 0x2276f762 (value)
+  📋 Arg4: 0xf2 (value)
+  📋 Arg5: 0x82 (value)
+  📋 Arg6: 0xc1 (value)
+  📋 Arg7: 0x37 (value)
+🏁 [_ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh EXIT] Return: 0xff
+🏁 [_ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh EXIT] Return: 0xff
+
+🔥 [NATIVE CALL] _ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh
+📍 Address: 0x74f82c3f3c
+  📋 Arg0: 0x74dd7f6d08 (value)
+  📋 Arg1: 0x74dd7f6d20 (value)
+  📋 Arg2: 0x74dd7f7c40 (value)
+  📋 Arg3: 0x2276f762 (value)
+  📋 Arg4: 0x20 (value)
+  📋 Arg5: 0xd2 (value)
+  📋 Arg6: 0x30 (value)
+  📋 Arg7: 0x84 (value)
+
+🔥 [NATIVE CALL] _ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh
+📍 Address: 0x74f82c3f3c
+  📋 Arg0: 0x74dd7f6d08 (value)
+  📋 Arg1: 0x74dd7f6d20 (value)
+  📋 Arg2: 0x74dd7f7c40 (value)
+  📋 Arg3: 0x2276f762 (value)
+  📋 Arg4: 0x20 (value)
+  📋 Arg5: 0xd2 (value)
+  📋 Arg6: 0x30 (value)
+  📋 Arg7: 0x84 (value)
+🏁 [_ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh EXIT] Return: 0x38
+🏁 [_ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh EXIT] Return: 0x38
+
+🔥 [NATIVE CALL] _ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh
+📍 Address: 0x74f82c3f3c
+  📋 Arg0: 0x74dd7f6d08 (value)
+  📋 Arg1: 0x74dd7f6d20 (value)
+  📋 Arg2: 0x74dd7f7c50 (value)
+  📋 Arg3: 0x2276f762 (value)
+  📋 Arg4: 0x60 (value)
+  📋 Arg5: 0xb8 (value)
+  📋 Arg6: 0x2a (value)
+  📋 Arg7: 0xd1 (value)
+
+🔥 [NATIVE CALL] _ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh
+📍 Address: 0x74f82c3f3c
+  📋 Arg0: 0x74dd7f6d08 (value)
+  📋 Arg1: 0x74dd7f6d20 (value)
+  📋 Arg2: 0x74dd7f7c50 (value)
+  📋 Arg3: 0x2276f762 (value)
+  📋 Arg4: 0x60 (value)
+  📋 Arg5: 0xb8 (value)
+  📋 Arg6: 0x2a (value)
+  📋 Arg7: 0xd1 (value)
+🏁 [_ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh EXIT] Return: 0x86
+🏁 [_ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh EXIT] Return: 0x86
+
+🔥 [NATIVE CALL] _ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh
+📍 Address: 0x74f82c3f3c
+  📋 Arg0: 0x74dd7f6d08 (value)
+  📋 Arg1: 0x74dd7f6d20 (value)
+  📋 Arg2: 0x74dd7f7c60 (value)
+  📋 Arg3: 0x2276f762 (value)
+  📋 Arg4: 0x4 (value)
+  📋 Arg5: 0x24 (value)
+  📋 Arg6: 0x7 (value)
+  📋 Arg7: 0x39 (value)
+
+🔥 [NATIVE CALL] _ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh
+📍 Address: 0x74f82c3f3c
+  📋 Arg0: 0x74dd7f6d08 (value)
+  📋 Arg1: 0x74dd7f6d20 (value)
+  📋 Arg2: 0x74dd7f7c60 (value)
+  📋 Arg3: 0x2276f762 (value)
+  📋 Arg4: 0x4 (value)
+  📋 Arg5: 0x24 (value)
+  📋 Arg6: 0x7 (value)
+  📋 Arg7: 0x39 (value)
+🏁 [_ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh EXIT] Return: 0xc3
+🏁 [_ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh EXIT] Return: 0xc3
+
+🔥 [NATIVE CALL] _ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh
+📍 Address: 0x74f82c3f3c
+  📋 Arg0: 0x74dd7f6d08 (value)
+  📋 Arg1: 0x74dd7f6d20 (value)
+  📋 Arg2: 0x74dd7f7c70 (value)
+  📋 Arg3: 0x2276f762 (value)
+  📋 Arg4: 0x42 (value)
+  📋 Arg5: 0x90 (value)
+  📋 Arg6: 0x73 (value)
+  📋 Arg7: 0x78 (value)
+
+🔥 [NATIVE CALL] _ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh
+📍 Address: 0x74f82c3f3c
+  📋 Arg0: 0x74dd7f6d08 (value)
+  📋 Arg1: 0x74dd7f6d20 (value)
+  📋 Arg2: 0x74dd7f7c70 (value)
+  📋 Arg3: 0x2276f762 (value)
+  📋 Arg4: 0x42 (value)
+  📋 Arg5: 0x90 (value)
+  📋 Arg6: 0x73 (value)
+  📋 Arg7: 0x78 (value)
+🏁 [_ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh EXIT] Return: 0xe
+🏁 [_ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh EXIT] Return: 0xe
+
+🔥 [NATIVE CALL] _ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh
+📍 Address: 0x74f82c3f3c
+  📋 Arg0: 0x74dd7f6d08 (value)
+  📋 Arg1: 0x74dd7f6d20 (value)
+  📋 Arg2: 0x74dd7f7c80 (value)
+  📋 Arg3: 0x2276f762 (value)
+  📋 Arg4: 0x9a (value)
+  📋 Arg5: 0x61 (value)
+  📋 Arg6: 0xad (value)
+  📋 Arg7: 0xdf (value)
+
+🔥 [NATIVE CALL] _ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh
+📍 Address: 0x74f82c3f3c
+  📋 Arg0: 0x74dd7f6d08 (value)
+  📋 Arg1: 0x74dd7f6d20 (value)
+  📋 Arg2: 0x74dd7f7c80 (value)
+  📋 Arg3: 0x2276f762 (value)
+  📋 Arg4: 0x9a (value)
+  📋 Arg5: 0x61 (value)
+  📋 Arg6: 0xad (value)
+  📋 Arg7: 0xdf (value)
+🏁 [_ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh EXIT] Return: 0xa1
+🏁 [_ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh EXIT] Return: 0xa1
+
+🔥 [NATIVE CALL] _ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh
+📍 Address: 0x74f82c3f3c
+  📋 Arg0: 0x74dd7f6d08 (value)
+  📋 Arg1: 0x74dd7f6d20 (value)
+  📋 Arg2: 0x74dd7f7c90 (value)
+  📋 Arg3: 0x2276f762 (value)
+  📋 Arg4: 0x17 (value)
+  📋 Arg5: 0x8b (value)
+  📋 Arg6: 0x10 (value)
+  📋 Arg7: 0xcc (value)
+
+🔥 [NATIVE CALL] _ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh
+📍 Address: 0x74f82c3f3c
+  📋 Arg0: 0x74dd7f6d08 (value)
+  📋 Arg1: 0x74dd7f6d20 (value)
+  📋 Arg2: 0x74dd7f7c90 (value)
+  📋 Arg3: 0x2276f762 (value)
+  📋 Arg4: 0x17 (value)
+  📋 Arg5: 0x8b (value)
+  📋 Arg6: 0x10 (value)
+  📋 Arg7: 0xcc (value)
+🏁 [_ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh EXIT] Return: 0x85
+🏁 [_ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh EXIT] Return: 0x85
+
+🔥 [NATIVE CALL] _ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh
+📍 Address: 0x74f82c3f3c
+  📋 Arg0: 0x74dd7f6d08 (value)
+  📋 Arg1: 0x74dd7f6d20 (value)
+  📋 Arg2: 0x74dd7f7ca0 (value)
+  📋 Arg3: 0x2276f762 (value)
+  📋 Arg4: 0x4f (value)
+  📋 Arg5: 0xa1 (value)
+  📋 Arg6: 0x6b (value)
+  📋 Arg7: 0x46 (value)
+
+🔥 [NATIVE CALL] _ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh
+📍 Address: 0x74f82c3f3c
+  📋 Arg0: 0x74dd7f6d08 (value)
+  📋 Arg1: 0x74dd7f6d20 (value)
+  📋 Arg2: 0x74dd7f7ca0 (value)
+  📋 Arg3: 0x2276f762 (value)
+  📋 Arg4: 0x4f (value)
+  📋 Arg5: 0xa1 (value)
+  📋 Arg6: 0x6b (value)
+  📋 Arg7: 0x46 (value)
+🏁 [_ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh EXIT] Return: 0x5b
+🏁 [_ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh EXIT] Return: 0x5b
+
+🔥 [NATIVE CALL] _ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh
+📍 Address: 0x74f82c3f3c
+  📋 Arg0: 0x74dd7f6d08 (value)
+  📋 Arg1: 0x74dd7f6d20 (value)
+  📋 Arg2: 0x74dd7f7cb0 (value)
+  📋 Arg3: 0x2276f762 (value)
+  📋 Arg4: 0xfa (value)
+  📋 Arg5: 0xad (value)
+  📋 Arg6: 0xb8 (value)
+  📋 Arg7: 0x50 (value)
+
+🔥 [NATIVE CALL] _ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh
+📍 Address: 0x74f82c3f3c
+  📋 Arg0: 0x74dd7f6d08 (value)
+  📋 Arg1: 0x74dd7f6d20 (value)
+  📋 Arg2: 0x74dd7f7cb0 (value)
+  📋 Arg3: 0x2276f762 (value)
+  📋 Arg4: 0xfa (value)
+  📋 Arg5: 0xad (value)
+  📋 Arg6: 0xb8 (value)
+  📋 Arg7: 0x50 (value)
+🏁 [_ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh EXIT] Return: 0x26
+🏁 [_ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh EXIT] Return: 0x26
+
+🔥 [NATIVE CALL] _ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh
+📍 Address: 0x74f82c3f3c
+  📋 Arg0: 0x74dd7f6d08 (value)
+  📋 Arg1: 0x74dd7f6d20 (value)
+  📋 Arg2: 0x74dd7f7cc0 (value)
+  📋 Arg3: 0x2276f762 (value)
+  📋 Arg4: 0x6 (value)
+  📋 Arg5: 0xbd (value)
+  📋 Arg6: 0x7d (value)
+  📋 Arg7: 0xa0 (value)
+
+🔥 [NATIVE CALL] _ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh
+📍 Address: 0x74f82c3f3c
+  📋 Arg0: 0x74dd7f6d08 (value)
+  📋 Arg1: 0x74dd7f6d20 (value)
+  📋 Arg2: 0x74dd7f7cc0 (value)
+  📋 Arg3: 0x2276f762 (value)
+  📋 Arg4: 0x6 (value)
+  📋 Arg5: 0xbd (value)
+  📋 Arg6: 0x7d (value)
+  📋 Arg7: 0xa0 (value)
+🏁 [_ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh EXIT] Return: 0xf
+🏁 [_ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh EXIT] Return: 0xf
+
+🔥 [NATIVE CALL] _ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh
+📍 Address: 0x74f82c3f3c
+  📋 Arg0: 0x74dd7f6d08 (value)
+  📋 Arg1: 0x74dd7f6d20 (value)
+  📋 Arg2: 0x74dd7f7cd0 (value)
+  📋 Arg3: 0x2276f762 (value)
+  📋 Arg4: 0x35 (value)
+  📋 Arg5: 0x32 (value)
+  📋 Arg6: 0xba (value)
+  📋 Arg7: 0x6b (value)
+
+🔥 [NATIVE CALL] _ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh
+📍 Address: 0x74f82c3f3c
+  📋 Arg0: 0x74dd7f6d08 (value)
+  📋 Arg1: 0x74dd7f6d20 (value)
+  📋 Arg2: 0x74dd7f7cd0 (value)
+  📋 Arg3: 0x2276f762 (value)
+  📋 Arg4: 0x35 (value)
+  📋 Arg5: 0x32 (value)
+  📋 Arg6: 0xba (value)
+  📋 Arg7: 0x6b (value)
+🏁 [_ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh EXIT] Return: 0xdd
+🏁 [_ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh EXIT] Return: 0xdd
+
+🔥 [NATIVE CALL] _ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh
+📍 Address: 0x74f82c3f3c
+  📋 Arg0: 0x74dd7f6d08 (value)
+  📋 Arg1: 0x74dd7f6d20 (value)
+  📋 Arg2: 0x74dd7f7ce0 (value)
+  📋 Arg3: 0x2276f762 (value)
+  📋 Arg4: 0xa0 (value)
+  📋 Arg5: 0x95 (value)
+  📋 Arg6: 0xf5 (value)
+  📋 Arg7: 0x51 (value)
+
+🔥 [NATIVE CALL] _ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh
+📍 Address: 0x74f82c3f3c
+  📋 Arg0: 0x74dd7f6d08 (value)
+  📋 Arg1: 0x74dd7f6d20 (value)
+  📋 Arg2: 0x74dd7f7ce0 (value)
+  📋 Arg3: 0x2276f762 (value)
+  📋 Arg4: 0xa0 (value)
+  📋 Arg5: 0x95 (value)
+  📋 Arg6: 0xf5 (value)
+  📋 Arg7: 0x51 (value)
+🏁 [_ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh EXIT] Return: 0xb7
+🏁 [_ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh EXIT] Return: 0xb7
+
+🔥 [NATIVE CALL] _ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh
+📍 Address: 0x74f82c3f3c
+  📋 Arg0: 0x74dd7f6d08 (value)
+  📋 Arg1: 0x74a9c73e10 (value)
+  📋 Arg2: 0x74a9c73e70 (value)
+  📋 Arg3: 0x10 (value)
+  📋 Arg4: 0x74ce753f5e (value)
+  📋 Arg5: 0x74a9c73e1e (value)
+  📋 Arg6: 0x317c383538313131 (value)
+  📋 Arg7: 0x343433313830317c (value)
+
+🔥 [NATIVE CALL] _ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh
+📍 Address: 0x74f82c3f3c
+  📋 Arg0: 0x74dd7f6d08 (value)
+  📋 Arg1: 0x74a9c73e10 (value)
+  📋 Arg2: 0x74a9c73e70 (value)
+  📋 Arg3: 0x10 (value)
+  📋 Arg4: 0x74ce753f5e (value)
+  📋 Arg5: 0x74a9c73e1e (value)
+  📋 Arg6: 0x317c383538313131 (value)
+  📋 Arg7: 0x343433313830317c (value)
+🏁 [_ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh EXIT] Return: 0xf9
+🏁 [_ZN7plusaes6detail13encrypt_stateERKNSt6__ndk16vectorINS0_5StateENS1_9allocatorIS3_EEEEPKhPh EXIT] Return: 0xf9
+🏁 [_ZN7plusaes4lockEPKhmS1_mPA16_S0_Phmb EXIT] Return: 0x0
+🏁 [_ZN7plusaes4lockEPKhmS1_mPA16_S0_Phmb EXIT] Return: 0x0
+🏁 [Java_com_hotcodes_numberbox_features_cryption_Encrypt_encrypt EXIT] Return: 0x145
+🏁 [Java_com_hotcodes_numberbox_features_cryption_Encrypt_encrypt EXIT] Return: 0x145
+📝 Result length: 5260
+📝 First 100 chars: NxqWF01yQpQp28lDKlSIi8h3ke/q/wTQ8TG6HNFWOdHl46KbqR9FJXZIKf4uEPfePj8TQhqXTrs62BXmQtBAamiAYXwuEkl/+bgN
+[SM A505F::NumberBox ]-> readFromKnownAddresses()
+ReferenceError: 'readFromKnownAddresses' is not defined
+    at <eval> (<input>:1)
+
+كان بي مشكلة او خلل ماعرف
