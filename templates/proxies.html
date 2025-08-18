@@ -1,0 +1,341 @@
+{% extends "base.html" %}
+
+{% block title %}إدارة البروكسيات - {{ app_name }}{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3 mb-0">
+            <i class="fas fa-network-wired me-2"></i>
+            إدارة البروكسيات
+        </h1>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProxyModal">
+            <i class="fas fa-plus me-2"></i>
+            إضافة بروكسي
+        </button>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="stats-card">
+                <h6>المجموع</h6>
+                <h3>{{ proxies|length }}</h3>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stats-card info">
+                <h6>يعمل</h6>
+                <h3>{{ proxies|selectattr("is_working")|list|length }}</h3>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stats-card warning">
+                <h6>معطل</h6>
+                <h3>{{ proxies|rejectattr("is_working")|list|length }}</h3>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stats-card danger">
+                <h6>متوسط الاستجابة</h6>
+                <h3>
+                    {% set times = proxies|selectattr("average_response_time")|map(attribute="average_response_time")|select("gt", 0)|list %}
+                    {% if times %}
+                        {{ "%.1f"|format(times|sum / times|length) }}ث
+                    {% else %}
+                        0.0ث
+                    {% endif %}
+                </h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- Proxies Table -->
+    <div class="card">
+        <div class="card-header d-flex justify-content-between">
+            <h5>قائمة البروكسيات</h5>
+            <button class="btn btn-sm btn-info" onclick="testAll()">اختبار الكل</button>
+        </div>
+        <div class="card-body">
+            {% if proxies %}
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>الاسم</th>
+                            <th>العنوان</th>
+                            <th>النوع</th>
+                            <th>الحالة</th>
+                            <th>معدل النجاح</th>
+                            <th>وقت الاستجابة</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for proxy in proxies %}
+                        <tr>
+                            <td>
+                                <div><strong>{{ proxy.name }}</strong></div>
+                                {% if proxy.country %}
+                                    <small class="text-muted">{{ proxy.country }}{% if proxy.city %} • {{ proxy.city }}{% endif %}</small>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <div>{{ proxy.host }}:{{ proxy.port }}</div>
+                                {% if proxy.ip_address %}
+                                    <small class="text-muted">IP: {{ proxy.ip_address }}</small>
+                                {% endif %}
+                            </td>
+                            <td><span class="badge bg-info">{{ proxy.proxy_type.upper() }}</span></td>
+                            <td>
+                                {% if not proxy.is_active %}
+                                    <span class="badge bg-secondary">متوقف</span>
+                                {% elif proxy.is_working %}
+                                    <span class="badge bg-success">يعمل</span>
+                                {% else %}
+                                    <span class="badge bg-danger">معطل</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ "%.1f"|format(proxy.success_rate) }}%</td>
+                            <td>
+                                {% if proxy.average_response_time > 0 %}
+                                    <span class="{% if proxy.average_response_time > 10 %}text-danger{% elif proxy.average_response_time > 5 %}text-warning{% else %}text-success{% endif %}">
+                                        {{ "%.2f"|format(proxy.average_response_time) }}ث
+                                    </span>
+                                {% else %}
+                                    <small class="text-muted">-</small>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <button class="btn btn-sm btn-outline-info" data-action="test" data-id="{{ proxy.id }}">
+                                        <i class="fas fa-vial"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-warning" data-action="toggle" data-id="{{ proxy.id }}">
+                                        {% if proxy.is_active %}
+                                            <i class="fas fa-pause"></i>
+                                        {% else %}
+                                            <i class="fas fa-play"></i>
+                                        {% endif %}
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-danger" data-action="delete" data-id="{{ proxy.id }}">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="text-center py-4">
+                <p class="text-muted">لا توجد بروكسيات</p>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProxyModal">
+                    إضافة أول بروكسي
+                </button>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Add Proxy Modal -->
+<div class="modal fade" id="addProxyModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">إضافة بروكسي جديد</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form id="addForm">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">اسم البروكسي</label>
+                        <input type="text" class="form-control" name="name" required>
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
+                            <label class="form-label">عنوان الخادم</label>
+                            <input type="text" class="form-control" name="host" required>
+                        </div>
+                        <div class="col-4">
+                            <label class="form-label">المنفذ</label>
+                            <input type="number" class="form-control" name="port" required min="1" max="65535">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-6">
+                            <label class="form-label">نوع البروكسي</label>
+                            <select class="form-control" name="proxy_type">
+                                <option value="http">HTTP</option>
+                                <option value="https">HTTPS</option>
+                                <option value="socks4">SOCKS4</option>
+                                <option value="socks5">SOCKS5</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label">البلد</label>
+                            <input type="text" class="form-control" name="country" maxlength="2" placeholder="US">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-6">
+                            <label class="form-label">اسم المستخدم</label>
+                            <input type="text" class="form-control" name="username">
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label">كلمة المرور</label>
+                            <input type="password" class="form-control" name="password">
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <label class="form-label">ملاحظات</label>
+                        <textarea class="form-control" name="notes" rows="2"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                    <button type="submit" class="btn btn-primary">حفظ</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// تعريف المتغيرات
+var apiKey = 'trud-admin-key-12345';
+var baseUrl = '/api/v1';
+
+// إضافة بروكسي جديد
+document.getElementById('addForm').onsubmit = function(e) {
+    e.preventDefault();
+    var formData = new FormData(e.target);
+    var data = {};
+    
+    // تحويل FormData إلى Object
+    for (var pair of formData.entries()) {
+        data[pair[0]] = pair[1];
+    }
+    data.port = parseInt(data.port);
+    
+    // إرسال الطلب
+    fetch(baseUrl + '/proxies', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + apiKey
+        },
+        body: JSON.stringify(data)
+    })
+    .then(function(response) {
+        if (response.ok) {
+            var modal = bootstrap.Modal.getInstance(document.getElementById('addProxyModal'));
+            modal.hide();
+            window.location.reload();
+        } else {
+            alert('فشل في الإضافة');
+        }
+    })
+    .catch(function(error) {
+        alert('خطأ: ' + error.message);
+    });
+};
+
+// معالج الأحداث للأزرار
+document.addEventListener('click', function(e) {
+    var button = e.target.closest('button[data-action]');
+    if (!button) return;
+    
+    var action = button.getAttribute('data-action');
+    var id = button.getAttribute('data-id');
+    
+    if (action === 'test') {
+        testProxy(id);
+    } else if (action === 'toggle') {
+        toggleProxy(id);
+    } else if (action === 'delete') {
+        deleteProxy(id);
+    }
+});
+
+// وظائف الإجراءات
+function testProxy(id) {
+    fetch(baseUrl + '/proxies/' + id + '/test', {
+        method: 'POST',
+        headers: { 'Authorization': 'Bearer ' + apiKey }
+    })
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(result) {
+        if (result.is_working) {
+            alert('✅ يعمل - ' + result.response_time.toFixed(2) + 'ث\nIP: ' + (result.ip_address || 'غير معروف'));
+        } else {
+            alert('❌ لا يعمل - ' + result.error_message);
+        }
+        window.location.reload();
+    })
+    .catch(function(error) {
+        alert('خطأ في الاختبار');
+    });
+}
+
+function toggleProxy(id) {
+    fetch(baseUrl + '/proxies/' + id + '/toggle', {
+        method: 'POST',
+        headers: { 'Authorization': 'Bearer ' + apiKey }
+    })
+    .then(function(response) {
+        if (response.ok) {
+            window.location.reload();
+        } else {
+            alert('فشل في التغيير');
+        }
+    })
+    .catch(function(error) {
+        alert('خطأ: ' + error.message);
+    });
+}
+
+function deleteProxy(id) {
+    if (!confirm('حذف هذا البروكسي؟')) return;
+    
+    fetch(baseUrl + '/proxies/' + id, {
+        method: 'DELETE',
+        headers: { 'Authorization': 'Bearer ' + apiKey }
+    })
+    .then(function(response) {
+        if (response.ok) {
+            window.location.reload();
+        } else {
+            alert('فشل في الحذف');
+        }
+    })
+    .catch(function(error) {
+        alert('خطأ: ' + error.message);
+    });
+}
+
+function testAll() {
+    if (!confirm('اختبار جميع البروكسيات؟')) return;
+    
+    fetch(baseUrl + '/proxies/test-all', {
+        method: 'POST',
+        headers: { 'Authorization': 'Bearer ' + apiKey }
+    })
+    .then(function(response) {
+        alert('تم بدء الاختبار...');
+        setTimeout(function() { 
+            window.location.reload(); 
+        }, 3000);
+    })
+    .catch(function(error) {
+        alert('فشل في الاختبار');
+    });
+}
+</script>
+{% endblock %}

@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  trud-app:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    environment:
+      - DEBUG=True
+      - DATABASE_URL=sqlite:///./data/database.db
+      - SECRET_KEY=your-super-secret-key-change-this-in-production
+    restart: unless-stopped
+    
+  # اختياري: إضافة Redis للتخزين المؤقت
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+    
+  # اختياري: إضافة PostgreSQL
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: trud_db
+      POSTGRES_USER: trud_user
+      POSTGRES_PASSWORD: trud_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+volumes:
+  postgres_data:

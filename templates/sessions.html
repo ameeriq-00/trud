@@ -1,0 +1,917 @@
+{% extends "base.html" %}
+
+{% block title %}مراقبة الجلسات - {{ app_name }}{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3 mb-0">
+            <i class="fas fa-chart-line me-2"></i>
+            مراقبة الجلسات
+        </h1>
+        <div class="d-flex gap-2">
+            <button class="btn btn-info btn-custom" onclick="exportSessions()">
+                <i class="fas fa-download me-2"></i>
+                تصدير البيانات
+            </button>
+            <button class="btn btn-warning btn-custom" onclick="cleanupSessions()">
+                <i class="fas fa-broom me-2"></i>
+                تنظيف القديم
+            </button>
+            <button class="btn btn-success btn-custom" onclick="refreshSessions()">
+                <i class="fas fa-sync-alt me-2"></i>
+                تحديث
+            </button>
+        </div>
+    </div>
+
+    <!-- Real-time Status -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="stats-card info">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="mb-1">الحالة في الوقت الفعلي</h6>
+                        <div class="d-flex align-items-center">
+                            <div class="me-4">
+                                <span class="text-light">الجلسات النشطة:</span>
+                                <strong id="activeSessions">-</strong>
+                            </div>
+                            <div class="me-4">
+                                <span class="text-light">آخر 5 دقائق:</span>
+                                <strong id="recentActivity">-</strong>
+                            </div>
+                            <div>
+                                <span class="text-light">حالة النظام:</span>
+                                <strong id="systemStatus">-</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-end">
+                        <i class="fas fa-broadcast-tower fa-2x opacity-75"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="stats-card">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="mb-1">إجمالي الجلسات</h6>
+                        <h3 class="mb-0" id="totalSessions">{{ sessions|length }}</h3>
+                        <small class="text-light">اليوم</small>
+                    </div>
+                    <div class="text-end">
+                        <i class="fas fa-chart-line fa-2x opacity-75"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="stats-card info">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="mb-1">ناجحة</h6>
+                        <h3 class="mb-0" id="successfulSessions">
+                            {{ sessions|selectattr("status", "equalto", "success")|list|length }}
+                        </h3>
+                        <small class="text-light">
+                            {% set total = sessions|length %}
+                            {% set successful = sessions|selectattr("status", "equalto", "success")|list|length %}
+                            {% if total > 0 %}
+                                {{ "%.1f"|format((successful / total) * 100) }}%
+                            {% else %}
+                                0.0%
+                            {% endif %}
+                        </small>
+                    </div>
+                    <div class="text-end">
+                        <i class="fas fa-check-circle fa-2x opacity-75"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="stats-card warning">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="mb-1">فاشلة</h6>
+                        <h3 class="mb-0" id="failedSessions">
+                            {{ sessions|selectattr("status", "equalto", "failed")|list|length }}
+                        </h3>
+                        <small class="text-light">
+                            {% set total = sessions|length %}
+                            {% set failed = sessions|selectattr("status", "equalto", "failed")|list|length %}
+                            {% if total > 0 %}
+                                {{ "%.1f"|format((failed / total) * 100) }}%
+                            {% else %}
+                                0.0%
+                            {% endif %}
+                        </small>
+                    </div>
+                    <div class="text-end">
+                        <i class="fas fa-times-circle fa-2x opacity-75"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="stats-card danger">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="mb-1">متوسط الاستجابة</h6>
+                        <h3 class="mb-0" id="avgResponseTime">
+                            {% set response_times = sessions|selectattr("response_time")|map(attribute="response_time")|select("gt", 0)|list %}
+                            {% if response_times %}
+                                {{ "%.2f"|format(response_times|sum / response_times|length) }}ث
+                            {% else %}
+                                0.00ث
+                            {% endif %}
+                        </h3>
+                        <small class="text-light">ثانية</small>
+                    </div>
+                    <div class="text-end">
+                        <i class="fas fa-clock fa-2x opacity-75"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+            <h6 class="card-title mb-3">
+                <i class="fas fa-filter me-2"></i>
+                فلاتر البحث
+            </h6>
+            <div class="row">
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">الحالة</label>
+                    <select class="form-control" id="statusFilter">
+                        <option value="">جميع الحالات</option>
+                        <option value="success">ناجحة</option>
+                        <option value="failed">فاشلة</option>
+                        <option value="pending">قيد التنفيذ</option>
+                    </select>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">رقم الهاتف</label>
+                    <input type="text" class="form-control" id="phoneFilter" placeholder="+964...">
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label class="form-label">من تاريخ</label>
+                    <input type="date" class="form-control" id="dateFromFilter">
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label class="form-label">إلى تاريخ</label>
+                    <input type="date" class="form-control" id="dateToFilter">
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label class="form-label">&nbsp;</label>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-primary" onclick="applyFilters()">
+                            <i class="fas fa-search"></i>
+                        </button>
+                        <button class="btn btn-outline-secondary" onclick="clearFilters()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sessions Table -->
+    <div class="card border-0 shadow-sm">
+        <div class="card-header bg-light d-flex justify-content-between align-items-center">
+            <h5 class="card-title mb-0">
+                <i class="fas fa-list me-2"></i>
+                سجل الجلسات
+            </h5>
+            <div class="d-flex gap-2">
+                <select class="form-select form-select-sm" id="limitSelect" onchange="changeLimit()">
+                    <option value="50">50 جلسة</option>
+                    <option value="100" selected>100 جلسة</option>
+                    <option value="200">200 جلسة</option>
+                    <option value="500">500 جلسة</option>
+                </select>
+            </div>
+        </div>
+        <div class="card-body">
+            {% if sessions %}
+            <div class="table-responsive">
+                <table class="table table-hover table-custom" id="sessionsTable">
+                    <thead>
+                        <tr>
+                            <th>معرف الجلسة</th>
+                            <th>رقم الهاتف</th>
+                            <th>الحالة</th>
+                            <th>جهة الاتصال</th>
+                            <th>المشغل</th>
+                            <th>الحساب</th>
+                            <th>البروكسي</th>
+                            <th>وقت الاستجابة</th>
+                            <th>وقت البدء</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sessionsTableBody">
+                        {% for session in sessions %}
+                        <tr data-session-id="{{ session.session_id }}">
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="me-2">
+                                        {% if session.status == "success" %}
+                                            <i class="fas fa-check-circle text-success"></i>
+                                        {% elif session.status == "failed" %}
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                        {% else %}
+                                            <i class="fas fa-clock text-warning"></i>
+                                        {% endif %}
+                                    </div>
+                                    <div>
+                                        <small class="font-monospace">{{ session.session_id[:8] }}...</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="fw-bold">{{ session.phone_number }}</div>
+                                {% if session.country_code %}
+                                    <small class="text-muted">{{ session.country_code }}</small>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if session.status == "success" %}
+                                    <span class="badge badge-custom status-active">
+                                        <i class="fas fa-check me-1"></i>ناجحة
+                                    </span>
+                                {% elif session.status == "failed" %}
+                                    <span class="badge badge-custom status-inactive">
+                                        <i class="fas fa-times me-1"></i>فاشلة
+                                    </span>
+                                {% elif session.status == "pending" %}
+                                    <span class="badge badge-custom status-working">
+                                        <i class="fas fa-clock me-1"></i>قيد التنفيذ
+                                    </span>
+                                {% else %}
+                                    <span class="badge badge-custom status-banned">
+                                        {{ session.status }}
+                                    </span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if session.contact_found and session.contact_name %}
+                                    <div class="fw-bold">{{ session.contact_name }}</div>
+                                    {% if session.is_spam %}
+                                        <small class="text-danger">
+                                            <i class="fas fa-exclamation-triangle me-1"></i>مزعج
+                                        </small>
+                                    {% else %}
+                                        <small class="text-success">آمن</small>
+                                    {% endif %}
+                                {% else %}
+                                    <small class="text-muted">غير معروف</small>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if session.carrier_name %}
+                                    {{ session.carrier_name }}
+                                {% else %}
+                                    <small class="text-muted">-</small>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if session.account_id %}
+                                    <small class="text-muted">حساب #{{ session.account_id }}</small>
+                                {% else %}
+                                    <small class="text-muted">-</small>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if session.proxy_id %}
+                                    <small class="text-muted">بروكسي #{{ session.proxy_id }}</small>
+                                {% else %}
+                                    <small class="text-muted">مباشر</small>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if session.response_time and session.response_time > 0 %}
+                                    <div class="text-center">
+                                        <div class="fw-bold {% if session.response_time > 5 %}text-danger{% elif session.response_time > 2 %}text-warning{% else %}text-success{% endif %}">
+                                            {{ "%.2f"|format(session.response_time) }}ث
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <small class="text-muted">-</small>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if session.started_at %}
+                                    <small class="text-muted">{{ session.started_at[:19] }}</small>
+                                {% else %}
+                                    <small class="text-muted">{{ session.created_at[:19] if session.created_at else '-' }}</small>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <button class="btn btn-sm btn-outline-info" 
+                                            onclick="viewSessionDetails('{{ session.session_id }}')" 
+                                            title="التفاصيل">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    {% if session.status == "failed" and session.error_message %}
+                                        <button class="btn btn-sm btn-outline-warning" 
+                                                onclick="showError('{{ session.error_message }}')" 
+                                                title="عرض الخطأ">
+                                            <i class="fas fa-exclamation-triangle"></i>
+                                        </button>
+                                    {% endif %}
+                                    <button class="btn btn-sm btn-outline-danger" 
+                                            onclick="deleteSession('{{ session.session_id }}')" 
+                                            title="حذف">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="text-center py-5">
+                <i class="fas fa-chart-line fa-3x text-muted mb-3"></i>
+                <h5 class="text-muted">لا توجد جلسات</h5>
+                <p class="text-muted">ابدأ بإجراء عمليات بحث لرؤية الجلسات هنا</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Analysis Section -->
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-light">
+                    <h6 class="card-title mb-0">
+                        <i class="fas fa-chart-pie me-2"></i>
+                        الأرقام الأكثر بحثاً
+                    </h6>
+                </div>
+                <div class="card-body" id="topSearchedNumbers">
+                    <div class="text-center">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">جاري التحميل...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-light">
+                    <h6 class="card-title mb-0">
+                        <i class="fas fa-chart-bar me-2"></i>
+                        إحصائيات الحسابات
+                    </h6>
+                </div>
+                <div class="card-body" id="accountStats">
+                    <div class="text-center">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">جاري التحميل...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Session Details Modal -->
+<div class="modal fade" id="sessionDetailsModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">تفاصيل الجلسة</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="sessionDetailsBody">
+                <!-- سيتم تحميل التفاصيل هنا -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Export Modal -->
+<div class="modal fade" id="exportModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">تصدير البيانات</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label">نوع التصدير</label>
+                    <select class="form-control" id="exportFormat">
+                        <option value="json">JSON</option>
+                        <option value="csv">CSV</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">الفترة الزمنية</label>
+                    <select class="form-control" id="exportDays">
+                        <option value="1">آخر 24 ساعة</option>
+                        <option value="7" selected>آخر أسبوع</option>
+                        <option value="30">آخر شهر</option>
+                        <option value="90">آخر 3 أشهر</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">فلترة الحالة</label>
+                    <select class="form-control" id="exportStatus">
+                        <option value="">جميع الحالات</option>
+                        <option value="success">الناجحة فقط</option>
+                        <option value="failed">الفاشلة فقط</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                <button type="button" class="btn btn-primary" onclick="executeExport()">
+                    <i class="fas fa-download me-1"></i>
+                    تصدير
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Global variables
+let currentFilters = {};
+let currentLimit = 100;
+
+// Initialize page
+document.addEventListener('DOMContentLoaded', function() {
+    loadRealtimeStatus();
+    loadTopSearchedNumbers();
+    loadAccountStats();
+    
+    // Auto-refresh every 10 seconds
+    setInterval(loadRealtimeStatus, 10000);
+    setInterval(refreshSessions, 30000);
+});
+
+// Load real-time status
+async function loadRealtimeStatus() {
+    try {
+        const response = await fetch('/api/v1/sessions/realtime/status', {
+            headers: {
+                'Authorization': 'Bearer trud-admin-key-12345'
+            }
+        });
+        
+        if (response.ok) {
+            const data = await response.json();
+            
+            document.getElementById('activeSessions').textContent = data.active_sessions;
+            document.getElementById('recentActivity').textContent = data.recent_activity.last_5_minutes;
+            document.getElementById('systemStatus').textContent = data.system_status === 'operational' ? 'يعمل' : 'مشغول';
+            
+            // تغيير لون حالة النظام
+            const statusElement = document.getElementById('systemStatus');
+            if (data.system_status === 'operational') {
+                statusElement.className = 'text-success';
+            } else {
+                statusElement.className = 'text-warning';
+            }
+        }
+    } catch (error) {
+        console.error('فشل في تحميل الحالة الفورية:', error);
+    }
+}
+
+// Load top searched numbers
+async function loadTopSearchedNumbers() {
+    try {
+        const response = await fetch('/api/v1/sessions/phone-numbers/top?limit=10', {
+            headers: {
+                'Authorization': 'Bearer trud-admin-key-12345'
+            }
+        });
+        
+        if (response.ok) {
+            const data = await response.json();
+            
+            let html = '';
+            if (data.top_searched_numbers.length > 0) {
+                data.top_searched_numbers.forEach((item, index) => {
+                    html += `
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <div>
+                                <div class="fw-bold">${item.phone_number}</div>
+                                <small class="text-muted">${item.contact_name || 'غير معروف'}</small>
+                            </div>
+                            <div class="text-end">
+                                <span class="badge bg-primary">${item.search_count}</span>
+                                ${item.is_spam ? '<i class="fas fa-exclamation-triangle text-danger ms-2"></i>' : ''}
+                            </div>
+                        </div>
+                    `;
+                });
+            } else {
+                html = '<div class="text-muted text-center">لا توجد بيانات</div>';
+            }
+            
+            document.getElementById('topSearchedNumbers').innerHTML = html;
+        }
+    } catch (error) {
+        document.getElementById('topSearchedNumbers').innerHTML = '<div class="text-danger text-center">فشل في التحميل</div>';
+    }
+}
+
+// Load account statistics
+async function loadAccountStats() {
+    try {
+        const response = await fetch('/api/v1/sessions/stats/accounts', {
+            headers: {
+                'Authorization': 'Bearer trud-admin-key-12345'
+            }
+        });
+        
+        if (response.ok) {
+            const data = await response.json();
+            
+            let html = '';
+            if (data.account_usage.length > 0) {
+                data.account_usage.forEach(account => {
+                    html += `
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <div>
+                                <div class="fw-bold">${account.account_name}</div>
+                                <small class="text-muted">${account.total_requests} طلب</small>
+                            </div>
+                            <div class="text-end">
+                                <div class="progress" style="width: 60px; height: 8px;">
+                                    <div class="progress-bar" style="width: ${account.success_rate}%; background-color: ${account.success_rate >= 80 ? '#28a745' : account.success_rate >= 60 ? '#ffc107' : '#dc3545'};"></div>
+                                </div>
+                                <small>${account.success_rate.toFixed(1)}%</small>
+                            </div>
+                        </div>
+                    `;
+                });
+            } else {
+                html = '<div class="text-muted text-center">لا توجد بيانات</div>';
+            }
+            
+            document.getElementById('accountStats').innerHTML = html;
+        }
+    } catch (error) {
+        document.getElementById('accountStats').innerHTML = '<div class="text-danger text-center">فشل في التحميل</div>';
+    }
+}
+
+// Apply filters
+async function applyFilters() {
+    const params = new URLSearchParams();
+    
+    const status = document.getElementById('statusFilter').value;
+    const phone = document.getElementById('phoneFilter').value;
+    const dateFrom = document.getElementById('dateFromFilter').value;
+    const dateTo = document.getElementById('dateToFilter').value;
+    
+    if (status) params.append('status', status);
+    if (phone) params.append('phone_number', phone);
+    if (dateFrom) params.append('date_from', dateFrom + 'T00:00:00');
+    if (dateTo) params.append('date_to', dateTo + 'T23:59:59');
+    
+    params.append('limit', currentLimit);
+    
+    try {
+        const response = await fetch(`/api/v1/sessions?${params.toString()}`, {
+            headers: {
+                'Authorization': 'Bearer trud-admin-key-12345'
+            }
+        });
+        
+        if (response.ok) {
+            const sessions = await response.json();
+            updateSessionsTable(sessions);
+        }
+    } catch (error) {
+        alert('فشل في تطبيق الفلاتر: ' + error.message);
+    }
+}
+
+// Clear filters
+function clearFilters() {
+    document.getElementById('statusFilter').value = '';
+    document.getElementById('phoneFilter').value = '';
+    document.getElementById('dateFromFilter').value = '';
+    document.getElementById('dateToFilter').value = '';
+    
+    location.reload();
+}
+
+// Change limit
+function changeLimit() {
+    currentLimit = parseInt(document.getElementById('limitSelect').value);
+    applyFilters();
+}
+
+// Update sessions table
+function updateSessionsTable(sessions) {
+    const tbody = document.getElementById('sessionsTableBody');
+    
+    if (sessions.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="10" class="text-center text-muted">لا توجد نتائج</td></tr>';
+        return;
+    }
+    
+    let html = '';
+    sessions.forEach(session => {
+        const statusBadge = session.status === 'success' ? 
+            '<span class="badge badge-custom status-active"><i class="fas fa-check me-1"></i>ناجحة</span>' :
+            session.status === 'failed' ?
+            '<span class="badge badge-custom status-inactive"><i class="fas fa-times me-1"></i>فاشلة</span>' :
+            '<span class="badge badge-custom status-working"><i class="fas fa-clock me-1"></i>قيد التنفيذ</span>';
+        
+        html += `
+            <tr data-session-id="${session.session_id}">
+                <td>
+                    <div class="d-flex align-items-center">
+                        <div class="me-2">
+                            ${session.status === 'success' ? '<i class="fas fa-check-circle text-success"></i>' :
+                              session.status === 'failed' ? '<i class="fas fa-times-circle text-danger"></i>' :
+                              '<i class="fas fa-clock text-warning"></i>'}
+                        </div>
+                        <small class="font-monospace">${session.session_id.substring(0, 8)}...</small>
+                    </div>
+                </td>
+                <td>
+                    <div class="fw-bold">${session.phone_number}</div>
+                    ${session.country_code ? `<small class="text-muted">${session.country_code}</small>` : ''}
+                </td>
+                <td>${statusBadge}</td>
+                <td>
+                    ${session.contact_found && session.contact_name ? 
+                      `<div class="fw-bold">${session.contact_name}</div>
+                       ${session.is_spam ? '<small class="text-danger"><i class="fas fa-exclamation-triangle me-1"></i>مزعج</small>' : '<small class="text-success">آمن</small>'}` :
+                      '<small class="text-muted">غير معروف</small>'}
+                </td>
+                <td>${session.carrier_name || '<small class="text-muted">-</small>'}</td>
+                <td>${session.account_id ? `<small class="text-muted">حساب #${session.account_id}</small>` : '<small class="text-muted">-</small>'}</td>
+                <td>${session.proxy_id ? `<small class="text-muted">بروكسي #${session.proxy_id}</small>` : '<small class="text-muted">مباشر</small>'}</td>
+                <td>
+                    ${session.response_time && session.response_time > 0 ? 
+                      `<div class="fw-bold ${session.response_time > 5 ? 'text-danger' : session.response_time > 2 ? 'text-warning' : 'text-success'}">${session.response_time.toFixed(2)}ث</div>` :
+                      '<small class="text-muted">-</small>'}
+                </td>
+                <td>
+                    <small class="text-muted">${session.started_at ? session.started_at.substring(0, 19) : session.created_at ? session.created_at.substring(0, 19) : '-'}</small>
+                </td>
+                <td>
+                    <div class="btn-group" role="group">
+                        <button class="btn btn-sm btn-outline-info" onclick="viewSessionDetails('${session.session_id}')" title="التفاصيل">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        ${session.status === 'failed' && session.error_message ? 
+                          `<button class="btn btn-sm btn-outline-warning" onclick="showError('${session.error_message}')" title="عرض الخطأ">
+                               <i class="fas fa-exclamation-triangle"></i>
+                           </button>` : ''}
+                        <button class="btn btn-sm btn-outline-danger" onclick="deleteSession('${session.session_id}')" title="حذف">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `;
+    });
+    
+    tbody.innerHTML = html;
+}
+
+// View session details
+async function viewSessionDetails(sessionId) {
+    try {
+        const response = await fetch(`/api/v1/sessions/${sessionId}`, {
+            headers: {
+                'Authorization': 'Bearer trud-admin-key-12345'
+            }
+        });
+        
+        if (response.ok) {
+            const session = await response.json();
+            
+            const detailsHtml = `
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>معلومات الجلسة</h6>
+                        <table class="table table-sm">
+                            <tr><td><strong>معرف الجلسة:</strong></td><td><code>${session.session_id}</code></td></tr>
+                            <tr><td><strong>رقم الهاتف:</strong></td><td>${session.phone_number}</td></tr>
+                            <tr><td><strong>نوع الطلب:</strong></td><td>${session.request_type}</td></tr>
+                            <tr><td><strong>الحالة:</strong></td><td>${session.status}</td></tr>
+                            <tr><td><strong>وقت الاستجابة:</strong></td><td>${session.response_time ? session.response_time.toFixed(2) + 'ث' : '-'}</td></tr>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>معلومات جهة الاتصال</h6>
+                        <table class="table table-sm">
+                            <tr><td><strong>تم العثور على جهة اتصال:</strong></td><td>${session.contact_found ? 'نعم' : 'لا'}</td></tr>
+                            <tr><td><strong>اسم جهة الاتصال:</strong></td><td>${session.contact_name || '-'}</td></tr>
+                            <tr><td><strong>المشغل:</strong></td><td>${session.carrier_name || '-'}</td></tr>
+                            <tr><td><strong>رمز البلد:</strong></td><td>${session.country_code || '-'}</td></tr>
+                            <tr><td><strong>رقم مزعج:</strong></td><td>${session.is_spam ? 'نعم' : 'لا'}</td></tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <h6>معلومات النظام</h6>
+                        <table class="table table-sm">
+                            <tr><td><strong>الحساب المستخدم:</strong></td><td>${session.account_id ? `حساب #${session.account_id}` : '-'}</td></tr>
+                            <tr><td><strong>البروكسي المستخدم:</strong></td><td>${session.proxy_id ? `بروكسي #${session.proxy_id}` : 'اتصال مباشر'}</td></tr>
+                            <tr><td><strong>عنوان IP:</strong></td><td>${session.ip_address || '-'}</td></tr>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>الأوقات</h6>
+                        <table class="table table-sm">
+                            <tr><td><strong>وقت البدء:</strong></td><td>${session.started_at ? new Date(session.started_at).toLocaleString('ar-EG') : '-'}</td></tr>
+                            <tr><td><strong>وقت الانتهاء:</strong></td><td>${session.completed_at ? new Date(session.completed_at).toLocaleString('ar-EG') : '-'}</td></tr>
+                            <tr><td><strong>وقت الإنشاء:</strong></td><td>${session.created_at ? new Date(session.created_at).toLocaleString('ar-EG') : '-'}</td></tr>
+                        </table>
+                    </div>
+                </div>
+                ${session.error_message ? `
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <h6>رسالة الخطأ</h6>
+                            <div class="alert alert-danger">
+                                <code>${session.error_message}</code>
+                            </div>
+                        </div>
+                    </div>
+                ` : ''}
+            `;
+            
+            document.getElementById('sessionDetailsBody').innerHTML = detailsHtml;
+            new bootstrap.Modal(document.getElementById('sessionDetailsModal')).show();
+        }
+    } catch (error) {
+        alert('فشل في تحميل تفاصيل الجلسة: ' + error.message);
+    }
+}
+
+// Show error message
+function showError(errorMessage) {
+    alert('رسالة الخطأ:\n' + errorMessage);
+}
+
+// Delete session
+async function deleteSession(sessionId) {
+    if (!confirm('هل أنت متأكد من حذف هذه الجلسة؟')) return;
+    
+    try {
+        const response = await fetch(`/api/v1/sessions/${sessionId}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': 'Bearer trud-admin-key-12345'
+            }
+        });
+        
+        if (response.ok) {
+            // إزالة الصف من الجدول
+            const row = document.querySelector(`tr[data-session-id="${sessionId}"]`);
+            if (row) {
+                row.remove();
+            }
+        } else {
+            alert('فشل في حذف الجلسة');
+        }
+    } catch (error) {
+        alert('خطأ: ' + error.message);
+    }
+}
+
+// Export sessions
+function exportSessions() {
+    new bootstrap.Modal(document.getElementById('exportModal')).show();
+}
+
+// Execute export
+async function executeExport() {
+    const format = document.getElementById('exportFormat').value;
+    const days = document.getElementById('exportDays').value;
+    const status = document.getElementById('exportStatus').value;
+    
+    const params = new URLSearchParams({
+        format: format,
+        days: days
+    });
+    
+    if (status) {
+        params.append('status', status);
+    }
+    
+    try {
+        const response = await fetch(`/api/v1/sessions/export?${params.toString()}`, {
+            headers: {
+                'Authorization': 'Bearer trud-admin-key-12345'
+            }
+        });
+        
+        if (response.ok) {
+            if (format === 'csv') {
+                // تحميل ملف CSV
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `sessions_export_${new Date().toISOString().split('T')[0]}.csv`;
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+            } else {
+                // عرض JSON
+                const data = await response.json();
+                const jsonString = JSON.stringify(data, null, 2);
+                const blob = new Blob([jsonString], { type: 'application/json' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `sessions_export_${new Date().toISOString().split('T')[0]}.json`;
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+            }
+            
+            bootstrap.Modal.getInstance(document.getElementById('exportModal')).hide();
+        } else {
+            alert('فشل في تصدير البيانات');
+        }
+    } catch (error) {
+        alert('خطأ في التصدير: ' + error.message);
+    }
+}
+
+// Cleanup old sessions
+async function cleanupSessions() {
+    const days = prompt('حذف الجلسات الأقدم من (بالأيام):', '30');
+    if (!days) return;
+    
+    if (!confirm(`هل أنت متأكد من حذف جميع الجلسات الأقدم من ${days} يوم؟`)) return;
+    
+    try {
+        const response = await fetch(`/api/v1/sessions/cleanup?days=${days}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': 'Bearer trud-admin-key-12345'
+            }
+        });
+        
+        if (response.ok) {
+            const result = await response.json();
+            alert(`تم حذف ${result.deleted_count} جلسة قديمة`);
+            location.reload();
+        } else {
+            alert('فشل في تنظيف الجلسات القديمة');
+        }
+    } catch (error) {
+        alert('خطأ: ' + error.message);
+    }
+}
+
+// Refresh sessions
+function refreshSessions() {
+    location.reload();
+}
+
+// Set default date filters (last 7 days)
+document.addEventListener('DOMContentLoaded', function() {
+    const today = new Date();
+    const lastWeek = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+    
+    document.getElementById('dateFromFilter').value = lastWeek.toISOString().split('T')[0];
+    document.getElementById('dateToFilter').value = today.toISOString().split('T')[0];
+});
+</script>
+{% endblock %}

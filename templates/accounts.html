@@ -1,0 +1,348 @@
+{% extends "base.html" %}
+
+{% block title %}إدارة الحسابات - {{ app_name }}{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3 mb-0">
+            <i class="fas fa-users me-2"></i>
+            إدارة الحسابات
+        </h1>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAccountModal">
+            <i class="fas fa-plus me-2"></i>
+            إضافة حساب
+        </button>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="stats-card">
+                <h6>المجموع</h6>
+                <h3>{{ accounts|length }}</h3>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stats-card info">
+                <h6>نشط</h6>
+                <h3>{{ accounts|selectattr("is_active")|list|length }}</h3>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stats-card warning">
+                <h6>محظور</h6>
+                <h3>{{ accounts|selectattr("is_banned")|list|length }}</h3>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stats-card danger">
+                <h6>متاح</h6>
+                <h3>
+                    {% set available = 0 %}
+                    {% for account in accounts %}
+                        {% if account.is_active and not account.is_banned and account.remaining_requests > 0 %}
+                            {% set available = available + 1 %}
+                        {% endif %}
+                    {% endfor %}
+                    {{ available }}
+                </h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- Accounts Table -->
+    <div class="card">
+        <div class="card-header d-flex justify-content-between">
+            <h5>قائمة الحسابات</h5>
+            <button class="btn btn-sm btn-info" onclick="testAll()">اختبار الكل</button>
+        </div>
+        <div class="card-body">
+            {% if accounts %}
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>الاسم</th>
+                            <th>الحالة</th>
+                            <th>الطلبات</th>
+                            <th>معدل النجاح</th>
+                            <th>المتبقي</th>
+                            <th>آخر استخدام</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for account in accounts %}
+                        <tr>
+                            <td>
+                                <div><strong>{{ account.name }}</strong></div>
+                                <small class="text-muted">{{ account.country }} • {{ account.locale }}</small>
+                            </td>
+                            <td>
+                                {% if account.is_banned %}
+                                    <span class="badge bg-warning">محظور</span>
+                                {% elif account.is_active %}
+                                    <span class="badge bg-success">نشط</span>
+                                {% else %}
+                                    <span class="badge bg-secondary">متوقف</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <div>{{ account.request_count }}</div>
+                                <small class="text-success">{{ account.successful_requests }} نجح</small>
+                            </td>
+                            <td>{{ "%.1f"|format(account.success_rate) }}%</td>
+                            <td>
+                                <span class="{% if account.remaining_requests == 0 %}text-danger{% elif account.remaining_requests < 10 %}text-warning{% else %}text-success{% endif %}">
+                                    {{ account.remaining_requests }}
+                                </span>
+                            </td>
+                            <td>
+                                <small>{{ account.last_used[:19] if account.last_used else 'لم يستخدم' }}</small>
+                            </td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <button class="btn btn-sm btn-outline-info" data-action="test" data-id="{{ account.id }}">
+                                        <i class="fas fa-vial"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-warning" data-action="toggle" data-id="{{ account.id }}">
+                                        {% if account.is_active %}
+                                            <i class="fas fa-pause"></i>
+                                        {% else %}
+                                            <i class="fas fa-play"></i>
+                                        {% endif %}
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-danger" data-action="delete" data-id="{{ account.id }}">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="text-center py-4">
+                <p class="text-muted">لا توجد حسابات</p>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAccountModal">
+                    إضافة أول حساب
+                </button>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Add Account Modal -->
+<div class="modal fade" id="addAccountModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">إضافة حساب جديد</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form id="addForm">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">اسم الحساب</label>
+                        <input type="text" class="form-control" name="name" required>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label class="form-label">معرف الجهاز</label>
+                            <input type="text" class="form-control" name="device_id" required>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label">معرف المشغل</label>
+                            <input type="text" class="form-control" name="player_id" required>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <label class="form-label">JWT Token</label>
+                        <textarea class="form-control" name="token" rows="3" required></textarea>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-4">
+                            <label class="form-label">حد الطلبات/ساعة</label>
+                            <input type="number" class="form-control" name="rate_limit" value="50" min="1">
+                        </div>
+                        <div class="col-4">
+                            <label class="form-label">البلد</label>
+                            <select class="form-control" name="country">
+                                <option value="IQ">العراق</option>
+                                <option value="SA">السعودية</option>
+                                <option value="AE">الإمارات</option>
+                                <option value="EG">مصر</option>
+                            </select>
+                        </div>
+                        <div class="col-4">
+                            <label class="form-label">اللغة</label>
+                            <select class="form-control" name="locale">
+                                <option value="ar">العربية</option>
+                                <option value="en">English</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                    <button type="submit" class="btn btn-primary">حفظ</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// تعريف المتغيرات
+var apiKey = 'trud-admin-key-12345';
+var baseUrl = '/api/v1';
+
+// إضافة حساب جديد
+document.getElementById('addForm').onsubmit = function(e) {
+    e.preventDefault();
+    var formData = new FormData(e.target);
+    var data = {};
+    
+    // تحويل FormData إلى Object
+    for (var pair of formData.entries()) {
+        data[pair[0]] = pair[1];
+    }
+    data.rate_limit = parseInt(data.rate_limit);
+    
+    // إرسال الطلب
+    fetch(baseUrl + '/accounts', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + apiKey
+        },
+        body: JSON.stringify(data)
+    })
+    .then(function(response) {
+        if (response.ok) {
+            var modal = bootstrap.Modal.getInstance(document.getElementById('addAccountModal'));
+            modal.hide();
+            window.location.reload();
+        } else {
+            alert('فشل في الإضافة');
+        }
+    })
+    .catch(function(error) {
+        alert('خطأ: ' + error.message);
+    });
+};
+
+// معالج الأحداث للأزرار
+document.addEventListener('click', function(e) {
+    var button = e.target.closest('button[data-action]');
+    if (!button) return;
+    
+    var action = button.getAttribute('data-action');
+    var id = button.getAttribute('data-id');
+    
+    if (action === 'test') {
+        testAccount(id);
+    } else if (action === 'toggle') {
+        toggleAccount(id);
+    } else if (action === 'delete') {
+        deleteAccount(id);
+    }
+});
+
+// وظائف الإجراءات
+function testAccount(id) {
+    var phone = prompt('رقم الهاتف للاختبار:', '+9647809394930');
+    if (!phone) return;
+    
+    fetch(baseUrl + '/search/phone', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + apiKey
+        },
+        body: JSON.stringify({ phone_number: phone })
+    })
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(result) {
+        if (result.success) {
+            alert('✅ اختبار ناجح!\nالحساب: ' + result.account_used + '\nالوقت: ' + result.response_time.toFixed(2) + 'ث');
+        } else {
+            alert('❌ فشل الاختبار: ' + result.error);
+        }
+    })
+    .catch(function(error) {
+        alert('خطأ: ' + error.message);
+    });
+}
+
+function toggleAccount(id) {
+    fetch(baseUrl + '/accounts/' + id + '/toggle', {
+        method: 'POST',
+        headers: { 'Authorization': 'Bearer ' + apiKey }
+    })
+    .then(function(response) {
+        if (response.ok) {
+            window.location.reload();
+        } else {
+            alert('فشل في التغيير');
+        }
+    })
+    .catch(function(error) {
+        alert('خطأ: ' + error.message);
+    });
+}
+
+function deleteAccount(id) {
+    if (!confirm('حذف هذا الحساب؟')) return;
+    
+    fetch(baseUrl + '/accounts/' + id, {
+        method: 'DELETE',
+        headers: { 'Authorization': 'Bearer ' + apiKey }
+    })
+    .then(function(response) {
+        if (response.ok) {
+            window.location.reload();
+        } else {
+            alert('فشل في الحذف');
+        }
+    })
+    .catch(function(error) {
+        alert('خطأ: ' + error.message);
+    });
+}
+
+function testAll() {
+    if (!confirm('اختبار جميع الحسابات؟')) return;
+    
+    fetch(baseUrl + '/search/bulk', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + apiKey
+        },
+        body: JSON.stringify({
+            phone_numbers: ['+9647809394930'],
+            max_concurrent: 1,
+            delay_between_requests: 2.0
+        })
+    })
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(result) {
+        alert('✅ اختبار مجمع مكتمل!\nالمجموع: ' + result.total_searched + '\nناجح: ' + result.successful_results);
+        window.location.reload();
+    })
+    .catch(function(error) {
+        alert('خطأ: ' + error.message);
+    });
+}
+</script>
+{% endblock %}
