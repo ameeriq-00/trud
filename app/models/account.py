@@ -1,3 +1,6 @@
+# الحل السريع:
+# استبدل محتوى app/models/account.py بالكود التالي:
+
 """
 نموذج الحسابات - HelloCallers Accounts
 """
@@ -64,13 +67,38 @@ class Account(Base):
             "locale": self.locale,
             "notes": self.notes,
             "created_at": self.created_at.isoformat() if self.created_at else None,
-            "updated_at": self.updated_at.isoformat() if self.updated_at else None
+            "updated_at": self.updated_at.isoformat() if self.updated_at else None,
+            # إضافة الخصائص المحسوبة
+            "success_rate": self.success_rate,
+            "remaining_requests": self.remaining_requests
         }
     
     @property
     def remaining_requests(self):
         """الطلبات المتبقية في الساعة"""
         return max(0, self.rate_limit - self.current_hour_requests)
+    @property
+    def requests_today(self):
+        """عدد الطلبات اليوم"""
+        # يمكن حسابها من current_hour_requests أو إرجاع قيمة افتراضية
+        from datetime import datetime, timedelta
+        
+        # إذا كان hour_reset_time في نفس اليوم، استخدم current_hour_requests
+        if self.hour_reset_time:
+            today = datetime.utcnow().date()
+            reset_date = self.hour_reset_time.date()
+            
+            if today == reset_date:
+                return self.current_hour_requests
+        
+        # خلاف ذلك، استخدم current_hour_requests كتقدير
+        return self.current_hour_requests
+    
+    # وأيضاً أضف can_handle_request إذا لم تضفها:
+    
+    def can_handle_request(self):
+        """اسم بديل لـ can_make_request للتوافق"""
+        return self.can_make_request()
     
     @property
     def success_rate(self):

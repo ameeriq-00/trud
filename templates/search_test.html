@@ -1,0 +1,478 @@
+{% extends "base.html" %}
+
+{% block title %}اختبار البحث - {{ app_name }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h3 mb-0">🔍 اختبار البحث</h1>
+            <p class="text-muted">اختبار البحث المفرد والمجمع لأرقام الهواتف</p>
+        </div>
+        <div>
+            <button class="btn btn-outline-primary" onclick="loadTestNumbers()">
+                <i class="fas fa-database me-2"></i>تحميل أرقام تجريبية
+            </button>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- البحث المفرد -->
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-search me-2"></i>البحث المفرد
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <form id="singleSearchForm">
+                        <div class="mb-3">
+                            <label for="singlePhone" class="form-label">رقم الهاتف</label>
+                            <input type="text" 
+                                   class="form-control form-control-lg" 
+                                   id="singlePhone" 
+                                   placeholder="+9647809394930"
+                                   value="+9647809394930">
+                            <div class="form-text">أدخل الرقم بالصيغة الدولية</div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-lg w-100" id="singleSearchBtn">
+                            <i class="fas fa-search me-2"></i>بحث
+                        </button>
+                    </form>
+                    
+                    <!-- نتيجة البحث المفرد -->
+                    <div id="singleResult" class="mt-4"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- البحث المجمع -->
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-list me-2"></i>البحث المجمع
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <form id="bulkSearchForm">
+                        <div class="mb-3">
+                            <label for="bulkPhones" class="form-label">أرقام الهواتف</label>
+                            <textarea class="form-control" 
+                                      id="bulkPhones" 
+                                      rows="6" 
+                                      placeholder="أدخل الأرقام (رقم واحد في كل سطر)">+9647809394930
++9647801234567
++9647901234567
++9647812345678
++9647823456789</textarea>
+                            <div class="form-text">رقم واحد في كل سطر - حتى 100 رقم</div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="maxConcurrent" class="form-label">الطلبات المتزامنة</label>
+                                <select class="form-select" id="maxConcurrent">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3" selected>3</option>
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="delayBetween" class="form-label">التأخير (ثانية)</label>
+                                <select class="form-select" id="delayBetween">
+                                    <option value="0.5">0.5</option>
+                                    <option value="1.0" selected>1.0</option>
+                                    <option value="2.0">2.0</option>
+                                    <option value="3.0">3.0</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-success btn-lg w-100" id="bulkSearchBtn">
+                            <i class="fas fa-list me-2"></i>بحث مجمع
+                        </button>
+                    </form>
+                    
+                    <!-- تقدم البحث المجمع -->
+                    <div id="bulkProgress" class="mt-3" style="display: none;">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" 
+                                 id="bulkProgressBar" 
+                                 style="width: 0%"></div>
+                        </div>
+                        <div class="text-center mt-2">
+                            <span id="bulkProgressText">جاري البحث...</span>
+                        </div>
+                    </div>
+                    
+                    <!-- نتائج البحث المجمع -->
+                    <div id="bulkResults" class="mt-4"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- إحصائيات سريعة -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-chart-bar me-2"></i>إحصائيات الجلسة الحالية
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-md-3">
+                            <div class="border rounded p-3">
+                                <h4 class="text-primary mb-1" id="stat-total">0</h4>
+                                <small class="text-muted">إجمالي الطلبات</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="border rounded p-3">
+                                <h4 class="text-success mb-1" id="stat-success">0</h4>
+                                <small class="text-muted">نجح</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="border rounded p-3">
+                                <h4 class="text-danger mb-1" id="stat-failed">0</h4>
+                                <small class="text-muted">فشل</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="border rounded p-3">
+                                <h4 class="text-info mb-1" id="stat-rate">0%</h4>
+                                <small class="text-muted">معدل النجاح</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- سجل العمليات -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-history me-2"></i>سجل العمليات
+                    </h5>
+                    <button class="btn btn-outline-secondary btn-sm" onclick="clearLog()">
+                        <i class="fas fa-trash me-1"></i>مسح السجل
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div id="operationLog" class="border rounded p-3" style="max-height: 400px; overflow-y: auto; background-color: #f8f9fa;">
+                        <p class="text-muted mb-0">سيظهر هنا سجل جميع العمليات...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// متغيرات إحصائيات الجلسة
+let sessionStats = {
+    total: 0,
+    success: 0,
+    failed: 0
+};
+
+// تحديث الإحصائيات
+function updateStats() {
+    document.getElementById('stat-total').textContent = sessionStats.total;
+    document.getElementById('stat-success').textContent = sessionStats.success;
+    document.getElementById('stat-failed').textContent = sessionStats.failed;
+    
+    const rate = sessionStats.total > 0 ? 
+        Math.round((sessionStats.success / sessionStats.total) * 100) : 0;
+    document.getElementById('stat-rate').textContent = rate + '%';
+}
+
+// إضافة رسالة للسجل
+function addToLog(message, type = 'info') {
+    const log = document.getElementById('operationLog');
+    const timestamp = new Date().toLocaleTimeString('ar-IQ');
+    const icon = {
+        'info': 'fas fa-info-circle text-info',
+        'success': 'fas fa-check-circle text-success',
+        'error': 'fas fa-exclamation-circle text-danger',
+        'warning': 'fas fa-exclamation-triangle text-warning'
+    }[type] || 'fas fa-info-circle text-info';
+    
+    const logEntry = document.createElement('div');
+    logEntry.className = 'mb-2 p-2 border-bottom';
+    logEntry.innerHTML = `
+        <span class="text-muted small">[${timestamp}]</span>
+        <i class="${icon} me-2"></i>
+        ${message}
+    `;
+    
+    // إدراج في الأعلى
+    if (log.firstChild.tagName) {
+        log.insertBefore(logEntry, log.firstChild);
+    } else {
+        log.innerHTML = '';
+        log.appendChild(logEntry);
+    }
+    
+    // الحد الأقصى 50 رسالة
+    while (log.children.length > 50) {
+        log.removeChild(log.lastChild);
+    }
+}
+
+// مسح السجل
+function clearLog() {
+    document.getElementById('operationLog').innerHTML = 
+        '<p class="text-muted mb-0">تم مسح السجل...</p>';
+}
+
+// تحميل أرقام تجريبية
+function loadTestNumbers() {
+    const testNumbers = [
+        '+9647809394930',
+        '+9647801234567',
+        '+9647901234567',
+        '+9647812345678',
+        '+9647823456789',
+        '+9647834567890',
+        '+9647845678901',
+        '+9647856789012'
+    ];
+    
+    document.getElementById('bulkPhones').value = testNumbers.join('\n');
+    addToLog('تم تحميل الأرقام التجريبية', 'info');
+}
+
+// البحث المفرد
+document.getElementById('singleSearchForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const phoneNumber = document.getElementById('singlePhone').value.trim();
+    const btn = document.getElementById('singleSearchBtn');
+    const resultDiv = document.getElementById('singleResult');
+    
+    if (!phoneNumber) {
+        TRUD.notifications.warning('يرجى إدخال رقم الهاتف');
+        return;
+    }
+    
+    // تعطيل الزر
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>جاري البحث...';
+    
+    addToLog(`بدء البحث المفرد عن: ${phoneNumber}`, 'info');
+    sessionStats.total++;
+    updateStats();
+    
+    try {
+        const response = await TRUD.api.post('/search/phone', {
+            phone_number: phoneNumber
+        });
+        
+        if (response.success) {
+            sessionStats.success++;
+            addToLog(`نجح البحث عن ${phoneNumber} - العثور على: ${response.data.names?.[0] || 'غير معروف'}`, 'success');
+            
+            resultDiv.innerHTML = `
+                <div class="alert alert-success">
+                    <h6><i class="fas fa-check-circle me-2"></i>تم العثور على النتائج</h6>
+                    <div class="row mt-3">
+                        <div class="col-sm-6">
+                            <strong>الرقم:</strong> ${response.data.international || phoneNumber}<br>
+                            <strong>الاسم:</strong> ${response.data.names?.[0] || 'غير متوفر'}<br>
+                            <strong>المشغل:</strong> ${response.data.carrier || 'غير متوفر'}
+                        </div>
+                        <div class="col-sm-6">
+                            <strong>البلد:</strong> ${response.data.country || 'غير متوفر'}<br>
+                            <strong>النوع:</strong> <span class="badge ${response.data.is_spam ? 'bg-warning' : 'bg-success'}">${response.data.is_spam ? 'مزعج' : 'عادي'}</span><br>
+                            <strong>وقت الاستجابة:</strong> ${TRUD.Utils.formatDuration(response.response_time)}
+                        </div>
+                    </div>
+                </div>
+            `;
+        } else {
+            sessionStats.failed++;
+            addToLog(`فشل البحث عن ${phoneNumber}: ${response.error}`, 'error');
+            
+            resultDiv.innerHTML = `
+                <div class="alert alert-warning">
+                    <h6><i class="fas fa-exclamation-triangle me-2"></i>لم يتم العثور على نتائج</h6>
+                    <p class="mb-0">${response.error || 'الرقم غير موجود في قاعدة البيانات'}</p>
+                </div>
+            `;
+        }
+        
+    } catch (error) {
+        sessionStats.failed++;
+        addToLog(`خطأ في البحث عن ${phoneNumber}: ${error.message}`, 'error');
+        
+        resultDiv.innerHTML = `
+            <div class="alert alert-danger">
+                <h6><i class="fas fa-times-circle me-2"></i>حدث خطأ</h6>
+                <p class="mb-0">${error.message}</p>
+            </div>
+        `;
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-search me-2"></i>بحث';
+        updateStats();
+    }
+});
+
+// البحث المجمع
+document.getElementById('bulkSearchForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const phonesText = document.getElementById('bulkPhones').value.trim();
+    const maxConcurrent = parseInt(document.getElementById('maxConcurrent').value);
+    const delayBetween = parseFloat(document.getElementById('delayBetween').value);
+    
+    const phoneNumbers = phonesText.split('\n')
+        .map(line => line.trim())
+        .filter(line => line !== '');
+    
+    if (phoneNumbers.length === 0) {
+        TRUD.notifications.warning('يرجى إدخال أرقام الهواتف');
+        return;
+    }
+    
+    if (phoneNumbers.length > 100) {
+        TRUD.notifications.warning('يمكن البحث عن 100 رقم كحد أقصى');
+        return;
+    }
+    
+    const btn = document.getElementById('bulkSearchBtn');
+    const progressDiv = document.getElementById('bulkProgress');
+    const progressBar = document.getElementById('bulkProgressBar');
+    const progressText = document.getElementById('bulkProgressText');
+    const resultsDiv = document.getElementById('bulkResults');
+    
+    // تعطيل الزر وإظهار التقدم
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>جاري البحث...';
+    progressDiv.style.display = 'block';
+    progressBar.style.width = '0%';
+    progressText.textContent = 'جاري البحث...';
+    
+    addToLog(`بدء البحث المجمع عن ${phoneNumbers.length} رقم`, 'info');
+    sessionStats.total += phoneNumbers.length;
+    updateStats();
+    
+    try {
+        const response = await TRUD.api.post('/search/bulk', {
+            phone_numbers: phoneNumbers,
+            max_concurrent: maxConcurrent,
+            delay_between_requests: delayBetween
+        });
+        
+        sessionStats.success += response.successful_results;
+        sessionStats.failed += response.failed_searches;
+        
+        addToLog(`انتهى البحث المجمع - نجح: ${response.successful_results}, فشل: ${response.failed_searches}`, 'success');
+        
+        // إخفاء شريط التقدم
+        progressDiv.style.display = 'none';
+        
+        // عرض النتائج
+        let resultsHtml = `
+            <div class="alert alert-info">
+                <h6>نتائج البحث المجمع</h6>
+                <div class="row mt-3">
+                    <div class="col-3">
+                        <strong>إجمالي:</strong> ${response.total_searched}
+                    </div>
+                    <div class="col-3">
+                        <strong>نجح:</strong> <span class="text-success">${response.successful_results}</span>
+                    </div>
+                    <div class="col-3">
+                        <strong>فشل:</strong> <span class="text-danger">${response.failed_searches}</span>
+                    </div>
+                    <div class="col-3">
+                        <strong>المعدل:</strong> ${Math.round((response.successful_results / response.total_searched) * 100)}%
+                    </div>
+                </div>
+            </div>
+            
+            <div class="table-responsive">
+                <table class="table table-sm table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>الرقم</th>
+                            <th>الحالة</th>
+                            <th>الاسم</th>
+                            <th>المشغل</th>
+                            <th>الوقت</th>
+                            <th>النوع</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+        `;
+        
+        response.results.forEach(result => {
+            const statusBadge = result.success ? 
+                '<span class="badge bg-success">نجح</span>' : 
+                '<span class="badge bg-danger">فشل</span>';
+            
+            const spamBadge = result.data && result.data.is_spam ? 
+                '<span class="badge bg-warning">مزعج</span>' : 
+                '<span class="badge bg-secondary">عادي</span>';
+            
+            resultsHtml += `
+                <tr>
+                    <td><code>${result.phone_number}</code></td>
+                    <td>${statusBadge}</td>
+                    <td>${result.data?.names?.[0] || '-'}</td>
+                    <td>${result.data?.carrier || '-'}</td>
+                    <td>${TRUD.Utils.formatDuration(result.response_time || 0)}</td>
+                    <td>${result.success ? spamBadge : '-'}</td>
+                </tr>
+            `;
+        });
+        
+        resultsHtml += `
+                    </tbody>
+                </table>
+            </div>
+        `;
+        
+        resultsDiv.innerHTML = resultsHtml;
+        
+    } catch (error) {
+        sessionStats.failed += phoneNumbers.length;
+        addToLog(`خطأ في البحث المجمع: ${error.message}`, 'error');
+        
+        progressDiv.style.display = 'none';
+        resultsDiv.innerHTML = `
+            <div class="alert alert-danger">
+                <h6><i class="fas fa-times-circle me-2"></i>حدث خطأ في البحث المجمع</h6>
+                <p class="mb-0">${error.message}</p>
+            </div>
+        `;
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-list me-2"></i>بحث مجمع';
+        updateStats();
+    }
+});
+
+// تحديث الصفحة كل 30 ثانية لمراقبة الحالة
+setInterval(function() {
+    if (sessionStats.total > 0) {
+        addToLog('تحديث تلقائي للإحصائيات', 'info');
+    }
+}, 30000);
+</script>
+{% endblock %}

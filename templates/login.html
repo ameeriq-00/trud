@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - {{ app_name }}</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .login-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+            max-width: 900px;
+            width: 100%;
+            min-height: 500px;
+        }
+        
+        .login-left {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 60px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .login-left::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='7' cy='7' r='7'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+            animation: float 20s infinite linear;
+        }
+        
+        @keyframes float {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(-60px) translateY(-60px); }
+        }
+        
+        .login-logo {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .login-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .login-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            line-height: 1.6;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .login-right {
+            padding: 60px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .login-form-title {
+            color: #333;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .form-floating {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-floating > .form-control {
+            border: 2px solid #e0e6ed;
+            border-radius: 12px;
+            font-size: 1rem;
+            height: 60px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-floating > .form-control:focus {
+            border-color: #4facfe;
+            box-shadow: 0 0 0 0.2rem rgba(79, 172, 254, 0.25);
+        }
+        
+        .form-floating > label {
+            color: #6c757d;
+            font-weight: 400;
+        }
+        
+        .btn-login {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            height: 55px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(79, 172, 254, 0.4);
+        }
+        
+        .btn-login:active {
+            transform: translateY(0);
+        }
+        
+        .btn-login .spinner-border {
+            width: 1.2rem;
+            height: 1.2rem;
+        }
+        
+        .alert {
+            border-radius: 12px;
+            border: none;
+            margin-bottom: 1.5rem;
+        }
+        
+        .alert-danger {
+            background: rgba(220, 53, 69, 0.1);
+            color: #dc3545;
+        }
+        
+        .features {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+        
+        .feature-item i {
+            margin-left: 0.75rem;
+            font-size: 1.1rem;
+        }
+        
+        .remember-me {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+        }
+        
+        .form-check-input:checked {
+            background-color: #4facfe;
+            border-color: #4facfe;
+        }
+        
+        .forgot-password {
+            color: #4facfe;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .forgot-password:hover {
+            color: #00f2fe;
+        }
+        
+        .system-info {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e0e6ed;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .login-container {
+                margin: 10px;
+                border-radius: 15px;
+            }
+            
+            .login-left {
+                padding: 40px 20px;
+                min-height: 200px;
+            }
+            
+            .login-right {
+                padding: 40px 20px;
+            }
+            
+            .login-logo {
+                font-size: 2rem;
+            }
+            
+            .login-title {
+                font-size: 1.5rem;
+            }
+            
+            .login-form-title {
+                font-size: 1.5rem;
+            }
+        }
+        
+        /* Animations */
+        .login-container {
+            animation: slideIn 0.8s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .form-floating {
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+        }
+        
+        .form-floating:nth-child(1) { animation-delay: 0.1s; }
+        .form-floating:nth-child(2) { animation-delay: 0.2s; }
+        .form-floating:nth-child(3) { animation-delay: 0.3s; }
+        .btn-login { animation-delay: 0.4s; }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="login-container">
+                    <div class="row g-0 h-100">
+                        <!-- الجانب الأيسر - معلومات النظام -->
+                        <div class="col-md-6 login-left">
+                            <div class="text-center">
+                                <div class="login-logo">
+                                    <i class="fas fa-phone-alt"></i>
+                                </div>
+                                <h1 class="login-title">TRUD</h1>
+                                <p class="login-subtitle">
+                                    نظام بروكسي متقدم لـ HelloCallers API<br>
+                                    مع إمكانيات البحث المجمع والإدارة الذكية
+                                </p>
+                                
+                                <div class="features">
+                                    <div class="feature-item">
+                                        <i class="fas fa-search"></i>
+                                        <span>البحث المفرد والمجمع</span>
+                                    </div>
+                                    <div class="feature-item">
+                                        <i class="fas fa-users"></i>
+                                        <span>إدارة حسابات متعددة</span>
+                                    </div>
+                                    <div class="feature-item">
+                                        <i class="fas fa-network-wired"></i>
+                                        <span>نظام بروكسيات متقدم</span>
+                                    </div>
+                                    <div class="feature-item">
+                                        <i class="fas fa-chart-line"></i>
+                                        <span>إحصائيات مفصلة</span>
+                                    </div>
+                                    <div class="feature-item">
+                                        <i class="fas fa-shield-alt"></i>
+                                        <span>حماية من الكشف</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- الجانب الأيمن - نموذج تسجيل الدخول -->
+                        <div class="col-md-6 login-right">
+                            <div class="w-100">
+                                <h2 class="login-form-title">
+                                    <i class="fas fa-sign-in-alt me-2"></i>
+                                    تسجيل الدخول
+                                </h2>
+                                
+                                {% if error %}
+                                <div class="alert alert-danger" role="alert">
+                                    <i class="fas fa-exclamation-triangle me-2"></i>
+                                    {{ error }}
+                                </div>
+                                {% endif %}
+                                
+                                <form method="post" action="/login" id="loginForm">
+                                    <div class="form-floating">
+                                        <input type="text" 
+                                               class="form-control" 
+                                               id="username" 
+                                               name="username" 
+                                               placeholder="اسم المستخدم"
+                                               required 
+                                               autocomplete="username"
+                                               value="admin">
+                                        <label for="username">
+                                            <i class="fas fa-user me-2"></i>
+                                            اسم المستخدم
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="form-floating">
+                                        <input type="password" 
+                                               class="form-control" 
+                                               id="password" 
+                                               name="password" 
+                                               placeholder="كلمة المرور"
+                                               required 
+                                               autocomplete="current-password">
+                                        <label for="password">
+                                            <i class="fas fa-lock me-2"></i>
+                                            كلمة المرور
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="remember-me">
+                                        <div class="form-check">
+                                            <input class="form-check-input" 
+                                                   type="checkbox" 
+                                                   value="1" 
+                                                   id="remember_me" 
+                                                   name="remember_me">
+                                            <label class="form-check-label" for="remember_me">
+                                                تذكرني
+                                            </label>
+                                        </div>
+                                        <a href="#" class="forgot-password">
+                                            نسيت كلمة المرور؟
+                                        </a>
+                                    </div>
+                                    
+                                    <button type="submit" class="btn btn-login w-100" id="loginBtn">
+                                        <span class="button-text">
+                                            <i class="fas fa-sign-in-alt me-2"></i>
+                                            تسجيل الدخول
+                                        </span>
+                                    </button>
+                                </form>
+                                
+                                <div class="system-info">
+                                    <div class="mb-2">
+                                        <i class="fas fa-info-circle me-1"></i>
+                                        {{ app_name }} - نظام إدارة البروكسي
+                                    </div>
+                                    <div class="text-muted small">
+                                        <i class="fas fa-shield-alt me-1"></i>
+                                        اتصال آمن ومشفر
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // تحسينات تجربة المستخدم لنموذج تسجيل الدخول
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('loginForm');
+            const submitBtn = document.getElementById('loginBtn');
+            const username = document.getElementById('username');
+            const password = document.getElementById('password');
+            
+            // إضافة تأثيرات التفاعل للحقول
+            const inputs = [username, password];
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.parentElement.style.transform = 'scale(1.02)';
+                    this.parentElement.style.transition = 'transform 0.2s ease';
+                });
+                
+                input.addEventListener('blur', function() {
+                    this.parentElement.style.transform = 'scale(1)';
+                });
+                
+                // إزالة رسائل الخطأ عند الكتابة
+                input.addEventListener('input', function() {
+                    const alert = document.querySelector('.alert-danger');
+                    if (alert) {
+                        alert.style.opacity = '0.5';
+                    }
+                });
+            });
+            
+            // التحكم في تسجيل الدخول
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // التحقق من صحة البيانات
+                if (!username.value.trim()) {
+                    showError('يرجى إدخال اسم المستخدم');
+                    username.focus();
+                    return;
+                }
+                
+                if (!password.value.trim()) {
+                    showError('يرجى إدخال كلمة المرور');
+                    password.focus();
+                    return;
+                }
+                
+                // تعطيل النموذج وإظهار حالة التحميل
+                setLoading(true);
+                
+                // إرسال النموذج
+                setTimeout(() => {
+                    form.submit();
+                }, 500);
+            });
+            
+            // وظيفة عرض الأخطاء
+            function showError(message) {
+                // إزالة الأخطاء السابقة
+                const existingAlert = document.querySelector('.alert-danger');
+                if (existingAlert) {
+                    existingAlert.remove();
+                }
+                
+                // إنشاء تنبيه جديد
+                const alert = document.createElement('div');
+                alert.className = 'alert alert-danger';
+                alert.innerHTML = `
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    ${message}
+                `;
+                
+                // إدراج التنبيه قبل النموذج
+                form.insertBefore(alert, form.firstChild);
+                
+                // إضافة تأثير الظهور
+                alert.style.opacity = '0';
+                alert.style.transform = 'translateY(-10px)';
+                setTimeout(() => {
+                    alert.style.transition = 'all 0.3s ease';
+                    alert.style.opacity = '1';
+                    alert.style.transform = 'translateY(0)';
+                }, 10);
+            }
+            
+            // وظيفة تعيين حالة التحميل
+            function setLoading(loading) {
+                if (loading) {
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = `
+                        <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                        جاري تسجيل الدخول...
+                    `;
+                    
+                    inputs.forEach(input => {
+                        input.disabled = true;
+                    });
+                } else {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = `
+                        <i class="fas fa-sign-in-alt me-2"></i>
+                        تسجيل الدخول
+                    `;
+                    
+                    inputs.forEach(input => {
+                        input.disabled = false;
+                    });
+                }
+            }
+            
+            // التنقل بـ Enter
+            username.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    password.focus();
+                }
+            });
+            
+            password.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    form.dispatchEvent(new Event('submit'));
+                }
+            });
+            
+            // تركيز تلقائي على حقل اسم المستخدم
+            setTimeout(() => {
+                if (!username.value) {
+                    username.focus();
+                } else {
+                    password.focus();
+                }
+            }, 100);
+            
+            // معلومات افتراضية للتطوير
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                // في بيئة التطوير، إظهار معلومات تسجيل الدخول
+                setTimeout(() => {
+                    if (!document.querySelector('.dev-info')) {
+                        const devInfo = document.createElement('div');
+                        devInfo.className = 'dev-info alert alert-info mt-3';
+                        devInfo.innerHTML = `
+                            <i class="fas fa-info-circle me-2"></i>
+                            <strong>بيئة التطوير:</strong><br>
+                            <small>
+                                اسم المستخدم: <code>admin</code><br>
+                                كلمة المرور: <code>admin123</code>
+                            </small>
+                        `;
+                        form.appendChild(devInfo);
+                    }
+                }, 1000);
+            }
+        });
+        
+        // إضافة تأثيرات بصرية إضافية
+        document.addEventListener('mousemove', function(e) {
+            const loginLeft = document.querySelector('.login-left');
+            if (loginLeft) {
+                const rect = loginLeft.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / rect.width - 0.5) * 10;
+                const y = ((e.clientY - rect.top) / rect.height - 0.5) * 10;
+                
+                loginLeft.style.transform = `perspective(1000px) rotateY(${x}deg) rotateX(${-y}deg)`;
+            }
+        });
+        
+        document.addEventListener('mouseleave', function() {
+            const loginLeft = document.querySelector('.login-left');
+            if (loginLeft) {
+                loginLeft.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg)';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -145,22 +145,40 @@ async def login_page(request: Request):
 
 
 @app.post("/login")
-async def login(
-    request: Request,
-    username: str = Form(...),
-    password: str = Form(...),
-):
+async def login(request: Request):
     """تسجيل الدخول"""
-    if check_admin_credentials(username, password):
-        # إنشاء token وإعادة توجيه
-        token = create_access_token({"sub": username, "role": "admin"})
-        response = RedirectResponse(url="/", status_code=303)
-        response.set_cookie(key="access_token", value=f"Bearer {token}", httponly=True)
-        return response
-    else:
+    try:
+        # قراءة البيانات من النموذج
+        form_data = await request.form()
+        username = form_data.get("username")
+        password = form_data.get("password")
+        
+        # التحقق من وجود البيانات
+        if not username or not password:
+            return templates.TemplateResponse("login.html", {
+                "request": request,
+                "error": "يرجى إدخال اسم المستخدم وكلمة المرور",
+                "app_name": settings.PROJECT_NAME
+            })
+        
+        # التحقق من صحة البيانات
+        if check_admin_credentials(username, password):
+            # إنشاء token وإعادة توجيه
+            token = create_access_token({"sub": username, "role": "admin"})
+            response = RedirectResponse(url="/", status_code=303)
+            response.set_cookie(key="access_token", value=f"Bearer {token}", httponly=True)
+            return response
+        else:
+            return templates.TemplateResponse("login.html", {
+                "request": request,
+                "error": "اسم المستخدم أو كلمة المرور غير صحيحة",
+                "app_name": settings.PROJECT_NAME
+            })
+    
+    except Exception as e:
         return templates.TemplateResponse("login.html", {
             "request": request,
-            "error": "اسم المستخدم أو كلمة المرور غير صحيحة",
+            "error": f"خطأ في تسجيل الدخول: {str(e)}",
             "app_name": settings.PROJECT_NAME
         })
 
@@ -172,6 +190,16 @@ async def logout():
     response.delete_cookie(key="access_token")
     return response
 
+@app.get("/search-test", response_class=HTMLResponse)
+async def search_test_page(request: Request):
+    """صفحة اختبار البحث"""
+    return templates.TemplateResponse("search_test.html", {
+        "request": request,
+        "app_name": settings.PROJECT_NAME
+    })
+
+
+@app.get("/", response_class=HTMLResponse)
 
 @app.get("/health")
 async def health_check():

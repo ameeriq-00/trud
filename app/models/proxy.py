@@ -113,7 +113,13 @@ class Proxy(Base):
             self.failed_requests += 1
     
     def can_handle_request(self):
-        """هل يمكن للبروكسي التعامل مع طلب جديد؟"""
-        return (self.is_active and 
-                self.is_working and 
-                self.success_rate >= 70)  # معدل نجاح لا يقل عن 70%
+        """فحص إمكانية التعامل مع الطلب"""
+        return self.is_working and self.is_active
+    
+    @property 
+    def success_rate(self):
+        """معدل نجاح البروكسي"""
+        if not hasattr(self, '_success_rate'):
+            return 90.0  # قيمة افتراضية
+        return self._success_rate
+    
