@@ -1,43 +1,30 @@
 """
-إعداد قاعدة البيانات
+إعدادات قاعدة البيانات - مُصححة
 """
-from sqlalchemy import create_engine, MetaData
+from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.pool import StaticPool
+from sqlalchemy.orm import sessionmaker, Session
 from .config import settings
+import logging
+
+logger = logging.getLogger(__name__)
 
 # إنشاء محرك قاعدة البيانات
-if settings.DATABASE_URL.startswith("sqlite"):
-    engine = create_engine(
-        settings.DATABASE_URL,
-        connect_args={
-            "check_same_thread": False,
-            "timeout": 20
-        },
-        poolclass=StaticPool,
-        echo=settings.DEBUG
-    )
-else:
-    engine = create_engine(
-        settings.DATABASE_URL,
-        echo=settings.DEBUG
-    )
+engine = create_engine(
+    settings.DATABASE_URL, 
+    connect_args={"check_same_thread": False} if "sqlite" in settings.DATABASE_URL else {},
+    echo=settings.DEBUG  # إظهار SQL queries في وضع التطوير
+)
 
 # إنشاء جلسة قاعدة البيانات
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-# Base class للجداول
+# القاعدة للنماذج
 Base = declarative_base()
 
-# Metadata للجداول
-metadata = MetaData()
 
-
-def get_db():
-    """
-    الحصول على جلسة قاعدة البيانات
-    """
+def get_db() -> Session:
+    """الحصول على جلسة قاعدة بيانات"""
     db = SessionLocal()
     try:
         yield db
@@ -46,46 +33,67 @@ def get_db():
 
 
 def init_db():
-    """
-    إنشاء جميع الجداول
-    """
-    # استيراد جميع النماذج هنا لضمان إنشاء الجداول
-    from app.models.account import Account
-    from app.models.proxy import Proxy
-    from app.models.session import Session
-    from app.models.api_key import APIKey
-    
-    Base.metadata.create_all(bind=engine)
-    
-    # إنشاء البيانات الافتراضية
-    create_default_data()
+    """إنشاء قاعدة البيانات والجداول"""
+    try:
+        # استيراد جميع النماذج لضمان إنشاء الجداول
+        from app.models import Base, Account, Proxy, Session as SessionModel, APIKey
+        
+        # إنشاء الجداول
+        Base.metadata.create_all(bind=engine)
+        
+        # إنشاء بيانات افتراضية
+        create_default_data()
+        
+        logger.info("✅ تم إنشاء قاعدة البيانات بنجاح")
+        
+    except Exception as e:
+        logger.error(f"❌ خطأ في إنشاء قاعدة البيانات: {str(e)}")
+        raise
 
 
 def create_default_data():
-    """
-    إنشاء البيانات الافتراضية
-    """
-    from app.models.api_key import APIKey
-    from app.core.security import get_password_hash
-    
-    db = SessionLocal()
+    """إنشاء بيانات افتراضية"""
     try:
-        # إنشاء API key افتراضي للمدير
-        admin_api_key = db.query(APIKey).filter(APIKey.name == "admin").first()
-        if not admin_api_key:
-            admin_api_key = APIKey(
-                name="admin",
-                key="trud-admin-key-12345",
-                description="مفتاح المدير الافتراضي",
-                is_active=True,
-                created_by="system"
+        from app.models.api_key import APIKey
+        from app.core.security import create_api_key
+        
+        db = SessionLocal()
+        
+        # التحقق من وجود API key افتراضي
+        existing_key = db.query(APIKey).filter(APIKey.name == "default").first()
+        
+        if not existing_key:
+            # إنشاء API key افتراضي
+            default_key = create_api_key()
+            
+            api_key = APIKey(
+                name="default",
+                key=default_key,
+                description="مفتاح API افتراضي للاختبار",
+                created_by="system",
+                is_active=True
             )
-            db.add(admin_api_key)
+            
+            db.add(api_key)
             db.commit()
-            print(f"✅ تم إنشاء API Key: {admin_api_key.key}")
-    
-    except Exception as e:
-        print(f"❌ خطأ في إنشاء البيانات الافتراضية: {e}")
-        db.rollback()
-    finally:
+            
+            logger.info(f"✅ تم إنشاء API Key افتراضي: {default_key}")
+            
         db.close()
+        
+    except Exception as e:
+        logger.error(f"❌ خطأ في إنشاء البيانات الافتراضية: {str(e)}")
+
+
+def drop_all_tables():
+    """حذف جميع الجداول - للاختبار فقط"""
+    from app.models import Base
+    Base.metadata.drop_all(bind=engine)
+    logger.info("🗑️ تم حذف جميع الجداول")
+
+
+def reset_database():
+    """إعادة تعيين قاعدة البيانات"""
+    drop_all_tables()
+    init_db()
+    logger.info("🔄 تم إعادة تعيين قاعدة البيانات")

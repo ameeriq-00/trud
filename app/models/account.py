@@ -1,11 +1,10 @@
-# الحل السريع:
-# استبدل محتوى app/models/account.py بالكود التالي:
-
 """
-نموذج الحسابات - HelloCallers Accounts
+نموذج الحسابات - HelloCallers Accounts مُصحح
 """
 from sqlalchemy import Column, Integer, String, Boolean, DateTime, Text, Float
+from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
+from datetime import datetime
 from app.core.database import Base
 
 
@@ -41,13 +40,58 @@ class Account(Base):
     notes = Column(Text, nullable=True, comment="ملاحظات")
     
     # تواريخ النظام
-    created_at = Column(DateTime, server_default=func.now(), comment="تاريخ الإنشاء")
-    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now(), comment="تاريخ التحديث")
+    created_at = Column(DateTime(timezone=True), server_default=func.now(), comment="تاريخ الإنشاء")
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now(), comment="تاريخ التحديث")
+    
+    # العلاقات - مُصححة
+    sessions = relationship("Session", back_populates="account", lazy="dynamic")
     
     def __repr__(self):
-        return f"<Account(id={self.id}, name='{self.name}', active={self.is_active})>"
+        return f"<Account {self.name}: {self.device_id}>"
     
-    def to_dict(self):
+    @property
+    def success_rate(self) -> float:
+        """معدل النجاح"""
+        if self.request_count == 0:
+            return 0.0
+        return (self.successful_requests / self.request_count) * 100
+    
+    @property
+    def remaining_requests(self) -> int:
+        """الطلبات المتبقية في الساعة الحالية"""
+        return max(0, self.rate_limit - self.current_hour_requests)
+    
+    @property
+    def is_rate_limited(self) -> bool:
+        """هل وصل للحد الأقصى من الطلبات"""
+        return self.current_hour_requests >= self.rate_limit
+    
+    def can_make_request(self) -> bool:
+        """هل يمكن إجراء طلب جديد"""
+        return (
+            self.is_active and 
+            not self.is_banned and 
+            not self.is_rate_limited
+        )
+    
+    def increment_request_count(self, success: bool = True):
+        """زيادة عداد الطلبات"""
+        self.request_count += 1
+        self.current_hour_requests += 1
+        self.last_used = datetime.utcnow()
+        
+        if success:
+            self.successful_requests += 1
+        else:
+            self.failed_requests += 1
+    
+    def reset_hourly_requests(self):
+        """إعادة تعيين عداد الطلبات الساعي"""
+        from datetime import timedelta
+        self.current_hour_requests = 0
+        self.hour_reset_time = datetime.utcnow() + timedelta(hours=1)
+    
+    def to_dict(self) -> dict:
         """تحويل إلى قاموس"""
         return {
             "id": self.id,
@@ -57,81 +101,14 @@ class Account(Base):
             "request_count": self.request_count,
             "successful_requests": self.successful_requests,
             "failed_requests": self.failed_requests,
-            "last_used": self.last_used.isoformat() if self.last_used else None,
+            "success_rate": self.success_rate,
             "rate_limit": self.rate_limit,
             "current_hour_requests": self.current_hour_requests,
+            "remaining_requests": self.remaining_requests,
             "is_active": self.is_active,
             "is_banned": self.is_banned,
-            "ban_reason": self.ban_reason,
             "country": self.country,
             "locale": self.locale,
-            "notes": self.notes,
-            "created_at": self.created_at.isoformat() if self.created_at else None,
-            "updated_at": self.updated_at.isoformat() if self.updated_at else None,
-            # إضافة الخصائص المحسوبة
-            "success_rate": self.success_rate,
-            "remaining_requests": self.remaining_requests
+            "last_used": self.last_used.isoformat() if self.last_used else None,
+            "created_at": self.created_at.isoformat() if self.created_at else None
         }
-    
-    @property
-    def remaining_requests(self):
-        """الطلبات المتبقية في الساعة"""
-        return max(0, self.rate_limit - self.current_hour_requests)
-    @property
-    def requests_today(self):
-        """عدد الطلبات اليوم"""
-        # يمكن حسابها من current_hour_requests أو إرجاع قيمة افتراضية
-        from datetime import datetime, timedelta
-        
-        # إذا كان hour_reset_time في نفس اليوم، استخدم current_hour_requests
-        if self.hour_reset_time:
-            today = datetime.utcnow().date()
-            reset_date = self.hour_reset_time.date()
-            
-            if today == reset_date:
-                return self.current_hour_requests
-        
-        # خلاف ذلك، استخدم current_hour_requests كتقدير
-        return self.current_hour_requests
-    
-    # وأيضاً أضف can_handle_request إذا لم تضفها:
-    
-    def can_handle_request(self):
-        """اسم بديل لـ can_make_request للتوافق"""
-        return self.can_make_request()
-    
-    @property
-    def success_rate(self):
-        """معدل نجاح الطلبات"""
-        if self.request_count == 0:
-            return 0.0
-        return (self.successful_requests / self.request_count) * 100
-    
-    def can_make_request(self):
-        """هل يمكن للحساب إجراء طلب جديد؟"""
-        if not self.is_active or self.is_banned:
-            return False
-        
-        from datetime import datetime, timedelta
-        now = datetime.utcnow()
-        
-        # إعادة تعيين العداد إذا مر ساعة
-        if (self.hour_reset_time is None or 
-            now >= self.hour_reset_time + timedelta(hours=1)):
-            self.current_hour_requests = 0
-            self.hour_reset_time = now
-        
-        return self.current_hour_requests < self.rate_limit
-    
-    def increment_request_count(self, success: bool = True):
-        """زيادة عداد الطلبات"""
-        from datetime import datetime
-        
-        self.request_count += 1
-        self.current_hour_requests += 1
-        self.last_used = datetime.utcnow()
-        
-        if success:
-            self.successful_requests += 1
-        else:
-            self.failed_requests += 1

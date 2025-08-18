@@ -1,130 +1,168 @@
-# app/services/hellocallers.py - إصدار محسن بناءً على تحليل HAR
-
 """
-خدمة HelloCallers محسنة بناءً على تحليل ملف HAR
+خدمة HelloCallers محسنة بناءً على تحليل APK
+استبدل app/services/hellocallers.py بهذا الكود
 """
 import asyncio
 import httpx
 import json
 import random
 import time
+import logging
 from typing import Dict, List, Optional, Any
 from sqlalchemy.orm import Session
-from datetime import datetime
+from datetime import datetime, timedelta
 
-from app.utils.helpers import (
-    generate_session_id, 
-    normalize_phone_number,
-    generate_android_fingerprint,
-    get_random_delay
-)
-from app.utils.encryption import EnhancedEncryption
+from app.utils.helpers import generate_session_id
 from app.models.account import Account
 from app.models.proxy import Proxy
 from app.models.session import Session as SessionModel
 
+# استيراد النظام المتقدم
+try:
+    from app.utils.advanced_encryption import (
+        HelloCallersAdvancedEncryption, 
+        create_advanced_hellocallers_request
+    )
+    ADVANCED_ENCRYPTION_AVAILABLE = True
+except ImportError:
+    # fallback للنظام القديم
+    from app.utils.encryption import HelloCallersEncryption
+    ADVANCED_ENCRYPTION_AVAILABLE = False
 
-class HelloCallersService:
+logger = logging.getLogger(__name__)
+
+
+class HelloCallersServiceAPK:
     """
-    خدمة HelloCallers محسنة مع محاكاة كاملة للـ API الحقيقي
+    خدمة HelloCallers محسنة بناءً على تحليل APK
     """
     
     def __init__(self, db: Session):
         self.db = db
         self.base_url = "https://hellocallers.com"
-        self.encryption = EnhancedEncryption()
         
-        # User agents واقعية من تحليل HAR
-        self.user_agents = [
-            "okhttp/5.0.0-alpha.2",
-            "okhttp/4.12.0", 
-            "okhttp/5.0.0",
-            "Dalvik/2.1.0 (Linux; U; Android 11; SM-A505F Build/RP1A.200720.012)",
-            "Dalvik/2.1.0 (Linux; U; Android 12; SM-G973F Build/SP1A.210812.016)",
-            "Dalvik/2.1.0 (Linux; U; Android 13; Pixel 6 Build/TQ3A.230901.001)"
-        ]
+        # تهيئة نظام التشفير المتقدم
+        if ADVANCED_ENCRYPTION_AVAILABLE:
+            self.advanced_encryption = HelloCallersAdvancedEncryption()
+            self.use_advanced = True
+            logger.info("🔐 استخدام نظام التشفير المتقدم")
+        else:
+            self.encryption = HelloCallersEncryption()
+            self.use_advanced = False
+            logger.info("⚠️ استخدام نظام التشفير الأساسي")
         
-        # Device fingerprints مستخرجة من HAR
-        self.device_templates = [
-            {
-                "device_id": "e89fdbf136ae2460",
-                "player_id": "df33b4ce-9b1e-49ed-8ce0-44f1dbc89988",
-                "android_version": "11",
-                "device_model": "SM-A505F"
-            },
-            # يمكن إضافة المزيد من القوالب
-        ]
-    
-    def get_realistic_headers(self, account: Account, endpoint: str = "search") -> Dict[str, str]:
-        """
-        إنشاء headers واقعية بناءً على تحليل HAR
-        """
-        device_info = random.choice(self.device_templates).copy()
-        
-        # تخصيص معلومات الجهاز للحساب
-        if account.device_id:
-            device_info["device_id"] = account.device_id
-        if account.player_id:
-            device_info["player_id"] = account.player_id
-        
-        headers = {
-            "authorization": f"Bearer {account.token}",
-            "api-version": "1",
-            "x-request-encrypted": "1",
-            "accept": "application/json",
-            "device-type": "android",
-            "android-app": "main",
-            "locale": account.locale or "ar",
-            "player-id": device_info["player_id"],
-            "device-id": device_info["device_id"],
-            "country": account.country or "IQ",
-            "host": "hellocallers.com",
-            "connection": "Keep-Alive",
-            "accept-encoding": "gzip",
-            "user-agent": random.choice(self.user_agents)
+        # Endpoints مُستخرجة من HAR وAPK
+        self.endpoints = {
+            "histories_all": "/api/user/histories/all",  # الأساسي من HAR
+            "user_info": "/api/user/info",
+            "search_direct": "/api/search",  # محتمل
+            "phone_lookup": "/api/phone/lookup",  # محتمل
         }
         
-        # إضافة headers خاصة حسب نوع الطلب
-        if endpoint in ["search", "histories"]:
-            headers["content-type"] = "application/x-www-form-urlencoded"
-        elif endpoint == "user_info":
-            headers["content-type"] = "application/json"
-        
-        return headers
+        # User agents من APK
+        self.user_agents = [
+            "okhttp/5.0.0-alpha.2",  # من HAR
+            "okhttp/4.12.0",
+            "Dalvik/2.1.0 (Linux; U; Android 11; SM-A505F Build/RP1A.200720.012)"
+        ]
     
-    def create_realistic_payload(self, phone_number: str, request_type: str = "search") -> str:
-        """
-        إنشاء payload مشفر محاكي للأنماط المكتشفة في HAR
-        """
-        if request_type == "search":
-            # للبحث عن رقم
-            clean_phone = phone_number.replace('+', '').replace(' ', '').replace('-', '')
-            return self.encryption.encrypt_phone_search(clean_phone)
+    def _get_available_account(self, account_id: Optional[int] = None) -> Optional[Account]:
+        """الحصول على حساب متاح"""
         
-        elif request_type == "history_all":
-            # لجلب تاريخ البحث
-            return self.encryption.encrypt_history_request()
+        query = self.db.query(Account).filter(
+            Account.is_active == True,
+            Account.is_banned == False
+        )
         
-        elif request_type == "add_history":
-            # لإضافة البحث للتاريخ
-            return self.encryption.encrypt_with_session(phone_number)
+        if account_id:
+            account = query.filter(Account.id == account_id).first()
+            if account and self._can_use_account(account):
+                return account
+            return None
         
+        available_accounts = query.all()
+        for account in available_accounts:
+            if self._can_use_account(account):
+                return account
+        
+        return None
+    
+    def _can_use_account(self, account: Account) -> bool:
+        """فحص إمكانية استخدام الحساب"""
+        current_time = datetime.utcnow()
+        
+        if account.hour_reset_time and current_time > account.hour_reset_time:
+            account.current_hour_requests = 0
+            account.hour_reset_time = current_time + timedelta(hours=1)
+            self.db.commit()
+        
+        return account.current_hour_requests < account.rate_limit
+    
+    def _get_available_proxy(self, proxy_id: Optional[int] = None) -> Optional[Proxy]:
+        """الحصول على بروكسي متاح"""
+        
+        query = self.db.query(Proxy).filter(
+            Proxy.is_active == True,
+            Proxy.is_working == True
+        )
+        
+        if proxy_id:
+            return query.filter(Proxy.id == proxy_id).first()
+        
+        proxies = query.all()
+        return random.choice(proxies) if proxies else None
+    
+    def _create_advanced_request(self, phone_number: str, account: Account) -> Dict[str, Any]:
+        """إنشاء طلب متقدم باستخدام APK analysis"""
+        
+        if self.use_advanced:
+            # استخدام النظام المتقدم
+            request_data = create_advanced_hellocallers_request(phone_number, account.token)
+            
+            # تحديث device info من الحساب
+            if account.device_id:
+                request_data['device_info']['device_id'] = account.device_id
+            if account.player_id:
+                request_data['device_info']['player_id'] = account.player_id
+            
+            return request_data
         else:
-            return self.encryption.generate_realistic_payload(phone_number)
+            # fallback للنظام القديم
+            account_data = {
+                "user_id": str(account.id),
+                "token": account.token,
+                "device_id": account.device_id,
+                "player_id": account.player_id,
+                "country": account.country,
+                "locale": account.locale
+            }
+            
+            headers = self.encryption.get_realistic_headers(account_data, "search")
+            payload = self.encryption.encrypt_phone_search(phone_number)
+            
+            return {
+                "url": f"{self.base_url}/api/user/histories/all",
+                "method": "POST",
+                "headers": headers,
+                "data": {"payload": payload},
+                "device_info": account_data,
+                "payload_analysis": {"advanced": False}
+            }
     
     async def search_single_phone(
         self, 
         phone_number: str,
-        account: Account = None,
-        proxy: Proxy = None
+        account_id: Optional[int] = None,
+        proxy_id: Optional[int] = None,
+        debug_mode: bool = False
     ) -> Dict[str, Any]:
         """
-        البحث عن رقم هاتف واحد مع محاكاة كاملة لسلوك HelloCallers
+        البحث عن رقم هاتف مع النظام المحسن
         """
         session_id = generate_session_id()
         start_time = time.time()
         
-        # إنشاء جلسة جديدة
+        # إنشاء جلسة
         session = SessionModel(
             session_id=session_id,
             phone_number=phone_number,
@@ -132,411 +170,406 @@ class HelloCallersService:
             status="pending",
             started_at=datetime.utcnow()
         )
+        self.db.add(session)
+        self.db.commit()
         
         try:
-            # اختيار حساب وبروكسي إذا لم يتم تحديدهما
+            # اختيار حساب وبروكسي
+            account = self._get_available_account(account_id)
             if not account:
-                account = self._get_available_account()
-            if not proxy:
-                proxy = self._get_available_proxy()
+                raise Exception("No available accounts")
             
-            if account:
-                session.account_id = account.id
+            proxy = self._get_available_proxy(proxy_id)
+            
+            # تحديث الجلسة
+            session.account_id = account.id
+            session.proxy_id = proxy.id if proxy else None
+            self.db.commit()
+            
+            # إنشاء الطلب المتقدم
+            request_data = self._create_advanced_request(phone_number, account)
+            
+            # حفظ payload للتصحيح
+            session.payload_used = request_data['data']['payload']
+            self.db.commit()
+            
+            if debug_mode:
+                print("🔐 Advanced Request Generated:")
+                print(f"📱 Device Info: {request_data['device_info']}")
+                print(f"🔑 Payload: {request_data['data']['payload']}")
+                print(f"📊 Analysis: {request_data.get('payload_analysis', {})}")
+                print(f"🌐 URL: {request_data['url']}")
+            
+            # إعداد HTTP client
+            timeout = httpx.Timeout(30.0)
+            proxy_url = None
+            
             if proxy:
-                session.proxy_id = proxy.id
-            
-            # تطبيع رقم الهاتف
-            normalized = normalize_phone_number(phone_number)
-            search_phone = normalized["e164"]
-            
-            # إعداد الطلب
-            headers = self.get_realistic_headers(account, "search")
-            payload = self.create_realistic_payload(search_phone, "search")
-            
-            # إعداد البروكسي
-            proxy_config = None
-            if proxy:
-                proxy_config = {
-                    "http://": f"http://{proxy.username}:{proxy.password}@{proxy.host}:{proxy.port}",
-                    "https://": f"http://{proxy.username}:{proxy.password}@{proxy.host}:{proxy.port}"
-                } if proxy.username else f"http://{proxy.host}:{proxy.port}"
-            
-            # تأخير عشوائي لتجنب الكشف
-            await asyncio.sleep(get_random_delay(0.5, 2.0))
-            
-            # إجراء الطلب
-            async with httpx.AsyncClient(
-                timeout=30.0,
-                proxies=proxy_config,
-                follow_redirects=True
-            ) as client:
-                
-                # الطلب الأول: البحث عن الرقم
-                search_response = await client.post(
-                    f"{self.base_url}/api/search/contact",
-                    headers=headers,
-                    data={"payload": payload}
-                )
-                
-                response_time = time.time() - start_time
-                session.response_time = response_time
-                
-                if search_response.status_code == 200:
-                    result_data = search_response.json()
-                    
-                    if result_data.get("status") and result_data.get("data"):
-                        # استخراج معلومات الرقم
-                        contacts = result_data["data"].get("data", [])
-                        
-                        if contacts:
-                            contact = contacts[0]
-                            contact_info = {
-                                "phone_number": normalized["international"],
-                                "national": contact.get("national", ""),
-                                "international": contact.get("international", ""),
-                                "e164": contact.get("e164", ""),
-                                "country": contact.get("country_name", ""),
-                                "carrier": contact.get("carrier_name", ""),
-                                "carrier_type": contact.get("carrier_type_text", ""),
-                                "is_spam": bool(contact.get("is_spam", 0)),
-                                "names": [name.get("name", "") for name in contact.get("names", [])],
-                                "uuid": contact.get("uuid", "")
-                            }
-                            
-                            # تحديث الجلسة
-                            session.status = "success"
-                            session.contact_found = True
-                            session.contact_name = contact_info["names"][0] if contact_info["names"] else None
-                            session.carrier_name = contact_info["carrier"]
-                            session.country_code = normalized["country_code"]
-                            session.is_spam = contact_info["is_spam"]
-                            session.response_data = json.dumps(contact_info, ensure_ascii=False)
-                            
-                            # محاولة إضافة للتاريخ (محاكياً لسلوك التطبيق)
-                            await self._add_to_history(client, headers, search_phone, account)
-                            
-                            return {
-                                "success": True,
-                                "phone_number": search_phone,
-                                "session_id": session_id,
-                                "data": contact_info,
-                                "account_used": account.id if account else None,
-                                "proxy_used": proxy.id if proxy else None,
-                                "response_time": response_time
-                            }
-                        else:
-                            # لم يتم العثور على الرقم
-                            session.status = "success"
-                            session.contact_found = False
-                            
-                            return {
-                                "success": False,
-                                "phone_number": search_phone,
-                                "session_id": session_id,
-                                "error": "لم يتم العثور على معلومات لهذا الرقم",
-                                "account_used": account.id if account else None,
-                                "proxy_used": proxy.id if proxy else None,
-                                "response_time": response_time
-                            }
-                    else:
-                        # خطأ في الاستجابة
-                        error_msg = result_data.get("msg", "خطأ غير معروف")
-                        session.status = "failed"
-                        session.error_message = error_msg
-                        
-                        return {
-                            "success": False,
-                            "phone_number": search_phone,
-                            "session_id": session_id,
-                            "error": error_msg,
-                            "account_used": account.id if account else None,
-                            "proxy_used": proxy.id if proxy else None,
-                            "response_time": response_time
-                        }
+                if proxy.username and proxy.password:
+                    proxy_url = f"http://{proxy.username}:{proxy.password}@{proxy.host}:{proxy.port}"
                 else:
-                    # خطأ HTTP
-                    error_msg = f"HTTP {search_response.status_code}: {search_response.reason_phrase}"
-                    session.status = "failed"
-                    session.error_message = error_msg
+                    proxy_url = f"http://{proxy.host}:{proxy.port}"
+            
+            # تجريب endpoints مختلفة
+            endpoints_to_try = [
+                request_data['url'],  # الـ URL المُولد
+                f"{self.base_url}/api/user/histories/all",  # من HAR
+                f"{self.base_url}/api/search",  # محتمل
+                f"{self.base_url}/api/phone/lookup",  # محتمل
+            ]
+            
+            last_error = None
+            
+            for endpoint_url in endpoints_to_try:
+                try:
+                    if debug_mode:
+                        print(f"🌐 جاري المحاولة: {endpoint_url}")
                     
-                    return {
-                        "success": False,
-                        "phone_number": search_phone,
-                        "session_id": session_id,
-                        "error": error_msg,
-                        "account_used": account.id if account else None,
-                        "proxy_used": proxy.id if proxy else None,
-                        "response_time": response_time
-                    }
-        
-        except asyncio.TimeoutError:
-            session.status = "timeout"
-            session.error_message = "انتهت مهلة الاتصال"
-            return {
-                "success": False,
-                "phone_number": phone_number,
-                "session_id": session_id,
-                "error": "انتهت مهلة الاتصال",
-                "response_time": time.time() - start_time
-            }
-        
+                    async with httpx.AsyncClient(
+                        timeout=timeout,
+                        proxies=proxy_url,
+                        verify=False
+                    ) as client:
+                        
+                        # تحديث URL في request data
+                        current_request = request_data.copy()
+                        current_request['url'] = endpoint_url
+                        
+                        response = await client.request(
+                            method=current_request['method'],
+                            url=endpoint_url,
+                            headers=current_request['headers'],
+                            data=current_request['data']
+                        )
+                        
+                        response_time = time.time() - start_time
+                        
+                        if debug_mode:
+                            print(f"📡 Response status: {response.status_code}")
+                            print(f"📄 Response headers: {dict(response.headers)}")
+                            print(f"📝 Response text (first 500 chars): {response.text[:500]}")
+                        
+                        # تحليل الاستجابة
+                        result = await self._parse_response(
+                            response, 
+                            session, 
+                            account, 
+                            response_time,
+                            endpoint_url,
+                            debug_mode
+                        )
+                        
+                        # تحديث إحصائيات
+                        self._update_account_stats(account, result["success"])
+                        if proxy:
+                            self._update_proxy_stats(proxy, result["success"], response_time)
+                        
+                        # إضافة معلومات إضافية للنتيجة
+                        result.update({
+                            "encryption_method": "Advanced APK-based" if self.use_advanced else "Basic",
+                            "endpoint_used": endpoint_url,
+                            "payload_analysis": request_data.get('payload_analysis', {}),
+                            "device_info": request_data['device_info']
+                        })
+                        
+                        return result
+                        
+                except Exception as e:
+                    last_error = str(e)
+                    if debug_mode:
+                        print(f"❌ خطأ مع {endpoint_url}: {str(e)}")
+                    continue
+            
+            # إذا فشلت جميع المحاولات
+            raise Exception(f"جميع endpoints فشلت. آخر خطأ: {last_error}")
+                
         except Exception as e:
+            # تسجيل الخطأ
             session.status = "failed"
             session.error_message = str(e)
+            session.completed_at = datetime.utcnow()
+            self.db.commit()
+            
+            logger.error(f"Error in search_single_phone: {str(e)}")
+            
             return {
                 "success": False,
                 "phone_number": phone_number,
                 "session_id": session_id,
-                "error": f"خطأ في الطلب: {str(e)}",
-                "response_time": time.time() - start_time
-            }
-        
-        finally:
-            # حفظ الجلسة
-            session.completed_at = datetime.utcnow()
-            session.response_time = time.time() - start_time
-            self.db.add(session)
-            self.db.commit()
-    
-    async def _add_to_history(self, client: httpx.AsyncClient, headers: Dict[str, str], phone: str, account: Account):
-        """
-        إضافة البحث لتاريخ المستخدم (محاكاة سلوك التطبيق)
-        """
-        try:
-            # تأخير صغير
-            await asyncio.sleep(get_random_delay(0.1, 0.5))
-            
-            # تحديث headers للتاريخ
-            history_headers = headers.copy()
-            history_payload = self.create_realistic_payload(phone, "add_history")
-            
-            await client.post(
-                f"{self.base_url}/api/user/histories",
-                headers=history_headers,
-                data={"payload": history_payload}
-            )
-        except:
-            # تجاهل أخطاء إضافة التاريخ
-            pass
-    
-    async def bulk_search_phones(
-        self,
-        phone_numbers: List[str],
-        max_concurrent: int = 5,
-        delay_between_requests: float = 1.0
-    ) -> Dict[str, Any]:
-        """
-        البحث المجمع عن عدة أرقام مع تحكم في السرعة والتزامن
-        """
-        results = []
-        errors = []
-        successful_count = 0
-        failed_count = 0
-        
-        # تنظيف وتطبيع الأرقام
-        clean_numbers = []
-        for phone in phone_numbers:
-            try:
-                normalized = normalize_phone_number(phone)
-                clean_numbers.append(normalized["e164"])
-            except:
-                errors.append(f"رقم غير صالح: {phone}")
-        
-        # تقسيم الأرقام إلى مجموعات
-        semaphore = asyncio.Semaphore(max_concurrent)
-        
-        async def search_with_semaphore(phone: str):
-            async with semaphore:
-                try:
-                    result = await self.search_single_phone(phone)
-                    if result["success"]:
-                        nonlocal successful_count
-                        successful_count += 1
-                    else:
-                        nonlocal failed_count
-                        failed_count += 1
-                    
-                    results.append(result)
-                    
-                    # تأخير بين الطلبات
-                    if delay_between_requests > 0:
-                        await asyncio.sleep(get_random_delay(
-                            delay_between_requests * 0.7, 
-                            delay_between_requests * 1.3
-                        ))
-                    
-                except Exception as e:
-                    failed_count += 1
-                    results.append({
-                        "success": False,
-                        "phone_number": phone,
-                        "error": str(e),
-                        "response_time": 0
-                    })
-        
-        # تشغيل البحث المتوازي
-        start_time = time.time()
-        tasks = [search_with_semaphore(phone) for phone in clean_numbers]
-        await asyncio.gather(*tasks, return_exceptions=True)
-        total_time = time.time() - start_time
-        
-        return {
-            "total_searched": len(clean_numbers),
-            "successful_results": successful_count,
-            "failed_searches": failed_count,
-            "results": results,
-            "errors": errors,
-            "total_time": total_time,
-            "timestamp": datetime.utcnow().isoformat()
-        }
-    
-    def _get_available_account(self) -> Optional[Account]:
-        """الحصول على حساب متاح"""
-        accounts = self.db.query(Account).filter(
-            Account.is_active == True,
-            Account.is_banned == False
-        ).all()
-        
-        if not accounts:
-            return None
-        
-        # اختيار الحساب بأقل استخدام
-        available_accounts = [acc for acc in accounts if acc.can_handle_request()]
-        
-        if available_accounts:
-            return min(available_accounts, key=lambda x: x.requests_today)
-        
-        return random.choice(accounts)
-    
-    def _get_available_proxy(self) -> Optional[Proxy]:
-        """الحصول على بروكسي متاح"""
-        proxies = self.db.query(Proxy).filter(
-            Proxy.is_active == True,
-            Proxy.is_working == True
-        ).all()
-        
-        if not proxies:
-            return None
-        
-        # اختيار البروكسي بأفضل معدل نجاح
-        working_proxies = [p for p in proxies if p.can_handle_request()]
-        
-        if working_proxies:
-            return max(working_proxies, key=lambda x: x.success_rate)
-        
-        return random.choice(proxies)
-    
-    async def validate_account(self, account: Account) -> Dict[str, Any]:
-        """
-        التحقق من صحة الحساب
-        """
-        try:
-            headers = self.get_realistic_headers(account, "user_info")
-            
-            async with httpx.AsyncClient(timeout=15.0) as client:
-                response = await client.get(
-                    f"{self.base_url}/api/user/info",
-                    headers=headers
-                )
-                
-                if response.status_code == 200:
-                    data = response.json()
-                    if data.get("status"):
-                        user_info = data.get("data", {}).get("user", {})
-                        return {
-                            "valid": True,
-                            "user_info": user_info,
-                            "rate_limit": {
-                                "limit": response.headers.get("x-ratelimit-limit"),
-                                "remaining": response.headers.get("x-ratelimit-remaining")
-                            }
-                        }
-                
-                return {
-                    "valid": False,
-                    "error": f"HTTP {response.status_code}",
-                    "details": response.text[:200]
-                }
-        
-        except Exception as e:
-            return {
-                "valid": False,
-                "error": str(e)
-            }
-    
-    async def test_proxy(self, proxy: Proxy) -> Dict[str, Any]:
-        """
-        اختبار البروكسي
-        """
-        try:
-            proxy_config = {
-                "http://": f"http://{proxy.username}:{proxy.password}@{proxy.host}:{proxy.port}",
-                "https://": f"http://{proxy.username}:{proxy.password}@{proxy.host}:{proxy.port}"
-            } if proxy.username else f"http://{proxy.host}:{proxy.port}"
-            
-            start_time = time.time()
-            
-            async with httpx.AsyncClient(
-                timeout=10.0,
-                proxies=proxy_config
-            ) as client:
-                # اختبار الاتصال بـ HelloCallers
-                response = await client.get(f"{self.base_url}/")
-                response_time = time.time() - start_time
-                
-                if response.status_code == 200:
-                    return {
-                        "working": True,
-                        "response_time": response_time,
-                        "status_code": response.status_code
-                    }
-                else:
-                    return {
-                        "working": False,
-                        "error": f"HTTP {response.status_code}",
-                        "response_time": response_time
-                    }
-        
-        except Exception as e:
-            return {
-                "working": False,
                 "error": str(e),
-                "response_time": time.time() - start_time if 'start_time' in locals() else 0
+                "response_time": time.time() - start_time,
+                "encryption_method": "Advanced APK-based" if self.use_advanced else "Basic"
             }
     
-    async def get_user_search_history(self, account: Account, limit: int = 50) -> Dict[str, Any]:
-        """
-        جلب تاريخ البحث للمستخدم
-        """
-        try:
-            headers = self.get_realistic_headers(account, "history")
-            payload = self.create_realistic_payload("", "history_all")
-            
-            async with httpx.AsyncClient(timeout=15.0) as client:
-                response = await client.post(
-                    f"{self.base_url}/api/user/histories/all",
-                    headers=headers,
-                    data={"payload": payload}
-                )
-                
-                if response.status_code == 200:
-                    data = response.json()
-                    if data.get("status"):
-                        contacts = data.get("data", {}).get("contacts", [])
-                        return {
-                            "success": True,
-                            "history": contacts[:limit],
-                            "total_count": len(contacts)
-                        }
-                
-                return {
-                    "success": False,
-                    "error": f"HTTP {response.status_code}",
-                    "details": response.text[:200]
-                }
+    async def _parse_response(
+        self, 
+        response: httpx.Response, 
+        session: SessionModel, 
+        account: Account, 
+        response_time: float,
+        url: str,
+        debug_mode: bool = False
+    ) -> Dict[str, Any]:
+        """تحليل استجابة API محسن"""
         
+        try:
+            # محاولة تحليل JSON
+            try:
+                response_data = response.json()
+            except:
+                # إذا لم يكن JSON صحيح
+                response_data = {
+                    "status": response.status_code == 200,
+                    "code": response.status_code,
+                    "msg": response.text[:200] if response.text else "Empty response",
+                    "data": None
+                }
+            
+            if debug_mode:
+                print(f"📋 Parsed response data: {response_data}")
+            
+            # تحليل مُفصل للاستجابة
+            is_success = self._determine_success(response, response_data)
+            
+            # استخراج البيانات
+            data = response_data.get("data")
+            contact_info = self._extract_contact_info(data) if data else None
+            
+            # تحديث الجلسة
+            session.status = "completed" if is_success else "failed"
+            session.response_time = response_time
+            session.completed_at = datetime.utcnow()
+            
+            if contact_info:
+                session.contact_found = True
+                session.contact_name = contact_info.get("name")
+                session.carrier_name = contact_info.get("carrier")
+                session.country_code = contact_info.get("country_code")
+                session.is_spam = contact_info.get("is_spam", False)
+            else:
+                session.contact_found = False
+            
+            if not is_success:
+                error_msg = self._extract_error_message(response_data, response.status_code)
+                session.error_message = error_msg
+            
+            self.db.commit()
+            
+            return {
+                "success": is_success,
+                "phone_number": session.phone_number,
+                "session_id": session.session_id,
+                "data": contact_info,
+                "error": session.error_message if not is_success else None,
+                "account_used": account.id,
+                "response_time": response_time,
+                "url_used": url,
+                "status_code": response.status_code,
+                "raw_response": response_data,
+                "response_analysis": self._analyze_response_patterns(response_data)
+            }
+            
+        except Exception as e:
+            session.status = "failed"
+            session.error_message = f"Parse error: {str(e)}"
+            session.completed_at = datetime.utcnow()
+            self.db.commit()
+            
+            return {
+                "success": False,
+                "phone_number": session.phone_number,
+                "session_id": session.session_id,
+                "error": f"Failed to parse response: {str(e)}",
+                "response_time": response_time,
+                "raw_response": response.text[:500] if hasattr(response, 'text') else str(response)
+            }
+    
+    def _determine_success(self, response: httpx.Response, response_data: Dict[str, Any]) -> bool:
+        """تحديد نجاح الطلب بطريقة ذكية"""
+        
+        # فحص HTTP status code
+        if response.status_code != 200:
+            return False
+        
+        # فحص بنية الاستجابة
+        status = response_data.get("status", False)
+        code = response_data.get("code", 0)
+        
+        # أنماط النجاح المختلفة
+        success_patterns = [
+            status == True and code == 200,
+            status == "success",
+            code == 200 and "data" in response_data,
+            "success" in response_data.get("msg", "").lower(),
+        ]
+        
+        return any(success_patterns)
+    
+    def _extract_error_message(self, response_data: Dict[str, Any], status_code: int) -> str:
+        """استخراج رسالة الخطأ"""
+        
+        # أنماط رسائل الخطأ المختلفة
+        error_fields = ["msg", "message", "error", "error_message", "detail"]
+        
+        for field in error_fields:
+            if field in response_data and response_data[field]:
+                return str(response_data[field])
+        
+        # رسائل خطأ حسب HTTP status
+        status_messages = {
+            400: "Bad Request - طلب غير صحيح",
+            401: "Unauthorized - غير مخول",
+            403: "Forbidden - محظور",
+            404: "Not Found - غير موجود",
+            429: "Rate Limited - تم تجاوز الحد المسموح",
+            500: "Server Error - خطأ في الخادم",
+            502: "Bad Gateway - خطأ في البوابة",
+            503: "Service Unavailable - الخدمة غير متاحة"
+        }
+        
+        return status_messages.get(status_code, f"HTTP {status_code}")
+    
+    def _analyze_response_patterns(self, response_data: Dict[str, Any]) -> Dict[str, Any]:
+        """تحليل أنماط الاستجابة"""
+        
+        analysis = {
+            "has_data": "data" in response_data,
+            "has_status": "status" in response_data,
+            "has_code": "code" in response_data,
+            "has_msg": "msg" in response_data,
+            "data_type": type(response_data.get("data")).__name__ if "data" in response_data else None,
+            "total_fields": len(response_data) if isinstance(response_data, dict) else 0
+        }
+        
+        # فحص أنماط البيانات الخاصة بـ HelloCallers
+        if analysis["has_data"] and response_data["data"]:
+            data = response_data["data"]
+            if isinstance(data, dict):
+                analysis["contact_fields"] = list(data.keys())
+            elif isinstance(data, list) and data:
+                analysis["is_list"] = True
+                analysis["list_length"] = len(data)
+                if isinstance(data[0], dict):
+                    analysis["item_fields"] = list(data[0].keys())
+        
+        return analysis
+    
+    def _extract_contact_info(self, data: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+        """استخراج معلومات جهة الاتصال محسن"""
+        
+        if not data:
+            return None
+        
+        contact_info = {}
+        
+        # أنماط أسماء الحقول المختلفة
+        field_mappings = {
+            "name": ["name", "contact_name", "caller_name", "display_name", "full_name"],
+            "carrier": ["carrier", "operator", "network", "provider", "carrier_name"],
+            "location": ["country", "region", "city", "location", "address"],
+            "phone_type": ["type", "phone_type", "number_type", "category"],
+            "is_spam": ["spam", "is_spam", "spam_score", "reported_as_spam"],
+            "country_code": ["country_code", "country_id", "cc"]
+        }
+        
+        # استخراج المعلومات باستخدام الأنماط
+        for info_key, possible_fields in field_mappings.items():
+            for field in possible_fields:
+                if field in data and data[field]:
+                    contact_info[info_key] = data[field]
+                    break
+        
+        # معالجة خاصة للبيانات المعقدة
+        if isinstance(data, list) and data:
+            # إذا كانت البيانات عبارة عن قائمة، خذ أول عنصر
+            return self._extract_contact_info(data[0])
+        
+        # فحص البيانات المتداخلة
+        nested_fields = ["contact", "caller", "number_info", "phone_data"]
+        for nested_field in nested_fields:
+            if nested_field in data and isinstance(data[nested_field], dict):
+                nested_info = self._extract_contact_info(data[nested_field])
+                if nested_info:
+                    contact_info.update(nested_info)
+        
+        return contact_info if contact_info else None
+    
+    def _update_account_stats(self, account: Account, success: bool):
+        """تحديث إحصائيات الحساب"""
+        account.request_count += 1
+        account.current_hour_requests += 1
+        account.last_used = datetime.utcnow()
+        
+        if success:
+            account.successful_requests += 1
+        else:
+            account.failed_requests += 1
+        
+        self.db.commit()
+    
+    def _update_proxy_stats(self, proxy: Proxy, success: bool, response_time: float):
+        """تحديث إحصائيات البروكسي"""
+        proxy.total_requests += 1
+        
+        if success:
+            proxy.successful_requests += 1
+        else:
+            proxy.failed_requests += 1
+        
+        # تحديث متوسط وقت الاستجابة
+        if proxy.total_requests == 1:
+            proxy.average_response_time = response_time
+        else:
+            proxy.average_response_time = (
+                (proxy.average_response_time * (proxy.total_requests - 1) + response_time) 
+                / proxy.total_requests
+            )
+        
+        self.db.commit()
+    
+    async def test_advanced_encryption(self, phone_number: str) -> Dict[str, Any]:
+        """اختبار نظام التشفير المتقدم"""
+        
+        if not self.use_advanced:
+            return {"error": "Advanced encryption not available"}
+        
+        try:
+            # إنشاء device info تجريبي
+            device_info = self.advanced_encryption.generate_realistic_device_fingerprint()
+            
+            # إنشاء payload متقدم
+            payload = self.advanced_encryption.create_advanced_payload(phone_number, device_info)
+            
+            # تحليل الـ payload
+            analysis = self.advanced_encryption.analyze_and_compare_with_har(payload)
+            
+            return {
+                "success": True,
+                "phone_number": phone_number,
+                "device_info": device_info,
+                "payload": payload,
+                "analysis": analysis,
+                "encryption_method": "Advanced AES/CBC/PKCS7"
+            }
+            
         except Exception as e:
             return {
                 "success": False,
-                "error": str(e)
+                "error": str(e),
+                "encryption_method": "Advanced (failed)"
             }
+    
+    def get_service_info(self) -> Dict[str, Any]:
+        """معلومات الخدمة"""
+        
+        return {
+            "service_name": "HelloCallers Service APK Enhanced",
+            "encryption_type": "Advanced APK-based" if self.use_advanced else "Basic",
+            "supported_endpoints": list(self.endpoints.keys()),
+            "user_agents": self.user_agents,
+            "package_info": {
+                "package": "com.callerid.wie",
+                "version": "1.6.6",
+                "version_code": "120"
+            } if self.use_advanced else None
+        }
